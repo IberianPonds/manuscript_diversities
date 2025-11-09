@@ -1,0 +1,1665 @@
+---
+title: "TEMPERATURE SHAPES MULTI-TROPHIC AQUATIC BIODIVERSITY PATTERNS ACROSS SPACE AND TIME"
+author: "Cátia Lúcio Pereira and Miguel G. Matias"
+date: "09 November 2025"
+output:
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+---
+
+# Introduction
+We combined environmental DNA and morphological surveys from a multi-region freshwater mesocosm experiment spanning a broad temperature gradient across the Iberian Peninsula to examine how mean temperature and its variability shape multi-trophic aquatic communities.
+In this script we used simple regression models to test for linear and quadratic relationships between diversity (for each trophic group and the whole community) and temperature variables—mean annual temperature (TMean) and temperature standard deviation (TSD). Models were compared using the glance function (broom package; Robinson et al. 2021), and the best-fitting model was selected based on the lowest Akaike Information Criterion (AIC) and Residual Standard Error (RSE). 
+
+Clear the memory of all objects
+```{r}
+rm(list=ls())
+```
+
+Load libraries
+```{r}
+library(tidyverse)
+library(knitr)
+library(broom)
+```
+
+Load data
+```{r}
+# diversity and environmental data
+load("C:/Users/catia/Desktop/ms_diversities/01.input_data/01.diversity_env_df.RData")
+```
+
+
+# Data prep
+
+```{r subset data frames}
+
+# Whole-community
+wc_gamma_mean <- div_env_df %>% 
+  filter(scale == "gamma", group == "Whole-community", year == "Mean")
+wc_gamma_2016 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Whole-community", year == "2016")
+wc_gamma_2017 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Whole-community", year == "2017")
+wc_gamma_2018 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Whole-community", year == "2018")
+wc_alpha_mean <- div_env_df %>% 
+  filter(scale == "alpha", group == "Whole-community", year == "Mean")
+wc_alpha_2016 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Whole-community", year == "2016")
+wc_alpha_2017 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Whole-community", year == "2017")
+wc_alpha_2018 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Whole-community", year == "2018")
+wc_beta_mean <- div_env_df %>% 
+  filter(scale == "beta", group == "Whole-community", year == "Mean")
+wc_beta_2016 <- div_env_df %>% 
+  filter(scale == "beta", group == "Whole-community", year == "2016")
+wc_beta_2017 <- div_env_df %>% 
+  filter(scale == "beta", group == "Whole-community", year == "2017")
+wc_beta_2018 <- div_env_df %>% 
+  filter(scale == "beta", group == "Whole-community", year == "2018")
+
+# Bacteria
+bact_gamma_mean <- div_env_df %>% 
+  filter(scale == "gamma", group == "Bacteria", year == "Mean")
+bact_gamma_2016 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Bacteria", year == "2016")
+bact_gamma_2017 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Bacteria", year == "2017")
+bact_gamma_2018 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Bacteria", year == "2018")
+bact_alpha_mean <- div_env_df %>% 
+  filter(scale == "alpha", group == "Bacteria", year == "Mean")
+bact_alpha_2016 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Bacteria", year == "2016")
+bact_alpha_2017 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Bacteria", year == "2017")
+bact_alpha_2018 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Bacteria", year == "2018")
+bact_beta_mean <- div_env_df %>% 
+  filter(scale == "beta", group == "Bacteria", year == "Mean")
+bact_beta_2016 <- div_env_df %>% 
+  filter(scale == "beta", group == "Bacteria", year == "2016")
+bact_beta_2017 <- div_env_df %>% 
+  filter(scale == "beta", group == "Bacteria", year == "2017")
+bact_beta_2018 <- div_env_df %>% 
+  filter(scale == "beta", group == "Bacteria", year == "2018")
+
+# Phytoplankton
+phyto_gamma_mean <- div_env_df %>% 
+  filter(scale == "gamma", group == "Phytoplankton", year == "Mean")
+phyto_gamma_2016 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Phytoplankton", year == "2016")
+phyto_gamma_2017 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Phytoplankton", year == "2017")
+phyto_gamma_2018 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Phytoplankton", year == "2018")
+phyto_alpha_mean <- div_env_df %>% 
+  filter(scale == "alpha", group == "Phytoplankton", year == "Mean")
+phyto_alpha_2016 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Phytoplankton", year == "2016")
+phyto_alpha_2017 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Phytoplankton", year == "2017")
+phyto_alpha_2018 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Phytoplankton", year == "2018")
+phyto_beta_mean <- div_env_df %>% 
+  filter(scale == "beta", group == "Phytoplankton", year == "Mean")
+phyto_beta_2016 <- div_env_df %>% 
+  filter(scale == "beta", group == "Phytoplankton", year == "2016")
+phyto_beta_2017 <- div_env_df %>% 
+  filter(scale == "beta", group == "Phytoplankton", year == "2017")
+phyto_beta_2018 <- div_env_df %>% 
+  filter(scale == "beta", group == "Phytoplankton", year == "2018")
+
+# Zooplankton
+zoo_gamma_mean <- div_env_df %>% 
+  filter(scale == "gamma", group == "Zooplankton", year == "Mean")
+zoo_gamma_2016 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Zooplankton", year == "2016")
+zoo_gamma_2017 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Zooplankton", year == "2017")
+zoo_gamma_2018 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Zooplankton", year == "2018")
+zoo_alpha_mean <- div_env_df %>% 
+  filter(scale == "alpha", group == "Zooplankton", year == "Mean")
+zoo_alpha_2016 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Zooplankton", year == "2016")
+zoo_alpha_2017 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Zooplankton", year == "2017")
+zoo_alpha_2018 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Zooplankton", year == "2018")
+zoo_beta_mean <- div_env_df %>% 
+  filter(scale == "beta", group == "Zooplankton", year == "Mean")
+zoo_beta_2016 <- div_env_df %>% 
+  filter(scale == "beta", group == "Zooplankton", year == "2016")
+zoo_beta_2017 <- div_env_df %>% 
+  filter(scale == "beta", group == "Zooplankton", year == "2017")
+zoo_beta_2018 <- div_env_df %>% 
+  filter(scale == "beta", group == "Zooplankton", year == "2018")
+
+# Macroinvertebrates
+macro_gamma_mean <- div_env_df %>% 
+  filter(scale == "gamma", group == "Macroinvertebrates", year == "Mean")
+macro_gamma_2016 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Macroinvertebrates", year == "2016")
+macro_gamma_2017 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Macroinvertebrates", year == "2017")
+macro_gamma_2018 <- div_env_df %>% 
+  filter(scale == "gamma", group == "Macroinvertebrates", year == "2018")
+macro_alpha_mean <- div_env_df %>% 
+  filter(scale == "alpha", group == "Macroinvertebrates", year == "Mean")
+macro_alpha_2016 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Macroinvertebrates", year == "2016")
+macro_alpha_2017 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Macroinvertebrates", year == "2017")
+macro_alpha_2018 <- div_env_df %>% 
+  filter(scale == "alpha", group == "Macroinvertebrates", year == "2018")
+macro_beta_mean <- div_env_df %>% 
+  filter(scale == "beta", group == "Macroinvertebrates", year == "Mean")
+macro_beta_2016 <- div_env_df %>% 
+  filter(scale == "beta", group == "Macroinvertebrates", year == "2016")
+macro_beta_2017 <- div_env_df %>% 
+  filter(scale == "beta", group == "Macroinvertebrates", year == "2017")
+macro_beta_2018 <- div_env_df %>% 
+  filter(scale == "beta", group == "Macroinvertebrates", year == "2018")
+
+```
+
+
+# Table S1. Linear regression models
+
+Table S1. Statistics of linear regression models. adjR2 – adjusted R2, RSE – Residual Standard Error, AIC – Aikaike Information Criterion, TMean – mean water temperature, TSD – standard deviation of mean water temperature (water temperature variability), W – Whole-community, B – Bacteria, P – Phytoplankton, Z – Zooplankton, M – Macroinvertebrates. The most supported model, according to AIC compared to its equivalent in Table S2 is highlighted in bold.
+
+## Regional diversity
+
+### Mean temperature
+```{r Regional div vs mean_temp}
+# Whole-community
+lm_gamma_wc_mean_tmean <- lm(diversity ~ Tmean_est_mean, wc_gamma_mean)
+summary(lm_gamma_wc_mean_tmean)
+resid1 <- resid(lm_gamma_wc_mean_tmean)
+
+lm_gamma_wc_2016_tmean <- lm(diversity ~ Tmean_est_mean, wc_gamma_2016)
+summary(lm_gamma_wc_2016_tmean)
+resid2 <- resid(lm_gamma_wc_2016_tmean)
+
+lm_gamma_wc_2017_tmean <- lm(diversity ~ Tmean_est_mean, wc_gamma_2017)
+summary(lm_gamma_wc_2017_tmean)
+resid3 <- resid(lm_gamma_wc_2017_tmean)
+
+lm_gamma_wc_2018_tmean <- lm(diversity ~ Tmean_est_mean, wc_gamma_2018)
+summary(lm_gamma_wc_2018_tmean)
+resid4 <- resid(lm_gamma_wc_2018_tmean)
+
+# Bacteria
+lm_gamma_bact_mean_tmean <- lm(diversity ~ Tmean_est_mean, bact_gamma_mean)
+summary(lm_gamma_bact_mean_tmean)
+resid5 <- resid(lm_gamma_bact_mean_tmean)
+
+lm_gamma_bact_2016_tmean <- lm(diversity ~ Tmean_est_mean, bact_gamma_2016)
+summary(lm_gamma_bact_2016_tmean)
+resid6 <- resid(lm_gamma_bact_2016_tmean)
+
+lm_gamma_bact_2017_tmean <- lm(diversity ~ Tmean_est_mean, bact_gamma_2017)
+summary(lm_gamma_bact_2017_tmean)
+resid7 <- resid(lm_gamma_bact_2017_tmean)
+
+lm_gamma_bact_2018_tmean <- lm(diversity ~ Tmean_est_mean, bact_gamma_2018)
+summary(lm_gamma_bact_2018_tmean)
+resid8 <- resid(lm_gamma_bact_2018_tmean)
+
+# Phytoplankton
+lm_gamma_phyto_mean_tmean <- lm(diversity ~ Tmean_est_mean, phyto_gamma_mean)
+summary(lm_gamma_phyto_mean_tmean)
+resid9 <- resid(lm_gamma_phyto_mean_tmean)
+
+lm_gamma_phyto_2016_tmean <- lm(diversity ~ Tmean_est_mean, phyto_gamma_2016)
+summary(lm_gamma_phyto_2016_tmean)
+resid10 <- resid(lm_gamma_phyto_2016_tmean)
+
+lm_gamma_phyto_2017_tmean <- lm(diversity ~ Tmean_est_mean, phyto_gamma_2017)
+summary(lm_gamma_phyto_2017_tmean)
+resid11 <- resid(lm_gamma_phyto_2017_tmean)
+
+lm_gamma_phyto_2018_tmean <- lm(diversity ~ Tmean_est_mean, phyto_gamma_2018)
+summary(lm_gamma_phyto_2018_tmean)
+resid12 <- resid(lm_gamma_phyto_2018_tmean)
+
+# Zooplabkton
+lm_gamma_zoo_mean_tmean <- lm(diversity ~ Tmean_est_mean, zoo_gamma_mean)
+summary(lm_gamma_zoo_mean_tmean)
+resid13 <- resid(lm_gamma_zoo_mean_tmean)
+
+lm_gamma_zoo_2016_tmean <- lm(diversity ~ Tmean_est_mean, zoo_gamma_2016)
+summary(lm_gamma_zoo_2016_tmean)
+resid14 <- resid(lm_gamma_zoo_2016_tmean)
+
+lm_gamma_zoo_2017_tmean <- lm(diversity ~ Tmean_est_mean, zoo_gamma_2017)
+summary(lm_gamma_zoo_2017_tmean)
+resid15 <- resid(lm_gamma_zoo_2017_tmean)
+
+lm_gamma_zoo_2018_tmean <- lm(diversity ~ Tmean_est_mean, zoo_gamma_2018)
+summary(lm_gamma_zoo_2018_tmean)
+resid16 <- resid(lm_gamma_zoo_2018_tmean)
+
+# Macroinvertebrates
+lm_gamma_macro_mean_tmean <- lm(diversity ~ Tmean_est_mean, macro_gamma_mean)
+summary(lm_gamma_macro_mean_tmean)
+resid17 <- resid(lm_gamma_macro_mean_tmean)
+
+lm_gamma_macro_2016_tmean <- lm(diversity ~ Tmean_est_mean, macro_gamma_2016)
+summary(lm_gamma_macro_2016_tmean)
+resid18 <- resid(lm_gamma_macro_2016_tmean)
+
+lm_gamma_macro_2017_tmean <- lm(diversity ~ Tmean_est_mean, macro_gamma_2017)
+summary(lm_gamma_macro_2017_tmean)
+resid19 <- resid(lm_gamma_macro_2017_tmean)
+
+lm_gamma_macro_2018_tmean <- lm(diversity ~ Tmean_est_mean, macro_gamma_2018)
+summary(lm_gamma_macro_2018_tmean)
+resid20 <- resid(lm_gamma_macro_2018_tmean)
+```
+
+### SD temperature
+```{r Regional div vs sd_temp}
+
+# Whole-community
+lm_gamma_wc_mean_tsd <- lm(diversity ~ sd_temp_12M, wc_gamma_mean)
+summary(lm_gamma_wc_mean_tsd)
+resid21 <- resid(lm_gamma_wc_mean_tsd)
+
+lm_gamma_wc_2016_tsd <- lm(diversity ~ sd_temp_12M, wc_gamma_2016)
+summary(lm_gamma_wc_2016_tsd)
+resid22 <- resid(lm_gamma_wc_2016_tsd)
+
+lm_gamma_wc_2017_tsd <- lm(diversity ~ sd_temp_12M, wc_gamma_2017)
+summary(lm_gamma_wc_2017_tsd)
+resid23 <- resid(lm_gamma_wc_2017_tsd)
+
+lm_gamma_wc_2018_tsd <- lm(diversity ~ sd_temp_12M, wc_gamma_2018)
+summary(lm_gamma_wc_2018_tsd)
+resid24 <- resid(lm_gamma_wc_2018_tsd)
+
+# Bacteria
+lm_gamma_bact_mean_tsd <- lm(diversity ~ sd_temp_12M, bact_gamma_mean)
+summary(lm_gamma_bact_mean_tsd)
+resid25 <- resid(lm_gamma_bact_mean_tsd)
+
+lm_gamma_bact_2016_tsd <- lm(diversity ~ sd_temp_12M, bact_gamma_2016)
+summary(lm_gamma_bact_2016_tsd)
+resid26 <- resid(lm_gamma_bact_2016_tsd)
+
+lm_gamma_bact_2017_tsd <- lm(diversity ~ sd_temp_12M, bact_gamma_2017)
+summary(lm_gamma_bact_2017_tsd)
+resid27 <- resid(lm_gamma_bact_2017_tsd)
+
+lm_gamma_bact_2018_tsd <- lm(diversity ~ sd_temp_12M, bact_gamma_2018)
+summary(lm_gamma_bact_2018_tsd)
+resid28 <- resid(lm_gamma_bact_2018_tsd)
+
+# Phytoplankton
+lm_gamma_phyto_mean_tsd <- lm(diversity ~ sd_temp_12M, phyto_gamma_mean)
+summary(lm_gamma_phyto_mean_tsd)
+resid29 <- resid(lm_gamma_phyto_mean_tsd)
+
+lm_gamma_phyto_2016_tsd <- lm(diversity ~ sd_temp_12M, phyto_gamma_2016)
+summary(lm_gamma_phyto_2016_tsd)
+resid30 <- resid(lm_gamma_phyto_2016_tsd)
+
+lm_gamma_phyto_2017_tsd <- lm(diversity ~ sd_temp_12M, phyto_gamma_2017)
+summary(lm_gamma_phyto_2017_tsd)
+resid31 <- resid(lm_gamma_phyto_2017_tsd)
+
+lm_gamma_phyto_2018_tsd <- lm(diversity ~ sd_temp_12M, phyto_gamma_2018)
+summary(lm_gamma_phyto_2018_tsd)
+resid32 <- resid(lm_gamma_phyto_2018_tsd)
+
+# Zooplabkton
+lm_gamma_zoo_mean_tsd <- lm(diversity ~ sd_temp_12M, zoo_gamma_mean)
+summary(lm_gamma_zoo_mean_tsd)
+resid33 <- resid(lm_gamma_zoo_mean_tsd)
+
+lm_gamma_zoo_2016_tsd <- lm(diversity ~ sd_temp_12M, zoo_gamma_2016)
+summary(lm_gamma_zoo_2016_tsd)
+resid34 <- resid(lm_gamma_zoo_2016_tsd)
+
+lm_gamma_zoo_2017_tsd <- lm(diversity ~ sd_temp_12M, zoo_gamma_2017)
+summary(lm_gamma_zoo_2017_tsd)
+resid35 <- resid(lm_gamma_zoo_2017_tsd)
+
+lm_gamma_zoo_2018_tsd <- lm(diversity ~ sd_temp_12M, zoo_gamma_2018)
+summary(lm_gamma_zoo_2018_tsd)
+resid36 <- resid(lm_gamma_zoo_2018_tsd)
+
+# Macroinvertebrates
+lm_gamma_macro_mean_tsd <- lm(diversity ~ sd_temp_12M, macro_gamma_mean)
+summary(lm_gamma_macro_mean_tsd)
+resid37 <- resid(lm_gamma_macro_mean_tsd)
+
+lm_gamma_macro_2016_tsd <- lm(diversity ~ sd_temp_12M, macro_gamma_2016)
+summary(lm_gamma_macro_2016_tsd)
+resid38 <- resid(lm_gamma_macro_2016_tsd)
+
+lm_gamma_macro_2017_tsd <- lm(diversity ~ sd_temp_12M, macro_gamma_2017)
+summary(lm_gamma_macro_2017_tsd)
+resid39 <- resid(lm_gamma_macro_2017_tsd)
+
+lm_gamma_macro_2018_tsd <- lm(diversity ~ sd_temp_12M, macro_gamma_2018)
+summary(lm_gamma_macro_2018_tsd)
+resid40 <- resid(lm_gamma_macro_2018_tsd)
+
+```
+
+
+
+## Local diversity
+
+### Mean temperature
+```{r Local div vs mean_temp}
+
+# Whole-community
+lm_alpha_wc_mean_tmean <- lm(diversity ~ est_mean_temp_12M, wc_alpha_mean)
+summary(lm_alpha_wc_mean_tmean)
+resid41 <- resid(lm_alpha_wc_mean_tmean)
+
+lm_alpha_wc_2016_tmean <- lm(diversity ~ est_mean_temp_12M, wc_alpha_2016)
+summary(lm_alpha_wc_2016_tmean)
+resid42 <- resid(lm_alpha_wc_2016_tmean)
+
+lm_alpha_wc_2017_tmean <- lm(diversity ~ est_mean_temp_12M, wc_alpha_2017)
+summary(lm_alpha_wc_2017_tmean)
+resid43 <- resid(lm_alpha_wc_2017_tmean)
+
+lm_alpha_wc_2018_tmean <- lm(diversity ~ est_mean_temp_12M, wc_alpha_2018)
+summary(lm_alpha_wc_2018_tmean)
+resid44 <- resid(lm_alpha_wc_2018_tmean)
+
+# Bacteria
+lm_alpha_bact_mean_tmean <- lm(diversity ~ est_mean_temp_12M, bact_alpha_mean)
+summary(lm_alpha_bact_mean_tmean)
+resid45 <- resid(lm_alpha_bact_mean_tmean)
+
+lm_alpha_bact_2016_tmean <- lm(diversity ~ est_mean_temp_12M, bact_alpha_2016)
+summary(lm_alpha_bact_2016_tmean)
+resid46 <- resid(lm_alpha_bact_2016_tmean)
+
+lm_alpha_bact_2017_tmean <- lm(diversity ~ est_mean_temp_12M, bact_alpha_2017)
+summary(lm_alpha_bact_2017_tmean)
+resid47 <- resid(lm_alpha_bact_2017_tmean)
+
+lm_alpha_bact_2018_tmean <- lm(diversity ~ est_mean_temp_12M, bact_alpha_2018)
+summary(lm_alpha_bact_2018_tmean)
+resid48 <- resid(lm_alpha_bact_2018_tmean)
+
+# Phytoplankton
+lm_alpha_phyto_mean_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_alpha_mean)
+summary(lm_alpha_phyto_mean_tmean)
+resid49 <- resid(lm_alpha_phyto_mean_tmean)
+
+lm_alpha_phyto_2016_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_alpha_2016)
+summary(lm_alpha_phyto_2016_tmean)
+resid50 <- resid(lm_alpha_phyto_2016_tmean)
+
+lm_alpha_phyto_2017_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_alpha_2017)
+summary(lm_alpha_phyto_2017_tmean)
+resid51 <- resid(lm_alpha_phyto_2017_tmean)
+
+lm_alpha_phyto_2018_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_alpha_2018)
+summary(lm_alpha_phyto_2018_tmean)
+resid52 <- resid(lm_alpha_phyto_2018_tmean)
+
+# Zooplabkton
+lm_alpha_zoo_mean_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_alpha_mean)
+summary(lm_alpha_zoo_mean_tmean)
+resid53 <- resid(lm_alpha_zoo_mean_tmean)
+
+lm_alpha_zoo_2016_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_alpha_2016)
+summary(lm_alpha_zoo_2016_tmean)
+resid54 <- resid(lm_alpha_zoo_2016_tmean)
+
+lm_alpha_zoo_2017_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_alpha_2017)
+summary(lm_alpha_zoo_2017_tmean)
+resid55 <- resid(lm_alpha_zoo_2017_tmean)
+
+lm_alpha_zoo_2018_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_alpha_2018)
+summary(lm_alpha_zoo_2018_tmean)
+resid56 <- resid(lm_alpha_zoo_2018_tmean)
+
+# Macroinvertebrates
+lm_alpha_macro_mean_tmean <- lm(diversity ~ est_mean_temp_12M, macro_alpha_mean)
+summary(lm_alpha_macro_mean_tmean)
+resid57 <- resid(lm_alpha_macro_mean_tmean)
+
+lm_alpha_macro_2016_tmean <- lm(diversity ~ est_mean_temp_12M, macro_alpha_2016)
+summary(lm_alpha_macro_2016_tmean)
+resid58 <- resid(lm_alpha_macro_2016_tmean)
+
+lm_alpha_macro_2017_tmean <- lm(diversity ~ est_mean_temp_12M, macro_alpha_2017)
+summary(lm_alpha_macro_2017_tmean)
+resid59 <- resid(lm_alpha_macro_2017_tmean)
+
+lm_alpha_macro_2018_tmean <- lm(diversity ~ est_mean_temp_12M, macro_alpha_2018)
+summary(lm_alpha_macro_2018_tmean)
+resid60 <- resid(lm_alpha_macro_2018_tmean)
+
+```
+
+
+### SD temperature
+```{r Regional div vs sd_temp}
+
+# Whole-community
+lm_alpha_wc_mean_tsd <- lm(diversity ~ sd_temp_12M, wc_alpha_mean)
+summary(lm_alpha_wc_mean_tsd)
+resid61 <- resid(lm_alpha_wc_mean_tsd)
+
+lm_alpha_wc_2016_tsd <- lm(diversity ~ sd_temp_12M, wc_alpha_2016)
+summary(lm_alpha_wc_2016_tsd)
+resid62 <- resid(lm_alpha_wc_2016_tsd)
+
+lm_alpha_wc_2017_tsd <- lm(diversity ~ sd_temp_12M, wc_alpha_2017)
+summary(lm_alpha_wc_2017_tsd)
+resid63 <- resid(lm_alpha_wc_2017_tsd)
+
+lm_alpha_wc_2018_tsd <- lm(diversity ~ sd_temp_12M, wc_alpha_2018)
+summary(lm_alpha_wc_2018_tsd)
+resid64 <- resid(lm_alpha_wc_2018_tsd)
+
+# Bacteria
+lm_alpha_bact_mean_tsd <- lm(diversity ~ sd_temp_12M, bact_alpha_mean)
+summary(lm_alpha_bact_mean_tsd)
+resid65 <- resid(lm_alpha_bact_mean_tsd)
+
+lm_alpha_bact_2016_tsd <- lm(diversity ~ sd_temp_12M, bact_alpha_2016)
+summary(lm_alpha_bact_2016_tsd)
+resid66 <- resid(lm_alpha_bact_2016_tsd)
+
+lm_alpha_bact_2017_tsd <- lm(diversity ~ sd_temp_12M, bact_alpha_2017)
+summary(lm_alpha_bact_2017_tsd)
+resid67 <- resid(lm_alpha_bact_2017_tsd)
+
+lm_alpha_bact_2018_tsd <- lm(diversity ~ sd_temp_12M, bact_alpha_2018)
+summary(lm_alpha_bact_2018_tsd)
+resid68 <- resid(lm_alpha_bact_2018_tsd)
+
+# Phytoplankton
+lm_alpha_phyto_mean_tsd <- lm(diversity ~ sd_temp_12M, phyto_alpha_mean)
+summary(lm_alpha_phyto_mean_tsd)
+resid69 <- resid(lm_alpha_phyto_mean_tsd)
+
+lm_alpha_phyto_2016_tsd <- lm(diversity ~ sd_temp_12M, phyto_alpha_2016)
+summary(lm_alpha_phyto_2016_tsd)
+resid70 <- resid(lm_alpha_phyto_2016_tsd)
+
+lm_alpha_phyto_2017_tsd <- lm(diversity ~ sd_temp_12M, phyto_alpha_2017)
+summary(lm_alpha_phyto_2017_tsd)
+resid71 <- resid(lm_alpha_phyto_2017_tsd)
+
+lm_alpha_phyto_2018_tsd <- lm(diversity ~ sd_temp_12M, phyto_alpha_2018)
+summary(lm_alpha_phyto_2018_tsd)
+resid72 <- resid(lm_alpha_phyto_2018_tsd)
+
+# Zooplabkton
+lm_alpha_zoo_mean_tsd <- lm(diversity ~ sd_temp_12M, zoo_alpha_mean)
+summary(lm_alpha_zoo_mean_tsd)
+resid73 <- resid(lm_alpha_zoo_mean_tsd)
+
+lm_alpha_zoo_2016_tsd <- lm(diversity ~ sd_temp_12M, zoo_alpha_2016)
+summary(lm_alpha_zoo_2016_tsd)
+resid74 <- resid(lm_alpha_zoo_2016_tsd)
+
+lm_alpha_zoo_2017_tsd <- lm(diversity ~ sd_temp_12M, zoo_alpha_2017)
+summary(lm_alpha_zoo_2017_tsd)
+resid75 <- resid(lm_alpha_zoo_2017_tsd)
+
+lm_alpha_zoo_2018_tsd <- lm(diversity ~ sd_temp_12M, zoo_alpha_2018)
+summary(lm_alpha_zoo_2018_tsd)
+resid76 <- resid(lm_alpha_zoo_2018_tsd)
+
+# Macroinvertebrates
+lm_alpha_macro_mean_tsd <- lm(diversity ~ sd_temp_12M, macro_alpha_mean)
+summary(lm_alpha_macro_mean_tsd)
+resid77 <- resid(lm_alpha_macro_mean_tsd)
+
+lm_alpha_macro_2016_tsd <- lm(diversity ~ sd_temp_12M, macro_alpha_2016)
+summary(lm_alpha_macro_2016_tsd)
+resid78 <- resid(lm_alpha_macro_2016_tsd)
+
+lm_alpha_macro_2017_tsd <- lm(diversity ~ sd_temp_12M, macro_alpha_2017)
+summary(lm_alpha_macro_2017_tsd)
+resid79 <- resid(lm_alpha_macro_2017_tsd)
+
+lm_alpha_macro_2018_tsd <- lm(diversity ~ sd_temp_12M, macro_alpha_2018)
+summary(lm_alpha_macro_2018_tsd)
+resid80 <- resid(lm_alpha_macro_2018_tsd)
+
+```
+
+
+
+## Beta-diversity
+
+### Mean temperature
+```{r Beta div vs mean_temp}
+
+# Whole-community
+lm_beta_wc_mean_tmean <- lm(diversity ~ est_mean_temp_12M, wc_beta_mean)
+summary(lm_beta_wc_mean_tmean)
+resid81 <- resid(lm_beta_wc_mean_tmean)
+
+lm_beta_wc_2016_tmean <- lm(diversity ~ est_mean_temp_12M, wc_beta_2016)
+summary(lm_beta_wc_2016_tmean)
+resid82 <- resid(lm_beta_wc_2016_tmean)
+
+lm_beta_wc_2017_tmean <- lm(diversity ~ est_mean_temp_12M, wc_beta_2017)
+summary(lm_beta_wc_2017_tmean)
+resid83 <- resid(lm_beta_wc_2017_tmean)
+
+lm_beta_wc_2018_tmean <- lm(diversity ~ est_mean_temp_12M, wc_beta_2018)
+summary(lm_beta_wc_2018_tmean)
+resid84 <- resid(lm_beta_wc_2018_tmean)
+
+# Bacteria
+lm_beta_bact_mean_tmean <- lm(diversity ~ est_mean_temp_12M, bact_beta_mean)
+summary(lm_beta_bact_mean_tmean)
+resid85 <- resid(lm_beta_bact_mean_tmean)
+
+lm_beta_bact_2016_tmean <- lm(diversity ~ est_mean_temp_12M, bact_beta_2016)
+summary(lm_beta_bact_2016_tmean)
+resid86 <- resid(lm_beta_bact_2016_tmean)
+
+lm_beta_bact_2017_tmean <- lm(diversity ~ est_mean_temp_12M, bact_beta_2017)
+summary(lm_beta_bact_2017_tmean)
+resid87 <- resid(lm_beta_bact_2017_tmean)
+
+lm_beta_bact_2018_tmean <- lm(diversity ~ est_mean_temp_12M, bact_beta_2018)
+summary(lm_beta_bact_2018_tmean)
+resid88 <- resid(lm_beta_bact_2018_tmean)
+
+# Phytoplankton
+lm_beta_phyto_mean_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_beta_mean)
+summary(lm_beta_phyto_mean_tmean)
+resid89 <- resid(lm_beta_phyto_mean_tmean)
+
+lm_beta_phyto_2016_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_beta_2016)
+summary(lm_beta_phyto_2016_tmean)
+resid90 <- resid(lm_beta_phyto_2016_tmean)
+
+lm_beta_phyto_2017_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_beta_2017)
+summary(lm_beta_phyto_2017_tmean)
+resid91 <- resid(lm_beta_phyto_2017_tmean)
+
+lm_beta_phyto_2018_tmean <- lm(diversity ~ est_mean_temp_12M, phyto_beta_2018)
+summary(lm_beta_phyto_2018_tmean)
+resid92 <- resid(lm_beta_phyto_2018_tmean)
+
+# Zooplabkton
+lm_beta_zoo_mean_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_beta_mean)
+summary(lm_beta_zoo_mean_tmean)
+resid93 <- resid(lm_beta_zoo_mean_tmean)
+
+lm_beta_zoo_2016_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_beta_2016)
+summary(lm_beta_zoo_2016_tmean)
+resid94 <- resid(lm_beta_zoo_2016_tmean)
+
+lm_beta_zoo_2017_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_beta_2017)
+summary(lm_beta_zoo_2017_tmean)
+resid95 <- resid(lm_beta_zoo_2017_tmean)
+
+lm_beta_zoo_2018_tmean <- lm(diversity ~ est_mean_temp_12M, zoo_beta_2018)
+summary(lm_beta_zoo_2018_tmean)
+resid96 <- resid(lm_beta_zoo_2018_tmean)
+
+# Macroinvertebrates
+lm_beta_macro_mean_tmean <- lm(diversity ~ est_mean_temp_12M, macro_beta_mean)
+summary(lm_beta_macro_mean_tmean)
+resid97 <- resid(lm_beta_macro_mean_tmean)
+
+lm_beta_macro_2016_tmean <- lm(diversity ~ est_mean_temp_12M, macro_beta_2016)
+summary(lm_beta_macro_2016_tmean)
+resid98 <- resid(lm_beta_macro_2016_tmean)
+
+lm_beta_macro_2017_tmean <- lm(diversity ~ est_mean_temp_12M, macro_beta_2017)
+summary(lm_beta_macro_2017_tmean)
+resid99 <- resid(lm_beta_macro_2017_tmean)
+
+lm_beta_macro_2018_tmean <- lm(diversity ~ est_mean_temp_12M, macro_beta_2018)
+summary(lm_beta_macro_2018_tmean)
+resid100 <- resid(lm_beta_macro_2018_tmean)
+
+```
+
+
+### SD temperature
+```{r Beta div vs sd_temp}
+
+# Whole-community
+lm_beta_wc_mean_tsd <- lm(diversity ~ sd_temp_12M, wc_beta_mean)
+summary(lm_beta_wc_mean_tsd)
+resid101 <- resid(lm_beta_wc_mean_tsd)
+
+lm_beta_wc_2016_tsd <- lm(diversity ~ sd_temp_12M, wc_beta_2016)
+summary(lm_beta_wc_2016_tsd)
+resid102 <- resid(lm_beta_wc_2016_tsd)
+
+lm_beta_wc_2017_tsd <- lm(diversity ~ sd_temp_12M, wc_beta_2017)
+summary(lm_beta_wc_2017_tsd)
+resid103 <- resid(lm_beta_wc_2017_tsd)
+
+lm_beta_wc_2018_tsd <- lm(diversity ~ sd_temp_12M, wc_beta_2018)
+summary(lm_beta_wc_2018_tsd)
+resid104 <- resid(lm_beta_wc_2018_tsd)
+
+# Bacteria
+lm_beta_bact_mean_tsd <- lm(diversity ~ sd_temp_12M, bact_beta_mean)
+summary(lm_beta_bact_mean_tsd)
+resid105 <- resid(lm_beta_bact_mean_tsd)
+
+lm_beta_bact_2016_tsd <- lm(diversity ~ sd_temp_12M, bact_beta_2016)
+summary(lm_beta_bact_2016_tsd)
+resid106 <- resid(lm_beta_bact_2016_tsd)
+
+lm_beta_bact_2017_tsd <- lm(diversity ~ sd_temp_12M, bact_beta_2017)
+summary(lm_beta_bact_2017_tsd)
+resid107 <- resid(lm_beta_bact_2017_tsd)
+
+lm_beta_bact_2018_tsd <- lm(diversity ~ sd_temp_12M, bact_beta_2018)
+summary(lm_beta_bact_2018_tsd)
+resid108 <- resid(lm_beta_bact_2018_tsd)
+
+# Phytoplankton
+lm_beta_phyto_mean_tsd <- lm(diversity ~ sd_temp_12M, phyto_beta_mean)
+summary(lm_beta_phyto_mean_tsd)
+resid109 <- resid(lm_beta_phyto_mean_tsd)
+
+lm_beta_phyto_2016_tsd <- lm(diversity ~ sd_temp_12M, phyto_beta_2016)
+summary(lm_beta_phyto_2016_tsd)
+resid110 <- resid(lm_beta_phyto_2016_tsd)
+
+lm_beta_phyto_2017_tsd <- lm(diversity ~ sd_temp_12M, phyto_beta_2017)
+summary(lm_beta_phyto_2017_tsd)
+resid111 <- resid(lm_beta_phyto_2017_tsd)
+
+lm_beta_phyto_2018_tsd <- lm(diversity ~ sd_temp_12M, phyto_beta_2018)
+summary(lm_beta_phyto_2018_tsd)
+resid112 <- resid(lm_beta_phyto_2018_tsd)
+
+# Zooplabkton
+lm_beta_zoo_mean_tsd <- lm(diversity ~ sd_temp_12M, zoo_beta_mean)
+summary(lm_beta_zoo_mean_tsd)
+resid113 <- resid(lm_beta_zoo_mean_tsd)
+
+lm_beta_zoo_2016_tsd <- lm(diversity ~ sd_temp_12M, zoo_beta_2016)
+summary(lm_beta_zoo_2016_tsd)
+resid114 <- resid(lm_beta_zoo_2016_tsd)
+
+lm_beta_zoo_2017_tsd <- lm(diversity ~ sd_temp_12M, zoo_beta_2017)
+summary(lm_beta_zoo_2017_tsd)
+resid115 <- resid(lm_beta_zoo_2017_tsd)
+
+lm_beta_zoo_2018_tsd <- lm(diversity ~ sd_temp_12M, zoo_beta_2018)
+summary(lm_beta_zoo_2018_tsd)
+resid116 <- resid(lm_beta_zoo_2018_tsd)
+
+# Macroinvertebrates
+lm_beta_macro_mean_tsd <- lm(diversity ~ sd_temp_12M, macro_beta_mean)
+summary(lm_beta_macro_mean_tsd)
+resid117 <- resid(lm_beta_macro_mean_tsd)
+
+lm_beta_macro_2016_tsd <- lm(diversity ~ sd_temp_12M, macro_beta_2016)
+summary(lm_beta_macro_2016_tsd)
+resid118 <- resid(lm_beta_macro_2016_tsd)
+
+lm_beta_macro_2017_tsd <- lm(diversity ~ sd_temp_12M, macro_beta_2017)
+summary(lm_beta_macro_2017_tsd)
+resid119 <- resid(lm_beta_macro_2017_tsd)
+
+lm_beta_macro_2018_tsd <- lm(diversity ~ sd_temp_12M, macro_beta_2018)
+summary(lm_beta_macro_2018_tsd)
+resid120 <- resid(lm_beta_macro_2018_tsd)
+
+```
+
+
+
+
+# Table S2. Quadratic regression models
+
+Table S2. Statistics of quadratic regression models. adjR2 – adjusted R2, RSE – Residual Standard Error, AIC – Aikaike Information Criterion, TMean – mean water temperature, TSD – standard deviation of mean water temperature (water temperature variability), W – Whole-community, B – Bacteria, P – Phytoplankton, Z – Zooplankton, M – Macroinvertebrates. The most supported model according to AIC compared to its equivalent in Table S1 is highlighted in bold.
+
+## Regional diversity
+
+### Mean temperature
+```{r Regional div vs mean_temp}
+
+# Whole-community
+qd_gamma_wc_mean_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), wc_gamma_mean)
+summary(qd_gamma_wc_mean_tmean)
+resid121 <- resid(qd_gamma_wc_mean_tmean)
+
+qd_gamma_wc_2016_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), wc_gamma_2016)
+summary(qd_gamma_wc_2016_tmean)
+resid122 <- resid(qd_gamma_wc_2016_tmean)
+
+qd_gamma_wc_2017_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), wc_gamma_2017)
+summary(qd_gamma_wc_2017_tmean)
+resid3 <- resid(qd_gamma_wc_2017_tmean)
+
+qd_gamma_wc_2018_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), wc_gamma_2018)
+summary(qd_gamma_wc_2018_tmean)
+resid124 <- resid(qd_gamma_wc_2018_tmean)
+
+# Bacteria
+qd_gamma_bact_mean_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), bact_gamma_mean)
+summary(qd_gamma_bact_mean_tmean)
+resid125 <- resid(qd_gamma_bact_mean_tmean)
+
+qd_gamma_bact_2016_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), bact_gamma_2016)
+summary(qd_gamma_bact_2016_tmean)
+resid126 <- resid(qd_gamma_bact_2016_tmean)
+
+qd_gamma_bact_2017_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), bact_gamma_2017)
+summary(qd_gamma_bact_2017_tmean)
+resid7 <- resid(qd_gamma_bact_2017_tmean)
+
+qd_gamma_bact_2018_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), bact_gamma_2018)
+summary(qd_gamma_bact_2018_tmean)
+resid128 <- resid(qd_gamma_bact_2018_tmean)
+
+# Phytoplankton
+qd_gamma_phyto_mean_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), phyto_gamma_mean)
+summary(qd_gamma_phyto_mean_tmean)
+resid129 <- resid(qd_gamma_phyto_mean_tmean)
+
+qd_gamma_phyto_2016_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), phyto_gamma_2016)
+summary(qd_gamma_phyto_2016_tmean)
+resid130 <- resid(qd_gamma_phyto_2016_tmean)
+
+qd_gamma_phyto_2017_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), phyto_gamma_2017)
+summary(qd_gamma_phyto_2017_tmean)
+resid131 <- resid(qd_gamma_phyto_2017_tmean)
+
+qd_gamma_phyto_2018_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), phyto_gamma_2018)
+summary(qd_gamma_phyto_2018_tmean)
+resid132 <- resid(qd_gamma_phyto_2018_tmean)
+
+# Zooplabkton
+qd_gamma_zoo_mean_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), zoo_gamma_mean)
+summary(qd_gamma_zoo_mean_tmean)
+resid133 <- resid(qd_gamma_zoo_mean_tmean)
+
+qd_gamma_zoo_2016_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), zoo_gamma_2016)
+summary(qd_gamma_zoo_2016_tmean)
+resid134 <- resid(qd_gamma_zoo_2016_tmean)
+
+qd_gamma_zoo_2017_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), zoo_gamma_2017)
+summary(qd_gamma_zoo_2017_tmean)
+resid135 <- resid(qd_gamma_zoo_2017_tmean)
+
+qd_gamma_zoo_2018_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), zoo_gamma_2018)
+summary(qd_gamma_zoo_2018_tmean)
+resid136 <- resid(qd_gamma_zoo_2018_tmean)
+
+# Macroinvertebrates
+qd_gamma_macro_mean_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), macro_gamma_mean)
+summary(qd_gamma_macro_mean_tmean)
+resid137 <- resid(qd_gamma_macro_mean_tmean)
+
+qd_gamma_macro_2016_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), macro_gamma_2016)
+summary(qd_gamma_macro_2016_tmean)
+resid138 <- resid(qd_gamma_macro_2016_tmean)
+
+qd_gamma_macro_2017_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), macro_gamma_2017)
+summary(qd_gamma_macro_2017_tmean)
+resid139 <- resid(qd_gamma_macro_2017_tmean)
+
+qd_gamma_macro_2018_tmean <- lm(diversity ~ poly(Tmean_est_mean, 2), macro_gamma_2018)
+summary(qd_gamma_macro_2018_tmean)
+resid140 <- resid(qd_gamma_macro_2018_tmean)
+
+```
+
+
+### SD temperature
+```{r Regional div vs sd_temp}
+
+# Whole-community
+qd_gamma_wc_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_gamma_mean)
+summary(qd_gamma_wc_mean_tsd)
+resid141 <- resid(qd_gamma_wc_mean_tsd)
+
+qd_gamma_wc_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_gamma_2016)
+summary(qd_gamma_wc_2016_tsd)
+resid142 <- resid(qd_gamma_wc_2016_tsd)
+
+qd_gamma_wc_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_gamma_2017)
+summary(qd_gamma_wc_2017_tsd)
+resid143 <- resid(qd_gamma_wc_2017_tsd)
+
+qd_gamma_wc_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_gamma_2018)
+summary(qd_gamma_wc_2018_tsd)
+resid144 <- resid(qd_gamma_wc_2018_tsd)
+
+# Bacteria
+qd_gamma_bact_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_gamma_mean)
+summary(qd_gamma_bact_mean_tsd)
+resid145 <- resid(qd_gamma_bact_mean_tsd)
+
+qd_gamma_bact_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_gamma_2016)
+summary(qd_gamma_bact_2016_tsd)
+resid146 <- resid(qd_gamma_bact_2016_tsd)
+
+qd_gamma_bact_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_gamma_2017)
+summary(qd_gamma_bact_2017_tsd)
+resid147 <- resid(qd_gamma_bact_2017_tsd)
+
+qd_gamma_bact_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_gamma_2018)
+summary(qd_gamma_bact_2018_tsd)
+resid148 <- resid(qd_gamma_bact_2018_tsd)
+
+# Phytoplankton
+qd_gamma_phyto_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_gamma_mean)
+summary(qd_gamma_phyto_mean_tsd)
+resid149 <- resid(qd_gamma_phyto_mean_tsd)
+
+qd_gamma_phyto_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_gamma_2016)
+summary(qd_gamma_phyto_2016_tsd)
+resid150 <- resid(qd_gamma_phyto_2016_tsd)
+
+qd_gamma_phyto_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_gamma_2017)
+summary(qd_gamma_phyto_2017_tsd)
+resid151 <- resid(qd_gamma_phyto_2017_tsd)
+
+qd_gamma_phyto_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_gamma_2018)
+summary(qd_gamma_phyto_2018_tsd)
+resid152 <- resid(qd_gamma_phyto_2018_tsd)
+
+# Zooplabkton
+qd_gamma_zoo_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_gamma_mean)
+summary(qd_gamma_zoo_mean_tsd)
+resid153 <- resid(qd_gamma_zoo_mean_tsd)
+
+qd_gamma_zoo_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_gamma_2016)
+summary(qd_gamma_zoo_2016_tsd)
+resid154 <- resid(qd_gamma_zoo_2016_tsd)
+
+qd_gamma_zoo_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_gamma_2017)
+summary(qd_gamma_zoo_2017_tsd)
+resid155 <- resid(qd_gamma_zoo_2017_tsd)
+
+qd_gamma_zoo_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_gamma_2018)
+summary(qd_gamma_zoo_2018_tsd)
+resid156 <- resid(qd_gamma_zoo_2018_tsd)
+
+# Macroinvertebrates
+qd_gamma_macro_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_gamma_mean)
+summary(qd_gamma_macro_mean_tsd)
+resid157 <- resid(qd_gamma_macro_mean_tsd)
+
+qd_gamma_macro_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_gamma_2016)
+summary(qd_gamma_macro_2016_tsd)
+resid158 <- resid(qd_gamma_macro_2016_tsd)
+
+qd_gamma_macro_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_gamma_2017)
+summary(qd_gamma_macro_2017_tsd)
+resid159 <- resid(qd_gamma_macro_2017_tsd)
+
+qd_gamma_macro_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_gamma_2018)
+summary(qd_gamma_macro_2018_tsd)
+resid160 <- resid(qd_gamma_macro_2018_tsd)
+
+```
+
+
+
+## Local diversity
+
+### Mean temperature
+```{r Local div vs mean_temp}
+
+# Whole-community
+qd_alpha_wc_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_alpha_mean)
+summary(qd_alpha_wc_mean_tmean)
+resid161 <- resid(qd_alpha_wc_mean_tmean)
+
+qd_alpha_wc_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_alpha_2016)
+summary(qd_alpha_wc_2016_tmean)
+resid162 <- resid(qd_alpha_wc_2016_tmean)
+
+qd_alpha_wc_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_alpha_2017)
+summary(qd_alpha_wc_2017_tmean)
+resid163 <- resid(qd_alpha_wc_2017_tmean)
+
+qd_alpha_wc_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_alpha_2018)
+summary(qd_alpha_wc_2018_tmean)
+resid164 <- resid(qd_alpha_wc_2018_tmean)
+
+# Bacteria
+qd_alpha_bact_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_alpha_mean)
+summary(qd_alpha_bact_mean_tmean)
+resid165 <- resid(qd_alpha_bact_mean_tmean)
+
+qd_alpha_bact_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_alpha_2016)
+summary(qd_alpha_bact_2016_tmean)
+resid166 <- resid(qd_alpha_bact_2016_tmean)
+
+qd_alpha_bact_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_alpha_2017)
+summary(qd_alpha_bact_2017_tmean)
+resid167 <- resid(qd_alpha_bact_2017_tmean)
+
+qd_alpha_bact_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_alpha_2018)
+summary(qd_alpha_bact_2018_tmean)
+resid168 <- resid(qd_alpha_bact_2018_tmean)
+
+# Phytoplankton
+qd_alpha_phyto_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_alpha_mean)
+summary(qd_alpha_phyto_mean_tmean)
+resid169 <- resid(qd_alpha_phyto_mean_tmean)
+
+qd_alpha_phyto_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_alpha_2016)
+summary(qd_alpha_phyto_2016_tmean)
+resid170 <- resid(qd_alpha_phyto_2016_tmean)
+
+qd_alpha_phyto_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_alpha_2017)
+summary(qd_alpha_phyto_2017_tmean)
+resid171 <- resid(qd_alpha_phyto_2017_tmean)
+
+qd_alpha_phyto_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_alpha_2018)
+summary(qd_alpha_phyto_2018_tmean)
+resid172 <- resid(qd_alpha_phyto_2018_tmean)
+
+# Zooplabkton
+qd_alpha_zoo_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_alpha_mean)
+summary(qd_alpha_zoo_mean_tmean)
+resid173 <- resid(qd_alpha_zoo_mean_tmean)
+
+qd_alpha_zoo_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_alpha_2016)
+summary(qd_alpha_zoo_2016_tmean)
+resid174 <- resid(qd_alpha_zoo_2016_tmean)
+
+qd_alpha_zoo_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_alpha_2017)
+summary(qd_alpha_zoo_2017_tmean)
+resid175 <- resid(qd_alpha_zoo_2017_tmean)
+
+qd_alpha_zoo_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_alpha_2018)
+summary(qd_alpha_zoo_2018_tmean)
+resid176 <- resid(qd_alpha_zoo_2018_tmean)
+
+# Macroinvertebrates
+qd_alpha_macro_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_alpha_mean)
+summary(qd_alpha_macro_mean_tmean)
+resid177 <- resid(qd_alpha_macro_mean_tmean)
+
+qd_alpha_macro_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_alpha_2016)
+summary(qd_alpha_macro_2016_tmean)
+resid178 <- resid(qd_alpha_macro_2016_tmean)
+
+qd_alpha_macro_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_alpha_2017)
+summary(qd_alpha_macro_2017_tmean)
+resid179 <- resid(qd_alpha_macro_2017_tmean)
+
+qd_alpha_macro_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_alpha_2018)
+summary(qd_alpha_macro_2018_tmean)
+resid180 <- resid(qd_alpha_macro_2018_tmean)
+
+```
+
+
+### SD temperature
+```{r Regional div vs sd_temp}
+
+# Whole-community
+qd_alpha_wc_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_alpha_mean)
+summary(qd_alpha_wc_mean_tsd)
+resid181 <- resid(qd_alpha_wc_mean_tsd)
+
+qd_alpha_wc_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_alpha_2016)
+summary(qd_alpha_wc_2016_tsd)
+resid182 <- resid(qd_alpha_wc_2016_tsd)
+
+qd_alpha_wc_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_alpha_2017)
+summary(qd_alpha_wc_2017_tsd)
+resid183 <- resid(qd_alpha_wc_2017_tsd)
+
+qd_alpha_wc_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_alpha_2018)
+summary(qd_alpha_wc_2018_tsd)
+resid184 <- resid(qd_alpha_wc_2018_tsd)
+
+# Bacteria
+qd_alpha_bact_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_alpha_mean)
+summary(qd_alpha_bact_mean_tsd)
+resid185 <- resid(qd_alpha_bact_mean_tsd)
+
+qd_alpha_bact_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_alpha_2016)
+summary(qd_alpha_bact_2016_tsd)
+resid186 <- resid(qd_alpha_bact_2016_tsd)
+
+qd_alpha_bact_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_alpha_2017)
+summary(qd_alpha_bact_2017_tsd)
+resid187 <- resid(qd_alpha_bact_2017_tsd)
+
+qd_alpha_bact_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_alpha_2018)
+summary(qd_alpha_bact_2018_tsd)
+resid188 <- resid(qd_alpha_bact_2018_tsd)
+
+# Phytoplankton
+qd_alpha_phyto_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_alpha_mean)
+summary(qd_alpha_phyto_mean_tsd)
+resid189 <- resid(qd_alpha_phyto_mean_tsd)
+
+qd_alpha_phyto_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_alpha_2016)
+summary(qd_alpha_phyto_2016_tsd)
+resid190 <- resid(qd_alpha_phyto_2016_tsd)
+
+qd_alpha_phyto_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_alpha_2017)
+summary(qd_alpha_phyto_2017_tsd)
+resid191 <- resid(qd_alpha_phyto_2017_tsd)
+
+qd_alpha_phyto_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_alpha_2018)
+summary(qd_alpha_phyto_2018_tsd)
+resid192 <- resid(qd_alpha_phyto_2018_tsd)
+
+# Zooplabkton
+qd_alpha_zoo_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_alpha_mean)
+summary(qd_alpha_zoo_mean_tsd)
+resid193 <- resid(qd_alpha_zoo_mean_tsd)
+
+qd_alpha_zoo_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_alpha_2016)
+summary(qd_alpha_zoo_2016_tsd)
+resid194 <- resid(qd_alpha_zoo_2016_tsd)
+
+qd_alpha_zoo_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_alpha_2017)
+summary(qd_alpha_zoo_2017_tsd)
+resid195 <- resid(qd_alpha_zoo_2017_tsd)
+
+qd_alpha_zoo_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_alpha_2018)
+summary(qd_alpha_zoo_2018_tsd)
+resid196 <- resid(qd_alpha_zoo_2018_tsd)
+
+# Macroinvertebrates
+qd_alpha_macro_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_alpha_mean)
+summary(qd_alpha_macro_mean_tsd)
+resid197 <- resid(qd_alpha_macro_mean_tsd)
+
+qd_alpha_macro_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_alpha_2016)
+summary(qd_alpha_macro_2016_tsd)
+resid198 <- resid(qd_alpha_macro_2016_tsd)
+
+qd_alpha_macro_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_alpha_2017)
+summary(qd_alpha_macro_2017_tsd)
+resid199 <- resid(qd_alpha_macro_2017_tsd)
+
+qd_alpha_macro_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_alpha_2018)
+summary(qd_alpha_macro_2018_tsd)
+resid200 <- resid(qd_alpha_macro_2018_tsd)
+
+```
+
+
+
+## Beta-diversity
+
+### Mean temperature
+```{r Beta div vs mean_temp}
+
+# Whole-community
+qd_beta_wc_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_beta_mean)
+summary(qd_beta_wc_mean_tmean)
+resid201 <- resid(qd_beta_wc_mean_tmean)
+
+qd_beta_wc_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_beta_2016)
+summary(qd_beta_wc_2016_tmean)
+resid202 <- resid(qd_beta_wc_2016_tmean)
+
+qd_beta_wc_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_beta_2017)
+summary(qd_beta_wc_2017_tmean)
+resid203 <- resid(qd_beta_wc_2017_tmean)
+
+qd_beta_wc_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), wc_beta_2018)
+summary(qd_beta_wc_2018_tmean)
+resid204 <- resid(qd_beta_wc_2018_tmean)
+
+# Bacteria
+qd_beta_bact_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_beta_mean)
+summary(qd_beta_bact_mean_tmean)
+resid205 <- resid(qd_beta_bact_mean_tmean)
+
+qd_beta_bact_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_beta_2016)
+summary(qd_beta_bact_2016_tmean)
+resid206 <- resid(qd_beta_bact_2016_tmean)
+
+qd_beta_bact_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_beta_2017)
+summary(qd_beta_bact_2017_tmean)
+resid207 <- resid(qd_beta_bact_2017_tmean)
+
+qd_beta_bact_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), bact_beta_2018)
+summary(qd_beta_bact_2018_tmean)
+resid208 <- resid(qd_beta_bact_2018_tmean)
+
+# Phytoplankton
+qd_beta_phyto_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_beta_mean)
+summary(qd_beta_phyto_mean_tmean)
+resid209 <- resid(qd_beta_phyto_mean_tmean)
+
+qd_beta_phyto_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_beta_2016)
+summary(qd_beta_phyto_2016_tmean)
+resid200 <- resid(qd_beta_phyto_2016_tmean)
+
+qd_beta_phyto_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_beta_2017)
+summary(qd_beta_phyto_2017_tmean)
+resid211 <- resid(qd_beta_phyto_2017_tmean)
+
+qd_beta_phyto_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), phyto_beta_2018)
+summary(qd_beta_phyto_2018_tmean)
+resid212 <- resid(qd_beta_phyto_2018_tmean)
+
+# Zooplabkton
+qd_beta_zoo_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_beta_mean)
+summary(qd_beta_zoo_mean_tmean)
+resid213 <- resid(qd_beta_zoo_mean_tmean)
+
+qd_beta_zoo_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_beta_2016)
+summary(qd_beta_zoo_2016_tmean)
+resid214 <- resid(qd_beta_zoo_2016_tmean)
+
+qd_beta_zoo_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_beta_2017)
+summary(qd_beta_zoo_2017_tmean)
+resid215 <- resid(qd_beta_zoo_2017_tmean)
+
+qd_beta_zoo_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), zoo_beta_2018)
+summary(qd_beta_zoo_2018_tmean)
+resid216 <- resid(qd_beta_zoo_2018_tmean)
+
+# Macroinvertebrates
+qd_beta_macro_mean_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_beta_mean)
+summary(qd_beta_macro_mean_tmean)
+resid217 <- resid(qd_beta_macro_mean_tmean)
+
+qd_beta_macro_2016_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_beta_2016)
+summary(qd_beta_macro_2016_tmean)
+resid218 <- resid(qd_beta_macro_2016_tmean)
+
+qd_beta_macro_2017_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_beta_2017)
+summary(qd_beta_macro_2017_tmean)
+resid219 <- resid(qd_beta_macro_2017_tmean)
+
+qd_beta_macro_2018_tmean <- lm(diversity ~ poly(est_mean_temp_12M, 2), macro_beta_2018)
+summary(qd_beta_macro_2018_tmean)
+resid220 <- resid(qd_beta_macro_2018_tmean)
+
+```
+
+
+### SD temperature
+```{r Beta div vs sd_temp}
+
+# Whole-community
+qd_beta_wc_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_beta_mean)
+summary(qd_beta_wc_mean_tsd)
+resid221 <- resid(qd_beta_wc_mean_tsd)
+
+qd_beta_wc_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_beta_2016)
+summary(qd_beta_wc_2016_tsd)
+resid222 <- resid(qd_beta_wc_2016_tsd)
+
+qd_beta_wc_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_beta_2017)
+summary(qd_beta_wc_2017_tsd)
+resid223 <- resid(qd_beta_wc_2017_tsd)
+
+qd_beta_wc_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), wc_beta_2018)
+summary(qd_beta_wc_2018_tsd)
+resid224 <- resid(qd_beta_wc_2018_tsd)
+
+# Bacteria
+qd_beta_bact_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_beta_mean)
+summary(qd_beta_bact_mean_tsd)
+resid225 <- resid(qd_beta_bact_mean_tsd)
+
+qd_beta_bact_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_beta_2016)
+summary(qd_beta_bact_2016_tsd)
+resid226 <- resid(qd_beta_bact_2016_tsd)
+
+qd_beta_bact_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_beta_2017)
+summary(qd_beta_bact_2017_tsd)
+resid227 <- resid(qd_beta_bact_2017_tsd)
+
+qd_beta_bact_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), bact_beta_2018)
+summary(qd_beta_bact_2018_tsd)
+resid228 <- resid(qd_beta_bact_2018_tsd)
+
+# Phytoplankton
+qd_beta_phyto_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_beta_mean)
+summary(qd_beta_phyto_mean_tsd)
+resid229 <- resid(qd_beta_phyto_mean_tsd)
+
+qd_beta_phyto_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_beta_2016)
+summary(qd_beta_phyto_2016_tsd)
+resid230 <- resid(qd_beta_phyto_2016_tsd)
+
+qd_beta_phyto_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_beta_2017)
+summary(qd_beta_phyto_2017_tsd)
+resid231 <- resid(qd_beta_phyto_2017_tsd)
+
+qd_beta_phyto_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), phyto_beta_2018)
+summary(qd_beta_phyto_2018_tsd)
+resid232 <- resid(qd_beta_phyto_2018_tsd)
+
+# Zooplabkton
+qd_beta_zoo_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_beta_mean)
+summary(qd_beta_zoo_mean_tsd)
+resid233 <- resid(qd_beta_zoo_mean_tsd)
+
+qd_beta_zoo_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_beta_2016)
+summary(qd_beta_zoo_2016_tsd)
+resid234 <- resid(qd_beta_zoo_2016_tsd)
+
+qd_beta_zoo_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_beta_2017)
+summary(qd_beta_zoo_2017_tsd)
+resid235 <- resid(qd_beta_zoo_2017_tsd)
+
+qd_beta_zoo_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), zoo_beta_2018)
+summary(qd_beta_zoo_2018_tsd)
+resid236 <- resid(qd_beta_zoo_2018_tsd)
+
+# Macroinvertebrates
+qd_beta_macro_mean_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_beta_mean)
+summary(qd_beta_macro_mean_tsd)
+resid237 <- resid(qd_beta_macro_mean_tsd)
+
+qd_beta_macro_2016_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_beta_2016)
+summary(qd_beta_macro_2016_tsd)
+resid238 <- resid(qd_beta_macro_2016_tsd)
+
+qd_beta_macro_2017_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_beta_2017)
+summary(qd_beta_macro_2017_tsd)
+resid239 <- resid(qd_beta_macro_2017_tsd)
+
+qd_beta_macro_2018_tsd <- lm(diversity ~ poly(sd_temp_12M, 2), macro_beta_2018)
+summary(qd_beta_macro_2018_tsd)
+resid240 <- resid(qd_beta_macro_2018_tsd)
+
+```
+
+
+# Compare models (statistics in Table S1 and Table S2)
+
+## Linear regression models
+
+### Regional diversity
+```{r}
+
+# Whole-community
+eval_mod1 <- glance(lm_gamma_wc_mean_tmean)
+eval_mod2 <- glance(lm_gamma_wc_2016_tmean)
+eval_mod3 <- glance(lm_gamma_wc_2017_tmean)
+eval_mod4 <- glance(lm_gamma_wc_2018_tmean)
+eval_mod5 <- glance(lm_gamma_wc_mean_tsd)
+eval_mod6 <- glance(lm_gamma_wc_2016_tsd)
+eval_mod7 <- glance(lm_gamma_wc_2017_tsd)
+eval_mod8 <- glance(lm_gamma_wc_2018_tsd)
+
+# Bacteria
+eval_mod9 <- glance(lm_gamma_bact_mean_tmean)
+eval_mod10 <- glance(lm_gamma_bact_2016_tmean)
+eval_mod11 <- glance(lm_gamma_bact_2017_tmean)
+eval_mod12 <- glance(lm_gamma_bact_2018_tmean)
+eval_mod13 <- glance(lm_gamma_bact_mean_tsd)
+eval_mod14 <- glance(lm_gamma_bact_2016_tsd)
+eval_mod15 <- glance(lm_gamma_bact_2017_tsd)
+eval_mod16 <- glance(lm_gamma_bact_2018_tsd)
+
+# Phytoplankton
+eval_mod17 <- glance(lm_gamma_phyto_mean_tmean)
+eval_mod18 <- glance(lm_gamma_phyto_2016_tmean)
+eval_mod19 <- glance(lm_gamma_phyto_2017_tmean)
+eval_mod20 <- glance(lm_gamma_phyto_2018_tmean)
+eval_mod21 <- glance(lm_gamma_phyto_mean_tsd)
+eval_mod22 <- glance(lm_gamma_phyto_2016_tsd)
+eval_mod23 <- glance(lm_gamma_phyto_2017_tsd)
+eval_mod24 <- glance(lm_gamma_phyto_2018_tsd)
+
+# Zooplankton
+eval_mod25 <- glance(lm_gamma_zoo_mean_tmean)
+eval_mod26 <- glance(lm_gamma_zoo_2016_tmean)
+eval_mod27 <- glance(lm_gamma_zoo_2017_tmean)
+eval_mod28 <- glance(lm_gamma_zoo_2018_tmean)
+eval_mod29 <- glance(lm_gamma_zoo_mean_tsd)
+eval_mod30 <- glance(lm_gamma_zoo_2016_tsd)
+eval_mod31 <- glance(lm_gamma_zoo_2017_tsd)
+eval_mod32 <- glance(lm_gamma_zoo_2018_tsd)
+
+# Macroinvertebrates
+eval_mod33 <- glance(lm_gamma_macro_mean_tmean)
+eval_mod34 <- glance(lm_gamma_macro_2016_tmean)
+eval_mod35 <- glance(lm_gamma_macro_2017_tmean)
+eval_mod36 <- glance(lm_gamma_macro_2018_tmean)
+eval_mod37 <- glance(lm_gamma_macro_mean_tsd)
+eval_mod38 <- glance(lm_gamma_macro_2016_tsd)
+eval_mod39 <- glance(lm_gamma_macro_2017_tsd)
+eval_mod40 <- glance(lm_gamma_macro_2018_tsd)
+```
+
+
+### Local diversity
+```{r}
+
+# Whole-community
+eval_mod41 <- glance(lm_alpha_wc_mean_tmean)
+eval_mod42 <- glance(lm_alpha_wc_2016_tmean)
+eval_mod43 <- glance(lm_alpha_wc_2017_tmean)
+eval_mod44 <- glance(lm_alpha_wc_2018_tmean)
+eval_mod45 <- glance(lm_alpha_wc_mean_tsd)
+eval_mod46 <- glance(lm_alpha_wc_2016_tsd)
+eval_mod47 <- glance(lm_alpha_wc_2017_tsd)
+eval_mod48 <- glance(lm_alpha_wc_2018_tsd)
+
+# Bacteria
+eval_mod49 <- glance(lm_alpha_bact_mean_tmean)
+eval_mod50 <- glance(lm_alpha_bact_2016_tmean)
+eval_mod51 <- glance(lm_alpha_bact_2017_tmean)
+eval_mod52 <- glance(lm_alpha_bact_2018_tmean)
+eval_mod53 <- glance(lm_alpha_bact_mean_tsd)
+eval_mod54 <- glance(lm_alpha_bact_2016_tsd)
+eval_mod55 <- glance(lm_alpha_bact_2017_tsd)
+eval_mod56 <- glance(lm_alpha_bact_2018_tsd)
+
+# Phytoplankton
+eval_mod57 <- glance(lm_alpha_phyto_mean_tmean)
+eval_mod58 <- glance(lm_alpha_phyto_2016_tmean)
+eval_mod59 <- glance(lm_alpha_phyto_2017_tmean)
+eval_mod60 <- glance(lm_alpha_phyto_2018_tmean)
+eval_mod61 <- glance(lm_alpha_phyto_mean_tsd)
+eval_mod62 <- glance(lm_alpha_phyto_2016_tsd)
+eval_mod63 <- glance(lm_alpha_phyto_2017_tsd)
+eval_mod64 <- glance(lm_alpha_phyto_2018_tsd)
+
+# Zooplankton
+eval_mod65 <- glance(lm_alpha_zoo_mean_tmean)
+eval_mod66 <- glance(lm_alpha_zoo_2016_tmean)
+eval_mod67 <- glance(lm_alpha_zoo_2017_tmean)
+eval_mod68 <- glance(lm_alpha_zoo_2018_tmean)
+eval_mod69 <- glance(lm_alpha_zoo_mean_tsd)
+eval_mod70 <- glance(lm_alpha_zoo_2016_tsd)
+eval_mod71 <- glance(lm_alpha_zoo_2017_tsd)
+eval_mod72 <- glance(lm_alpha_zoo_2018_tsd)
+
+# Macroinvertebrates
+eval_mod73 <- glance(lm_alpha_macro_mean_tmean)
+eval_mod74 <- glance(lm_alpha_macro_2016_tmean)
+eval_mod75 <- glance(lm_alpha_macro_2017_tmean)
+eval_mod76 <- glance(lm_alpha_macro_2018_tmean)
+eval_mod77 <- glance(lm_alpha_macro_mean_tsd)
+eval_mod78 <- glance(lm_alpha_macro_2016_tsd)
+eval_mod79 <- glance(lm_alpha_macro_2017_tsd)
+eval_mod80 <- glance(lm_alpha_macro_2018_tsd)
+
+```
+
+
+### Beta diversity
+```{r}
+
+# Whole-community
+eval_mod81 <- glance(lm_beta_wc_mean_tmean)
+eval_mod82 <- glance(lm_beta_wc_2016_tmean)
+eval_mod83 <- glance(lm_beta_wc_2017_tmean)
+eval_mod84 <- glance(lm_beta_wc_2018_tmean)
+eval_mod85 <- glance(lm_beta_wc_mean_tsd)
+eval_mod86 <- glance(lm_beta_wc_2016_tsd)
+eval_mod87 <- glance(lm_beta_wc_2017_tsd)
+eval_mod88 <- glance(lm_beta_wc_2018_tsd)
+
+# Bacteria
+eval_mod89 <- glance(lm_beta_bact_mean_tmean)
+eval_mod90 <- glance(lm_beta_bact_2016_tmean)
+eval_mod91 <- glance(lm_beta_bact_2017_tmean)
+eval_mod92 <- glance(lm_beta_bact_2018_tmean)
+eval_mod93 <- glance(lm_beta_bact_mean_tsd)
+eval_mod94 <- glance(lm_beta_bact_2016_tsd)
+eval_mod95 <- glance(lm_beta_bact_2017_tsd)
+eval_mod96 <- glance(lm_beta_bact_2018_tsd)
+
+# Phytoplankton
+eval_mod97 <- glance(lm_beta_phyto_mean_tmean)
+eval_mod98 <- glance(lm_beta_phyto_2016_tmean)
+eval_mod99 <- glance(lm_beta_phyto_2017_tmean)
+eval_mod100 <- glance(lm_beta_phyto_2018_tmean)
+eval_mod101 <- glance(lm_beta_phyto_mean_tsd)
+eval_mod102 <- glance(lm_beta_phyto_2016_tsd)
+eval_mod103 <- glance(lm_beta_phyto_2017_tsd)
+eval_mod104 <- glance(lm_beta_phyto_2018_tsd)
+
+# Zooplankton
+eval_mod105 <- glance(lm_beta_zoo_mean_tmean)
+eval_mod106 <- glance(lm_beta_zoo_2016_tmean)
+eval_mod107 <- glance(lm_beta_zoo_2017_tmean)
+eval_mod108 <- glance(lm_beta_zoo_2018_tmean)
+eval_mod109 <- glance(lm_beta_zoo_mean_tsd)
+eval_mod110 <- glance(lm_beta_zoo_2016_tsd)
+eval_mod111 <- glance(lm_beta_zoo_2017_tsd)
+eval_mod112 <- glance(lm_beta_zoo_2018_tsd)
+
+# Macroinvertebrates
+eval_mod113 <- glance(lm_beta_macro_mean_tmean)
+eval_mod114 <- glance(lm_beta_macro_2016_tmean)
+eval_mod115 <- glance(lm_beta_macro_2017_tmean)
+eval_mod116 <- glance(lm_beta_macro_2018_tmean)
+eval_mod117 <- glance(lm_beta_macro_mean_tsd)
+eval_mod118 <- glance(lm_beta_macro_2016_tsd)
+eval_mod119 <- glance(lm_beta_macro_2017_tsd)
+eval_mod120 <- glance(lm_beta_macro_2018_tsd)
+
+```
+
+
+
+## Quadratic regression models
+
+### Regional diversity
+```{r}
+
+# Whole-community
+eval_mod121 <- glance(qd_gamma_wc_mean_tmean)
+eval_mod122 <- glance(qd_gamma_wc_2016_tmean)
+eval_mod123 <- glance(qd_gamma_wc_2017_tmean)
+eval_mod124 <- glance(qd_gamma_wc_2018_tmean)
+eval_mod125 <- glance(qd_gamma_wc_mean_tsd)
+eval_mod126 <- glance(qd_gamma_wc_2016_tsd)
+eval_mod127 <- glance(qd_gamma_wc_2017_tsd)
+eval_mod128 <- glance(qd_gamma_wc_2018_tsd)
+
+# Bacteria
+eval_mod129 <- glance(qd_gamma_bact_mean_tmean)
+eval_mod130 <- glance(qd_gamma_bact_2016_tmean)
+eval_mod131 <- glance(qd_gamma_bact_2017_tmean)
+eval_mod132 <- glance(qd_gamma_bact_2018_tmean)
+eval_mod133 <- glance(qd_gamma_bact_mean_tsd)
+eval_mod134 <- glance(qd_gamma_bact_2016_tsd)
+eval_mod135 <- glance(qd_gamma_bact_2017_tsd)
+eval_mod136 <- glance(qd_gamma_bact_2018_tsd)
+
+# Phytoplankton
+eval_mod137 <- glance(qd_gamma_phyto_mean_tmean)
+eval_mod138 <- glance(qd_gamma_phyto_2016_tmean)
+eval_mod139 <- glance(qd_gamma_phyto_2017_tmean)
+eval_mod140 <- glance(qd_gamma_phyto_2018_tmean)
+eval_mod141 <- glance(qd_gamma_phyto_mean_tsd)
+eval_mod142 <- glance(qd_gamma_phyto_2016_tsd)
+eval_mod143 <- glance(qd_gamma_phyto_2017_tsd)
+eval_mod144 <- glance(qd_gamma_phyto_2018_tsd)
+
+# Zooplankton
+eval_mod145 <- glance(qd_gamma_zoo_mean_tmean)
+eval_mod146 <- glance(qd_gamma_zoo_2016_tmean)
+eval_mod147 <- glance(qd_gamma_zoo_2017_tmean)
+eval_mod148 <- glance(qd_gamma_zoo_2018_tmean)
+eval_mod149 <- glance(qd_gamma_zoo_mean_tsd)
+eval_mod150 <- glance(qd_gamma_zoo_2016_tsd)
+eval_mod151 <- glance(qd_gamma_zoo_2017_tsd)
+eval_mod152 <- glance(qd_gamma_zoo_2018_tsd)
+
+# Macroinvertebrates
+eval_mod153 <- glance(qd_gamma_macro_mean_tmean)
+eval_mod154 <- glance(qd_gamma_macro_2016_tmean)
+eval_mod155 <- glance(qd_gamma_macro_2017_tmean)
+eval_mod156 <- glance(qd_gamma_macro_2018_tmean)
+eval_mod157 <- glance(qd_gamma_macro_mean_tsd)
+eval_mod158 <- glance(qd_gamma_macro_2016_tsd)
+eval_mod159 <- glance(qd_gamma_macro_2017_tsd)
+eval_mod160 <- glance(qd_gamma_macro_2018_tsd)
+```
+
+
+### Local diversity
+```{r}
+
+# Whole-community
+eval_mod161 <- glance(qd_alpha_wc_mean_tmean)
+eval_mod162 <- glance(qd_alpha_wc_2016_tmean)
+eval_mod163 <- glance(qd_alpha_wc_2017_tmean)
+eval_mod164 <- glance(qd_alpha_wc_2018_tmean)
+eval_mod165 <- glance(qd_alpha_wc_mean_tsd)
+eval_mod166 <- glance(qd_alpha_wc_2016_tsd)
+eval_mod167 <- glance(qd_alpha_wc_2017_tsd)
+eval_mod168 <- glance(qd_alpha_wc_2018_tsd)
+
+# Bacteria
+eval_mod169 <- glance(qd_alpha_bact_mean_tmean)
+eval_mod170 <- glance(qd_alpha_bact_2016_tmean)
+eval_mod171 <- glance(qd_alpha_bact_2017_tmean)
+eval_mod172 <- glance(qd_alpha_bact_2018_tmean)
+eval_mod173 <- glance(qd_alpha_bact_mean_tsd)
+eval_mod174 <- glance(qd_alpha_bact_2016_tsd)
+eval_mod175 <- glance(qd_alpha_bact_2017_tsd)
+eval_mod176 <- glance(qd_alpha_bact_2018_tsd)
+
+# Phytoplankton
+eval_mod177 <- glance(qd_alpha_phyto_mean_tmean)
+eval_mod178 <- glance(qd_alpha_phyto_2016_tmean)
+eval_mod179 <- glance(qd_alpha_phyto_2017_tmean)
+eval_mod180 <- glance(qd_alpha_phyto_2018_tmean)
+eval_mod181 <- glance(qd_alpha_phyto_mean_tsd)
+eval_mod182 <- glance(qd_alpha_phyto_2016_tsd)
+eval_mod183 <- glance(qd_alpha_phyto_2017_tsd)
+eval_mod184 <- glance(qd_alpha_phyto_2018_tsd)
+
+# Zooplankton
+eval_mod185 <- glance(qd_alpha_zoo_mean_tmean)
+eval_mod186 <- glance(qd_alpha_zoo_2016_tmean)
+eval_mod187 <- glance(qd_alpha_zoo_2017_tmean)
+eval_mod188 <- glance(qd_alpha_zoo_2018_tmean)
+eval_mod189 <- glance(qd_alpha_zoo_mean_tsd)
+eval_mod190 <- glance(qd_alpha_zoo_2016_tsd)
+eval_mod191 <- glance(qd_alpha_zoo_2017_tsd)
+eval_mod192 <- glance(qd_alpha_zoo_2018_tsd)
+
+# Macroinvertebrates
+eval_mod193 <- glance(qd_alpha_macro_mean_tmean)
+eval_mod194 <- glance(qd_alpha_macro_2016_tmean)
+eval_mod195 <- glance(qd_alpha_macro_2017_tmean)
+eval_mod196 <- glance(qd_alpha_macro_2018_tmean)
+eval_mod197 <- glance(qd_alpha_macro_mean_tsd)
+eval_mod198 <- glance(qd_alpha_macro_2016_tsd)
+eval_mod199 <- glance(qd_alpha_macro_2017_tsd)
+eval_mod200 <- glance(qd_alpha_macro_2018_tsd)
+
+```
+
+
+### Beta diversity
+```{r}
+
+# Whole-community
+eval_mod201 <- glance(qd_beta_wc_mean_tmean)
+eval_mod202 <- glance(qd_beta_wc_2016_tmean)
+eval_mod203 <- glance(qd_beta_wc_2017_tmean)
+eval_mod204 <- glance(qd_beta_wc_2018_tmean)
+eval_mod205 <- glance(qd_beta_wc_mean_tsd)
+eval_mod206 <- glance(qd_beta_wc_2016_tsd)
+eval_mod207 <- glance(qd_beta_wc_2017_tsd)
+eval_mod208 <- glance(qd_beta_wc_2018_tsd)
+
+# Bacteria
+eval_mod209 <- glance(qd_beta_bact_mean_tmean)
+eval_mod210 <- glance(qd_beta_bact_2016_tmean)
+eval_mod211 <- glance(qd_beta_bact_2017_tmean)
+eval_mod212 <- glance(qd_beta_bact_2018_tmean)
+eval_mod213 <- glance(qd_beta_bact_mean_tsd)
+eval_mod214 <- glance(qd_beta_bact_2016_tsd)
+eval_mod215 <- glance(qd_beta_bact_2017_tsd)
+eval_mod216 <- glance(qd_beta_bact_2018_tsd)
+
+# Phytoplankton
+eval_mod217 <- glance(qd_beta_phyto_mean_tmean)
+eval_mod218 <- glance(qd_beta_phyto_2016_tmean)
+eval_mod219 <- glance(qd_beta_phyto_2017_tmean)
+eval_mod220 <- glance(qd_beta_phyto_2018_tmean)
+eval_mod221 <- glance(qd_beta_phyto_mean_tsd)
+eval_mod222 <- glance(qd_beta_phyto_2016_tsd)
+eval_mod223 <- glance(qd_beta_phyto_2017_tsd)
+eval_mod224 <- glance(qd_beta_phyto_2018_tsd)
+
+# Zooplankton
+eval_mod225 <- glance(qd_beta_zoo_mean_tmean)
+eval_mod226 <- glance(qd_beta_zoo_2016_tmean)
+eval_mod227 <- glance(qd_beta_zoo_2017_tmean)
+eval_mod228 <- glance(qd_beta_zoo_2018_tmean)
+eval_mod229 <- glance(qd_beta_zoo_mean_tsd)
+eval_mod230 <- glance(qd_beta_zoo_2016_tsd)
+eval_mod231 <- glance(qd_beta_zoo_2017_tsd)
+eval_mod232 <- glance(qd_beta_zoo_2018_tsd)
+
+# Macroinvertebrates
+eval_mod233 <- glance(qd_beta_macro_mean_tmean)
+eval_mod234 <- glance(qd_beta_macro_2016_tmean)
+eval_mod235 <- glance(qd_beta_macro_2017_tmean)
+eval_mod236 <- glance(qd_beta_macro_2018_tmean)
+eval_mod237 <- glance(qd_beta_macro_mean_tsd)
+eval_mod238 <- glance(qd_beta_macro_2016_tsd)
+eval_mod239 <- glance(qd_beta_macro_2017_tsd)
+eval_mod240 <- glance(qd_beta_macro_2018_tsd)
+
+```
+
+
+
+# Save table
+```{r}
+
+mods_linear <- rbind(eval_mod1, eval_mod2, eval_mod3, eval_mod4, eval_mod5, eval_mod6, eval_mod7, eval_mod8, eval_mod9, eval_mod10, eval_mod11, eval_mod12, eval_mod13,
+                     eval_mod14, eval_mod15, eval_mod16, eval_mod17, eval_mod18, eval_mod19, eval_mod20, eval_mod21, eval_mod22, eval_mod23, eval_mod24, eval_mod25, 
+                     eval_mod26, eval_mod27, eval_mod28, eval_mod29, eval_mod30, eval_mod31, eval_mod32, eval_mod33, eval_mod34, eval_mod35, eval_mod36, eval_mod37, 
+                     eval_mod38, eval_mod39, eval_mod40, eval_mod41, eval_mod42, eval_mod43, eval_mod44, eval_mod45, eval_mod46, eval_mod47, eval_mod48, eval_mod49, 
+                     eval_mod50, eval_mod51, eval_mod52, eval_mod53, eval_mod54, eval_mod55, eval_mod56, eval_mod57, eval_mod58, eval_mod59, eval_mod60, eval_mod61, 
+                     eval_mod62, eval_mod63, eval_mod64, eval_mod65, eval_mod66, eval_mod67, eval_mod68, eval_mod69, eval_mod70, eval_mod71, eval_mod72, eval_mod73, 
+                     eval_mod74, eval_mod75, eval_mod76, eval_mod77, eval_mod78, eval_mod79, eval_mod80, eval_mod81, eval_mod82, eval_mod83, eval_mod84, eval_mod85, 
+                     eval_mod86, eval_mod87, eval_mod88, eval_mod89, eval_mod90, eval_mod91, eval_mod92, eval_mod93, eval_mod94, eval_mod95, eval_mod96, eval_mod97, 
+                     eval_mod98, eval_mod99, eval_mod100, eval_mod101, eval_mod102, eval_mod103, eval_mod104, eval_mod105, eval_mod106, eval_mod107, eval_mod108, 
+                     eval_mod109, eval_mod110, eval_mod111, eval_mod112, eval_mod113, eval_mod114, eval_mod115, eval_mod116, eval_mod117, eval_mod118, eval_mod119, 
+                     eval_mod120)
+
+mods_quadratic <- rbind(eval_mod121, eval_mod122, eval_mod123, eval_mod124, eval_mod125, eval_mod126, eval_mod127, eval_mod128, eval_mod129, eval_mod130, eval_mod131, 
+                        eval_mod132, eval_mod133, eval_mod134, eval_mod135, eval_mod136, eval_mod137, eval_mod138, eval_mod139, eval_mod140, eval_mod141, eval_mod142, 
+                        eval_mod143, eval_mod144, eval_mod145, eval_mod146, eval_mod147, eval_mod148, eval_mod149, eval_mod150, eval_mod151, eval_mod152, eval_mod153, 
+                        eval_mod154, eval_mod155, eval_mod156, eval_mod157, eval_mod158, eval_mod159, eval_mod160, eval_mod161, eval_mod162, eval_mod163, eval_mod164, 
+                        eval_mod165, eval_mod166, eval_mod167, eval_mod168, eval_mod169, eval_mod170, eval_mod171, eval_mod172, eval_mod173, eval_mod174, eval_mod175, 
+                        eval_mod176, eval_mod177, eval_mod178, eval_mod179, eval_mod180, eval_mod181, eval_mod182, eval_mod183, eval_mod184, eval_mod185, eval_mod186, 
+                        eval_mod187, eval_mod188, eval_mod189, eval_mod190, eval_mod191, eval_mod192, eval_mod193, eval_mod194, eval_mod195, eval_mod196, eval_mod197,
+                        eval_mod198, eval_mod199, eval_mod200, eval_mod201, eval_mod202, eval_mod203, eval_mod204, eval_mod205, eval_mod206, eval_mod207, eval_mod208,
+                        eval_mod209, eval_mod210, eval_mod211, eval_mod212, eval_mod213, eval_mod214, eval_mod215, eval_mod216, eval_mod217, eval_mod218, eval_mod219,
+                        eval_mod220, eval_mod221, eval_mod222, eval_mod223, eval_mod224, eval_mod225, eval_mod226, eval_mod227, eval_mod228, eval_mod229, eval_mod230,
+                        eval_mod231, eval_mod232, eval_mod233, eval_mod234, eval_mod235, eval_mod236, eval_mod237, eval_mod238, eval_mod239, eval_mod240)
+
+
+
+```
+
+# Save tables
+```{r Save objects}
+
+setwd("C:/Users/catia/Desktop/ms_diversities/03.output_data")
+write.csv(x = mods_linear, file = paste("02.linear_models_evaluation.csv", sep = ""))
+write.csv(x = mods_quadratic, file = paste("02.quadratic_models_evaluation.csv", sep = ""))
+```
