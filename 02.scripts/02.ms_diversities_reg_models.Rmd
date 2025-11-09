@@ -27,7 +27,7 @@ library(broom)
 Load data
 ```{r}
 # diversity and environmental data
-load("~/GitHub/manuscript_diversities/01.input_data/01.diversity_env_df.RData")
+load("../01.input_data/01.diversity_env_df.RData")
 ```
 
 
@@ -1659,7 +1659,6 @@ mods_quadratic <- rbind(eval_mod121, eval_mod122, eval_mod123, eval_mod124, eval
 # Save tables
 ```{r Save objects}
 
-setwd("~/GitHub/manuscript_diversities/03.output_data")
-write.csv(x = mods_linear, file = paste("02.linear_models_evaluation.csv", sep = ""))
-write.csv(x = mods_quadratic, file = paste("02.quadratic_models_evaluation.csv", sep = ""))
+write.csv(x = mods_linear, file = paste("../02.linear_models_evaluation.csv", sep = ""))
+write.csv(x = mods_quadratic, file = paste("../02.quadratic_models_evaluation.csv", sep = ""))
 ```

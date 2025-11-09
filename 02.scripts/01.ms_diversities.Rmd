@@ -38,10 +38,10 @@ library(ggpmisc) # for stat_poly_eq()
 Load data
 ```{r}
 # community data
-community.df <- read.csv("~/GitHub/manuscript_diversities/01.input_data/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
+community.df <- read.csv("../01.input_data/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
 
 # diversity and environmental data
-load("~/GitHub/manuscript_diversities/01.input_data/01.diversity_env_df.RData")
+load("../01.input_data/01.diversity_env_df.RData")
 ```
 
 # Data Prep
