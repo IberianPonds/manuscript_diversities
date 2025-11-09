@@ -1659,6 +1659,6 @@ mods_quadratic <- rbind(eval_mod121, eval_mod122, eval_mod123, eval_mod124, eval
 # Save tables
 ```{r Save objects}
 
-write.csv(x = mods_linear, file = paste("../02.linear_models_evaluation.csv", sep = ""))
-write.csv(x = mods_quadratic, file = paste("../02.quadratic_models_evaluation.csv", sep = ""))
+write.csv(x = mods_linear, file = paste("../03.output_data/02.linear_models_evaluation.csv", sep = ""))
+write.csv(x = mods_quadratic, file = paste("../03.output_data/02.quadratic_models_evaluation.csv", sep = ""))
 ```
