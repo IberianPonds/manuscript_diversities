@@ -1,0 +1,1349 @@
+taxa;domain;kingdom;phylum;class;order;family;genus;species;source;group;id_level
+Bacteria;Bacteria;Bacteria;NA;NA;NA;NA;NA;NA;eDNA;bacteria;kingdom
+Armatimonadetes;Bacteria;Bacteria;Armatimonadetes;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+BRC1;Bacteria;Bacteria;BRC1;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Elusimicrobia;Bacteria;Bacteria;Elusimicrobia;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Firmicutes;Bacteria;Bacteria;Firmicutes;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Gemmatimonadetes;Bacteria;Bacteria;Gemmatimonadetes;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Latescibacteria;Bacteria;Bacteria;Latescibacteria;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+LCP-89;Bacteria;Bacteria;LCP-89;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Lentisphaerae;Bacteria;Bacteria;Lentisphaerae;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Omnitrophicaeota;Bacteria;Bacteria;Omnitrophicaeota;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Patescibacteria;Bacteria;Bacteria;Patescibacteria;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+Proteobacteria;Bacteria;Bacteria;Proteobacteria;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+WOR-1;Bacteria;Bacteria;WOR-1;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+WPS-2;Bacteria;Bacteria;WPS-2;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+WS4;Bacteria;Bacteria;WS4;NA;NA;NA;NA;NA;eDNA;bacteria;phylum
+ABY1;Bacteria;Bacteria;Patescibacteria;ABY1;NA;NA;NA;NA;eDNA;bacteria;class
+Acidimicrobiia;Bacteria;Bacteria;Actinobacteria;Acidimicrobiia;NA;NA;NA;NA;eDNA;bacteria;class
+Actinobacteria;Bacteria;Bacteria;Actinobacteria;Actinobacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Alphaproteobacteria;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Babeliae;Bacteria;Bacteria;Dependentiae;Babeliae;NA;NA;NA;NA;eDNA;bacteria;class
+Bacteroidia;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;NA;NA;NA;NA;eDNA;bacteria;class
+Berkelbacteria;Bacteria;Bacteria;Patescibacteria;Berkelbacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Blastocatellia (Subgroup 4);Bacteria;Bacteria;Acidobacteria;Blastocatellia (Subgroup 4);NA;NA;NA;NA;eDNA;bacteria;class
+Candidatus Dojkabacteria;Bacteria;Bacteria;Patescibacteria;Candidatus Dojkabacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Clostridia;Bacteria;Bacteria;Firmicutes;Clostridia;NA;NA;NA;NA;eDNA;bacteria;class
+CPR2;Bacteria;Bacteria;Patescibacteria;CPR2;NA;NA;NA;NA;eDNA;bacteria;class
+Deltaproteobacteria;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Gammaproteobacteria;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Gracilibacteria;Bacteria;Bacteria;Patescibacteria;Gracilibacteria;NA;NA;NA;NA;eDNA;bacteria;class
+KD4-96;Bacteria;Bacteria;Chloroflexi;KD4-96;NA;NA;NA;NA;eDNA;bacteria;class
+Kiritimatiellae;Bacteria;Bacteria;Kiritimatiellaeota;Kiritimatiellae;NA;NA;NA;NA;eDNA;bacteria;class
+Lineage IIa;Bacteria;Bacteria;Elusimicrobia;Lineage IIa;NA;NA;NA;NA;eDNA;bacteria;class
+Lineage IIc;Bacteria;Bacteria;Elusimicrobia;Lineage IIc;NA;NA;NA;NA;eDNA;bacteria;class
+Melainabacteria;Bacteria;Bacteria;Cyanobacteria;Melainabacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Microgenomatia;Bacteria;Bacteria;Patescibacteria;Microgenomatia;NA;NA;NA;NA;eDNA;bacteria;class
+Oxyphotobacteria;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Parcubacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;NA;NA;NA;NA;eDNA;bacteria;class
+Planctomycetacia;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;NA;NA;NA;NA;eDNA;bacteria;class
+Rs-M47;Bacteria;Bacteria;Elusimicrobia;Rs-M47;NA;NA;NA;NA;eDNA;bacteria;class
+Subgroup 17;Bacteria;Bacteria;Acidobacteria;Subgroup 17;NA;NA;NA;NA;eDNA;bacteria;class
+Subgroup 26;Bacteria;Bacteria;Acidobacteria;Subgroup 26;NA;NA;NA;NA;eDNA;bacteria;class
+Subgroup 6;Bacteria;Bacteria;Acidobacteria;Subgroup 6;NA;NA;NA;NA;eDNA;bacteria;class
+V2072-189E03;Bacteria;Bacteria;Spirochaetes;V2072-189E03;NA;NA;NA;NA;eDNA;bacteria;class
+vadinHA49;Bacteria;Bacteria;Planctomycetes;vadinHA49;NA;NA;NA;NA;eDNA;bacteria;class
+Verrucomicrobiae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;NA;NA;NA;NA;eDNA;bacteria;class
+WWE3;Bacteria;Bacteria;Patescibacteria;WWE3;NA;NA;NA;NA;eDNA;bacteria;class
+211ds20;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;211ds20;NA;NA;NA;eDNA;bacteria;order
+32-520;Bacteria;Bacteria;Patescibacteria;Parcubacteria;32-520;NA;NA;NA;eDNA;bacteria;order
+Acetobacterales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Acetobacterales;NA;NA;NA;eDNA;bacteria;order
+Actinomycetales;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Actinomycetales;NA;NA;NA;eDNA;bacteria;order
+Aminicenantales;Bacteria;Bacteria;Acidobacteria;Aminicenantia;Aminicenantales;NA;NA;NA;eDNA;bacteria;order
+Armatimonadales;Bacteria;Bacteria;Armatimonadetes;Armatimonadia;Armatimonadales;NA;NA;NA;eDNA;bacteria;order
+Babeliales;Bacteria;Bacteria;Dependentiae;Babeliae;Babeliales;NA;NA;NA;eDNA;bacteria;order
+Bacillales;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;NA;NA;NA;eDNA;bacteria;order
+Bacteroidales;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;NA;NA;NA;eDNA;bacteria;order
+Bacteroidetes VC2.1 Bac22;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidetes VC2.1 Bac22;NA;NA;NA;eDNA;bacteria;order
+Betaproteobacteriales;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;NA;NA;NA;eDNA;bacteria;order
+Caenarcaniphilales;Bacteria;Bacteria;Cyanobacteria;Melainabacteria;Caenarcaniphilales;NA;NA;NA;eDNA;bacteria;order
+Campylobacterales;Bacteria;Bacteria;Epsilonbacteraeota;Campylobacteria;Campylobacterales;NA;NA;NA;eDNA;bacteria;order
+Candidatus Abawacabacteria;Bacteria;Bacteria;Patescibacteria;Gracilibacteria;Candidatus Abawacabacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Adlerbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Adlerbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Amesbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Amesbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Beckwithbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Beckwithbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Buchananbacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Buchananbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Campbellbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Campbellbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Chisholmbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Chisholmbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Collierbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Collierbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Colwellbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Colwellbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Daviesbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Daviesbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Falkowbacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Falkowbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Gottesmanbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Gottesmanbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Jorgensenbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Jorgensenbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Kaiserbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Kaiserbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Kerfeldbacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Kerfeldbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Komeilibacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Komeilibacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Kuenenbacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Kuenenbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Levybacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Levybacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Magasanikbacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Magasanikbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Moranbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Moranbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Nomurabacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Nomurabacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Pacebacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Pacebacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Peregrinibacteria;Bacteria;Bacteria;Patescibacteria;Gracilibacteria;Candidatus Peregrinibacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Peribacteria;Bacteria;Bacteria;Patescibacteria;Gracilibacteria;Candidatus Peribacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Roizmanbacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Roizmanbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Shapirobacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Shapirobacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Staskawiczbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Staskawiczbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Uhrbacteria;Bacteria;Bacteria;Patescibacteria;ABY1;Candidatus Uhrbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Vogelbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Vogelbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Woesebacteria;Bacteria;Bacteria;Patescibacteria;Microgenomatia;Candidatus Woesebacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Wolfebacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Wolfebacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Yanofskybacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Yanofskybacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Yonathbacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Yonathbacteria;NA;NA;NA;eDNA;bacteria;order
+Candidatus Zambryskibacteria;Bacteria;Bacteria;Patescibacteria;Parcubacteria;Candidatus Zambryskibacteria;NA;NA;NA;eDNA;bacteria;order
+Caulobacterales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;NA;NA;NA;eDNA;bacteria;order
+CCM19a;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;CCM19a;NA;NA;NA;eDNA;bacteria;order
+Cellvibrionales;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cellvibrionales;NA;NA;NA;eDNA;bacteria;order
+CHAB-XI-27;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;CHAB-XI-27;NA;NA;NA;eDNA;bacteria;order
+Chitinophagales;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;NA;NA;NA;eDNA;bacteria;order
+Chthoniobacterales;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Chthoniobacterales;NA;NA;NA;eDNA;bacteria;order
+Clostridiales;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;NA;NA;NA;eDNA;bacteria;order
+Cytophagales;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;NA;NA;NA;eDNA;bacteria;order
+Desulfuromonadales;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfuromonadales;NA;NA;NA;eDNA;bacteria;order
+Elsterales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Elsterales;NA;NA;NA;eDNA;bacteria;order
+Eurycoccales;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Eurycoccales;NA;NA;NA;eDNA;bacteria;order
+EV818SWSAP88;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;EV818SWSAP88;NA;NA;NA;eDNA;bacteria;order
+Flavobacteriales;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;NA;NA;NA;eDNA;bacteria;order
+Fusobacteriales;Bacteria;Bacteria;Fusobacteria;Fusobacteriia;Fusobacteriales;NA;NA;NA;eDNA;bacteria;order
+Ga0077536;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Ga0077536;NA;NA;NA;eDNA;bacteria;order
+Gaiellales;Bacteria;Bacteria;Actinobacteria;Thermoleophilia;Gaiellales;NA;NA;NA;eDNA;bacteria;order
+Gastranaerophilales;Bacteria;Bacteria;Cyanobacteria;Melainabacteria;Gastranaerophilales;NA;NA;NA;eDNA;bacteria;order
+GWA2-38-13b;Bacteria;Bacteria;Patescibacteria;Parcubacteria;GWA2-38-13b;NA;NA;NA;eDNA;bacteria;order
+Holosporales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Holosporales;NA;NA;NA;eDNA;bacteria;order
+Ignavibacteriales;Bacteria;Bacteria;Bacteroidetes;Ignavibacteria;Ignavibacteriales;NA;NA;NA;eDNA;bacteria;order
+IMCC26256;Bacteria;Bacteria;Actinobacteria;Acidimicrobiia;IMCC26256;NA;NA;NA;eDNA;bacteria;order
+JGI 0000069-P22;Bacteria;Bacteria;Patescibacteria;Gracilibacteria;JGI 0000069-P22;NA;NA;NA;eDNA;bacteria;order
+Lactobacillales;Bacteria;Bacteria;Firmicutes;Bacilli;Lactobacillales;NA;NA;NA;eDNA;bacteria;order
+Legionellales;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Legionellales;NA;NA;NA;eDNA;bacteria;order
+Lineage IV;Bacteria;Bacteria;Elusimicrobia;Elusimicrobia;Lineage IV;NA;NA;NA;eDNA;bacteria;order
+Micavibrionales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Micavibrionales;NA;NA;NA;eDNA;bacteria;order
+MSBL9;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;MSBL9;NA;NA;NA;eDNA;bacteria;order
+Myxococcales;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;NA;NA;NA;eDNA;bacteria;order
+Nostocales;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;NA;NA;NA;eDNA;bacteria;order
+Obscuribacterales;Bacteria;Bacteria;Cyanobacteria;Melainabacteria;Obscuribacterales;NA;NA;NA;eDNA;bacteria;order
+OPB56;Bacteria;Bacteria;Bacteroidetes;Ignavibacteria;OPB56;NA;NA;NA;eDNA;bacteria;order
+Paracaedibacterales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Paracaedibacterales;NA;NA;NA;eDNA;bacteria;order
+PB19;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;PB19;NA;NA;NA;eDNA;bacteria;order
+Phormidesmiales;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Phormidesmiales;NA;NA;NA;eDNA;bacteria;order
+Planctomycetales;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;NA;NA;NA;eDNA;bacteria;order
+R7C24;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;R7C24;NA;NA;NA;eDNA;bacteria;order
+Rhizobiales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;NA;NA;NA;eDNA;bacteria;order
+Rhodospirillales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;NA;NA;NA;eDNA;bacteria;order
+Rickettsiales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;NA;NA;NA;eDNA;bacteria;order
+Saccharimonadales;Bacteria;Bacteria;Patescibacteria;Saccharimonadia;Saccharimonadales;NA;NA;NA;eDNA;bacteria;order
+SJA-28;Bacteria;Bacteria;Bacteroidetes;Ignavibacteria;SJA-28;NA;NA;NA;eDNA;bacteria;order
+Solirubrobacterales;Bacteria;Bacteria;Actinobacteria;Thermoleophilia;Solirubrobacterales;NA;NA;NA;eDNA;bacteria;order
+Sphingobacteriales;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;NA;NA;NA;eDNA;bacteria;order
+Sphingomonadales;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;NA;NA;NA;eDNA;bacteria;order
+Subgroup 7;Bacteria;Bacteria;Acidobacteria;Holophagae;Subgroup 7;NA;NA;NA;eDNA;bacteria;order
+Sva0485;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Sva0485;NA;NA;NA;eDNA;bacteria;order
+Tepidisphaerales;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;Tepidisphaerales;NA;NA;NA;eDNA;bacteria;order
+Vampirovibrionales;Bacteria;Bacteria;Cyanobacteria;Melainabacteria;Vampirovibrionales;NA;NA;NA;eDNA;bacteria;order
+Verrucomicrobiales;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;NA;NA;NA;eDNA;bacteria;order
+WCHB1-41;Bacteria;Bacteria;Kiritimatiellaeota;Kiritimatiellae;WCHB1-41;NA;NA;NA;eDNA;bacteria;order
+WD260;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;WD260;NA;NA;NA;eDNA;bacteria;order
+Xanthomonadales;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;NA;NA;NA;eDNA;bacteria;order
+01D2Z36;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Chthoniobacterales;01D2Z36;NA;NA;eDNA;bacteria;family
+A0839;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;A0839;NA;NA;eDNA;bacteria;family
+Acetobacteraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Acetobacterales;Acetobacteraceae;NA;NA;eDNA;bacteria;family
+Acidaminococcaceae;Bacteria;Bacteria;Firmicutes;Negativicutes;Selenomonadales;Acidaminococcaceae;NA;NA;eDNA;bacteria;family
+Acidiferrobacteraceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Acidiferrobacterales;Acidiferrobacteraceae;NA;NA;eDNA;bacteria;family
+AKYH767;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;AKYH767;NA;NA;eDNA;bacteria;family
+Alteromonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Alteromonadales;Alteromonadaceae;NA;NA;eDNA;bacteria;family
+Amoebophilaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Amoebophilaceae;NA;NA;eDNA;bacteria;family
+Aquaspirillaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Aquaspirillaceae;NA;NA;eDNA;bacteria;family
+Babeliaceae;Bacteria;Bacteria;Dependentiae;Babeliae;Babeliales;Babeliaceae;NA;NA;eDNA;bacteria;family
+bacteriap25;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;bacteriap25;NA;NA;eDNA;bacteria;family
+Bacteriovoracaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Bdellovibrionales;Bacteriovoracaceae;NA;NA;eDNA;bacteria;family
+Bacteroidaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidaceae;NA;NA;eDNA;bacteria;family
+Bacteroidetes BD2-2;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidetes BD2-2;NA;NA;eDNA;bacteria;family
+Bacteroidetes vadinHA17;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Bacteroidetes vadinHA17;NA;NA;eDNA;bacteria;family
+Balneolaceae;Bacteria;Bacteria;Bacteroidetes;Rhodothermia;Balneolales;Balneolaceae;NA;NA;eDNA;bacteria;family
+Bdellovibrionaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Bdellovibrionales;Bdellovibrionaceae;NA;NA;eDNA;bacteria;family
+Beggiatoaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Beggiatoales;Beggiatoaceae;NA;NA;eDNA;bacteria;family
+Beijerinckiaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;NA;NA;eDNA;bacteria;family
+BIrii41;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;BIrii41;NA;NA;eDNA;bacteria;family
+Blastocatellaceae;Bacteria;Bacteria;Acidobacteria;Blastocatellia (Subgroup 4);Blastocatellales;Blastocatellaceae;NA;NA;eDNA;bacteria;family
+Blfdi19;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;Blfdi19;NA;NA;eDNA;bacteria;family
+BSV26;Bacteria;Bacteria;Bacteroidetes;Ignavibacteria;Kryptoniales;BSV26;NA;NA;eDNA;bacteria;family
+Burkholderiaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;NA;NA;eDNA;bacteria;family
+Caulobacteraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Caulobacteraceae;NA;NA;eDNA;bacteria;family
+Cellulomonadaceae;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Cellulomonadaceae;NA;NA;eDNA;bacteria;family
+Cellvibrionaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cellvibrionales;Cellvibrionaceae;NA;NA;eDNA;bacteria;family
+Chitinibacteraceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chitinibacteraceae;NA;NA;eDNA;bacteria;family
+Chitinivibrionaceae;Bacteria;Bacteria;Fibrobacteres;Chitinivibrionia;Chitinivibrionales;Chitinivibrionaceae;NA;NA;eDNA;bacteria;family
+Chitinophagaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;NA;NA;eDNA;bacteria;family
+Chlorobiaceae;Bacteria;Bacteria;Bacteroidetes;Chlorobia;Chlorobiales;Chlorobiaceae;NA;NA;eDNA;bacteria;family
+Chloroflexaceae;Bacteria;Bacteria;Chloroflexi;Chloroflexia;Chloroflexales;Chloroflexaceae;NA;NA;eDNA;bacteria;family
+Chromatiaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Chromatiales;Chromatiaceae;NA;NA;eDNA;bacteria;family
+Chromobacteriaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chromobacteriaceae;NA;NA;eDNA;bacteria;family
+Chthoniobacteraceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Chthoniobacterales;Chthoniobacteraceae;NA;NA;eDNA;bacteria;family
+Clostridiaceae 1;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae 1;NA;NA;eDNA;bacteria;family
+Clostridiaceae 2;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae 2;NA;NA;eDNA;bacteria;family
+Clostridiaceae 3;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae 3;NA;NA;eDNA;bacteria;family
+Crocinitomicaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Crocinitomicaceae;NA;NA;eDNA;bacteria;family
+Cryomorphaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Cryomorphaceae;NA;NA;eDNA;bacteria;family
+Cyclobacteriaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Cyclobacteriaceae;NA;NA;eDNA;bacteria;family
+Cytophagaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Cytophagaceae;NA;NA;eDNA;bacteria;family
+Desulfobacteraceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfobacterales;Desulfobacteraceae;NA;NA;eDNA;bacteria;family
+Desulfobulbaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfobacterales;Desulfobulbaceae;NA;NA;eDNA;bacteria;family
+Desulfuromonadaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfuromonadales;Desulfuromonadaceae;NA;NA;eDNA;bacteria;family
+DEV007;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;DEV007;NA;NA;eDNA;bacteria;family
+Devosiaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Devosiaceae;NA;NA;eDNA;bacteria;family
+Elsteraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Elsterales;Elsteraceae;NA;NA;eDNA;bacteria;family
+Enterobacteriaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacteriales;Enterobacteriaceae;NA;NA;eDNA;bacteria;family
+Family XII;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Family XII;NA;NA;eDNA;bacteria;family
+Family XIII;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Family XIII;NA;NA;eDNA;bacteria;family
+Fimbriimonadaceae;Bacteria;Bacteria;Armatimonadetes;Fimbriimonadia;Fimbriimonadales;Fimbriimonadaceae;NA;NA;eDNA;bacteria;family
+Flavobacteriaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;NA;NA;eDNA;bacteria;family
+Francisellaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Francisellales;Francisellaceae;NA;NA;eDNA;bacteria;family
+Gallionellaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Gallionellaceae;NA;NA;eDNA;bacteria;family
+Gemmataceae;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Gemmatales;Gemmataceae;NA;NA;eDNA;bacteria;family
+Gemmatimonadaceae;Bacteria;Bacteria;Gemmatimonadetes;Gemmatimonadetes;Gemmatimonadales;Gemmatimonadaceae;NA;NA;eDNA;bacteria;family
+Halieaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cellvibrionales;Halieaceae;NA;NA;eDNA;bacteria;family
+Halomonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Oceanospirillales;Halomonadaceae;NA;NA;eDNA;bacteria;family
+Haloplasmataceae;Bacteria;Bacteria;Tenericutes;Mollicutes;Haloplasmatales;Haloplasmataceae;NA;NA;eDNA;bacteria;family
+Holophagaceae;Bacteria;Bacteria;Acidobacteria;Holophagae;Holophagales;Holophagaceae;NA;NA;eDNA;bacteria;family
+Holosporaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Holosporales;Holosporaceae;NA;NA;eDNA;bacteria;family
+Hydrogenedensaceae;Bacteria;Bacteria;Hydrogenedentes;Hydrogenedentia;Hydrogenedentiales;Hydrogenedensaceae;NA;NA;eDNA;bacteria;family
+Hydrogenophilaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Hydrogenophilaceae;NA;NA;eDNA;bacteria;family
+Hymenobacteraceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Hymenobacteraceae;NA;NA;eDNA;bacteria;family
+Hyphomicrobiaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Hyphomicrobiaceae;NA;NA;eDNA;bacteria;family
+Hyphomonadaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Hyphomonadaceae;NA;NA;eDNA;bacteria;family
+Isosphaeraceae;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Isosphaerales;Isosphaeraceae;NA;NA;eDNA;bacteria;family
+KD3-93;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;KD3-93;NA;NA;eDNA;bacteria;family
+Kineosporiaceae;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Kineosporiales;Kineosporiaceae;NA;NA;eDNA;bacteria;family
+L21-RPul-D3;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;MSBL9;L21-RPul-D3;NA;NA;eDNA;bacteria;family
+Lachnospiraceae;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;NA;NA;eDNA;bacteria;family
+Legionellaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Legionellales;Legionellaceae;NA;NA;eDNA;bacteria;family
+Lentimicrobiaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;Lentimicrobiaceae;NA;NA;eDNA;bacteria;family
+Leptolyngbyaceae;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Leptolyngbyales;Leptolyngbyaceae;NA;NA;eDNA;bacteria;family
+Leptospiraceae;Bacteria;Bacteria;Spirochaetes;Leptospirae;Leptospirales;Leptospiraceae;NA;NA;eDNA;bacteria;family
+Leptotrichiaceae;Bacteria;Bacteria;Fusobacteria;Fusobacteriia;Fusobacteriales;Leptotrichiaceae;NA;NA;eDNA;bacteria;family
+LiUU-11-161;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;LiUU-11-161;NA;NA;eDNA;bacteria;family
+Magnetospiraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Magnetospiraceae;NA;NA;eDNA;bacteria;family
+Magnetospirillaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Magnetospirillaceae;NA;NA;eDNA;bacteria;family
+Marinilabiliaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Marinilabiliaceae;NA;NA;eDNA;bacteria;family
+Methylacidiphilaceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Methylacidiphilales;Methylacidiphilaceae;NA;NA;eDNA;bacteria;family
+Methylococcaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Methylococcales;Methylococcaceae;NA;NA;eDNA;bacteria;family
+Methylomonaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Methylococcales;Methylomonaceae;NA;NA;eDNA;bacteria;family
+Methylophilaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Methylophilaceae;NA;NA;eDNA;bacteria;family
+Micavibrionaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Micavibrionales;Micavibrionaceae;NA;NA;eDNA;bacteria;family
+Microbacteriaceae;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;NA;NA;eDNA;bacteria;family
+Microcystaceae;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Microcystaceae;NA;NA;eDNA;bacteria;family
+Micropepsaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Micropepsales;Micropepsaceae;NA;NA;eDNA;bacteria;family
+Microscillaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Microscillaceae;NA;NA;eDNA;bacteria;family
+Midichloriaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Midichloriaceae;NA;NA;eDNA;bacteria;family
+ML635J-40 aquatic group;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;ML635J-40 aquatic group;NA;NA;eDNA;bacteria;family
+mle1-27;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;mle1-27;NA;NA;eDNA;bacteria;family
+Moraxellaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;NA;NA;eDNA;bacteria;family
+MSB-3C8;Bacteria;Bacteria;Bacteroidetes;Ignavibacteria;Kryptoniales;MSB-3C8;NA;NA;eDNA;bacteria;family
+Nannocystaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;Nannocystaceae;NA;NA;eDNA;bacteria;family
+Nitrosomonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;NA;NA;eDNA;bacteria;family
+Nodosilineaceae;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Phormidesmiales;Nodosilineaceae;NA;NA;eDNA;bacteria;family
+Nostocaceae;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;NA;NA;eDNA;bacteria;family
+Oligoflexaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Oligoflexales;Oligoflexaceae;NA;NA;eDNA;bacteria;family
+Opitutaceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Opitutaceae;NA;NA;eDNA;bacteria;family
+Paludibacteraceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Paludibacteraceae;NA;NA;eDNA;bacteria;family
+Paracaedibacteraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Paracaedibacterales;Paracaedibacteraceae;NA;NA;eDNA;bacteria;family
+Pedosphaeraceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Pedosphaerales;Pedosphaeraceae;NA;NA;eDNA;bacteria;family
+Peptococcaceae;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Peptococcaceae;NA;NA;eDNA;bacteria;family
+PHOS-HE36;Bacteria;Bacteria;Bacteroidetes;Ignavibacteria;Ignavibacteriales;PHOS-HE36;NA;NA;eDNA;bacteria;family
+Phycisphaeraceae;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;Phycisphaerales;Phycisphaeraceae;NA;NA;eDNA;bacteria;family
+Pirellulaceae;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Pirellulales;Pirellulaceae;NA;NA;eDNA;bacteria;family
+Planococcaceae;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Planococcaceae;NA;NA;eDNA;bacteria;family
+Pleomorphomonadaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Pleomorphomonadaceae;NA;NA;eDNA;bacteria;family
+Prolixibacteraceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prolixibacteraceae;NA;NA;eDNA;bacteria;family
+Pseudanabaenaceae;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Pseudanabaenales;Pseudanabaenaceae;NA;NA;eDNA;bacteria;family
+Pseudomonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Pseudomonadaceae;NA;NA;eDNA;bacteria;family
+Puniceicoccaceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Puniceicoccaceae;NA;NA;eDNA;bacteria;family
+Rhizobiaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;NA;NA;eDNA;bacteria;family
+Rhodanobacteraceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Rhodanobacteraceae;NA;NA;eDNA;bacteria;family
+Rhodobacteraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;NA;NA;eDNA;bacteria;family
+Rhodocyclaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;NA;NA;eDNA;bacteria;family
+Rhodospirillaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Rhodospirillaceae;NA;NA;eDNA;bacteria;family
+Rhodothermaceae;Bacteria;Bacteria;Bacteroidetes;Rhodothermia;Rhodothermales;Rhodothermaceae;NA;NA;eDNA;bacteria;family
+Rickettsiaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Rickettsiaceae;NA;NA;eDNA;bacteria;family
+Roseiflexaceae;Bacteria;Bacteria;Chloroflexi;Chloroflexia;Chloroflexales;Roseiflexaceae;NA;NA;eDNA;bacteria;family
+Rubinisphaeraceae;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Rubinisphaeraceae;NA;NA;eDNA;bacteria;family
+Rubritaleaceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Rubritaleaceae;NA;NA;eDNA;bacteria;family
+Saccharimonadaceae;Bacteria;Bacteria;Patescibacteria;Saccharimonadia;Saccharimonadales;Saccharimonadaceae;NA;NA;eDNA;bacteria;family
+Sandaracinaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;Sandaracinaceae;NA;NA;eDNA;bacteria;family
+Saprospiraceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Saprospiraceae;NA;NA;eDNA;bacteria;family
+SC-I-84;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;SC-I-84;NA;NA;eDNA;bacteria;family
+Schlesneriaceae;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Schlesneriaceae;NA;NA;eDNA;bacteria;family
+SM23-30;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;MSBL9;SM23-30;NA;NA;eDNA;bacteria;family
+SM2D12;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;SM2D12;NA;NA;eDNA;bacteria;family
+Sneathiellaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sneathiellales;Sneathiellaceae;NA;NA;eDNA;bacteria;family
+Solibacteraceae (Subgroup 3);Bacteria;Bacteria;Acidobacteria;Acidobacteriia;Solibacterales;Solibacteraceae (Subgroup 3);NA;NA;eDNA;bacteria;family
+Solimonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Salinisphaerales;Solimonadaceae;NA;NA;eDNA;bacteria;family
+Solirubrobacteraceae;Bacteria;Bacteria;Actinobacteria;Thermoleophilia;Solirubrobacterales;Solirubrobacteraceae;NA;NA;eDNA;bacteria;family
+Sphingobacteriaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;Sphingobacteriaceae;NA;NA;eDNA;bacteria;family
+Sphingomonadaceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;NA;NA;eDNA;bacteria;family
+Spirochaetaceae;Bacteria;Bacteria;Spirochaetes;Spirochaetia;Spirochaetales;Spirochaetaceae;NA;NA;eDNA;bacteria;family
+Spirosomaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;NA;NA;eDNA;bacteria;family
+Sporichthyaceae;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Actinomycetales;Sporichthyaceae;NA;NA;eDNA;bacteria;family
+Steroidobacteraceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Steroidobacterales;Steroidobacteraceae;NA;NA;eDNA;bacteria;family
+Syntrophaceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Syntrophobacterales;Syntrophaceae;NA;NA;eDNA;bacteria;family
+Syntrophobacteraceae;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Syntrophobacterales;Syntrophobacteraceae;NA;NA;eDNA;bacteria;family
+T34;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;T34;NA;NA;eDNA;bacteria;family
+Tannerellaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Tannerellaceae;NA;NA;eDNA;bacteria;family
+TC1;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;TC1;NA;NA;eDNA;bacteria;family
+Tepidisphaeraceae;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;Tepidisphaerales;Tepidisphaeraceae;NA;NA;eDNA;bacteria;family
+Thermosynechococcaceae;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Thermosynechococcales;Thermosynechococcaceae;NA;NA;eDNA;bacteria;family
+Thiotrichaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Thiotrichales;Thiotrichaceae;NA;NA;eDNA;bacteria;family
+TRA3-20;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;TRA3-20;NA;NA;eDNA;bacteria;family
+UBA12409;Bacteria;Bacteria;Dependentiae;Babeliae;Babeliales;UBA12409;NA;NA;eDNA;bacteria;family
+Vermiphilaceae;Bacteria;Bacteria;Dependentiae;Babeliae;Babeliales;Vermiphilaceae;NA;NA;eDNA;bacteria;family
+Verrucomicrobiaceae;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Verrucomicrobiaceae;NA;NA;eDNA;bacteria;family
+WCHB1-02;Bacteria;Bacteria;Caldiserica;Caldisericia;Caldisericales;WCHB1-02;NA;NA;eDNA;bacteria;family
+Weeksellaceae;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Weeksellaceae;NA;NA;eDNA;bacteria;family
+Wohlfahrtiimonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cardiobacteriales;Wohlfahrtiimonadaceae;NA;NA;eDNA;bacteria;family
+Xanthobacteraceae;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Xanthobacteraceae;NA;NA;eDNA;bacteria;family
+Xanthomonadaceae;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Xanthomonadaceae;NA;NA;eDNA;bacteria;family
+1174-901-12;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;1174-901-12;NA;eDNA;bacteria;genus
+AAP99;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;AAP99;NA;eDNA;bacteria;genus
+Acetoaerobium;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Peptostreptococcaceae;Acetoaerobium;NA;eDNA;bacteria;genus
+Acetobacterium;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Eubacteriaceae;Acetobacterium;NA;eDNA;bacteria;genus
+Acetobacteroides;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Rikenellaceae;Acetobacteroides;NA;eDNA;bacteria;genus
+Achromobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Achromobacter;NA;eDNA;bacteria;genus
+Acidibacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Gammaproteobacteria Incertae Sedis;Gammaproteobacteria Incertae Sedis;Acidibacter;NA;eDNA;bacteria;genus
+Acinetobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Acinetobacter;NA;eDNA;bacteria;genus
+Actinoplanes;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micromonosporales;Micromonosporaceae;Actinoplanes;NA;eDNA;bacteria;genus
+Adhaeribacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Hymenobacteraceae;Adhaeribacter;NA;eDNA;bacteria;genus
+ADurb.Bin063-1;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Pedosphaerales;Pedosphaeraceae;ADurb.Bin063-1;NA;eDNA;bacteria;genus
+Aeromonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Aeromonadales;Aeromonadaceae;Aeromonas;NA;eDNA;bacteria;genus
+Aerosinus;Bacteria;Bacteria;Firmicutes;Negativicutes;Selenomonadales;Veillonellaceae;Aerosinus;NA;eDNA;bacteria;genus
+Agrococcus;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Agrococcus;NA;eDNA;bacteria;genus
+Algoriphagus;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Cyclobacteriaceae;Algoriphagus;NA;eDNA;bacteria;genus
+Alishewanella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Alteromonadales;Alteromonadaceae;Alishewanella;NA;eDNA;bacteria;genus
+Alkaliphilus;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae 2;Alkaliphilus;NA;eDNA;bacteria;genus
+Allochromatium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Chromatiales;Chromatiaceae;Allochromatium;NA;eDNA;bacteria;genus
+Altererythrobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Altererythrobacter;NA;eDNA;bacteria;genus
+Anabaena BECID22;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Anabaena BECID22;NA;eDNA;bacteria;genus
+Anabaena PCC-7122;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Anabaena PCC-7122;NA;eDNA;bacteria;genus
+Anaeromyxobacter;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;Archangiaceae;Anaeromyxobacter;NA;eDNA;bacteria;genus
+Ancylobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Xanthobacteraceae;Ancylobacter;NA;eDNA;bacteria;genus
+Aphanizomenon NIES81;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Aphanizomenon NIES81;NA;eDNA;bacteria;genus
+Aquabacterium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Aquabacterium;NA;eDNA;bacteria;genus
+Aquimonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Rhodanobacteraceae;Aquimonas;NA;eDNA;bacteria;genus
+Aquisphaera;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Isosphaerales;Isosphaeraceae;Aquisphaera;NA;eDNA;bacteria;genus
+Aquitalea;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chromobacteriaceae;Aquitalea;NA;eDNA;bacteria;genus
+Arcicella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Arcicella;NA;eDNA;bacteria;genus
+Arcobacter;Bacteria;Bacteria;Epsilonbacteraeota;Campylobacteria;Campylobacterales;Arcobacteraceae;Arcobacter;NA;eDNA;bacteria;genus
+Arenimonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Xanthomonadaceae;Arenimonas;NA;eDNA;bacteria;genus
+Aridibacter;Bacteria;Bacteria;Acidobacteria;Blastocatellia (Subgroup 4);Blastocatellales;Blastocatellaceae;Aridibacter;NA;eDNA;bacteria;genus
+Armatimonas;Bacteria;Bacteria;Armatimonadetes;Armatimonadia;Armatimonadales;Armatimonadaceae;Armatimonas;NA;eDNA;bacteria;genus
+Arthrobacter;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Micrococcaceae;Arthrobacter;NA;eDNA;bacteria;genus
+Aurantimicrobium;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Aurantimicrobium;NA;eDNA;bacteria;genus
+Aureimonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Aureimonas;NA;eDNA;bacteria;genus
+Azoarcus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Azoarcus;NA;eDNA;bacteria;genus
+Bacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Bacillus;NA;eDNA;bacteria;genus
+Bacteriovorax;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Bdellovibrionales;Bacteriovoracaceae;Bacteriovorax;NA;eDNA;bacteria;genus
+Bauldia;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiales Incertae Sedis;Bauldia;NA;eDNA;bacteria;genus
+Bdellovibrio;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Bdellovibrionales;Bdellovibrionaceae;Bdellovibrio;NA;eDNA;bacteria;genus
+Beijerinckia;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;Beijerinckia;NA;eDNA;bacteria;genus
+Belliella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Cyclobacteriaceae;Belliella;NA;eDNA;bacteria;genus
+BIyi10;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Oceanospirillales;Pseudohongiellaceae;BIyi10;NA;eDNA;bacteria;genus
+Blastocatella;Bacteria;Bacteria;Acidobacteria;Blastocatellia (Subgroup 4);Blastocatellales;Blastocatellaceae;Blastocatella;NA;eDNA;bacteria;genus
+Blastomonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Blastomonas;NA;eDNA;bacteria;genus
+Blastopirellula;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Pirellulales;Pirellulaceae;Blastopirellula;NA;eDNA;bacteria;genus
+Bosea;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;Bosea;NA;eDNA;bacteria;genus
+Brevundimonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Caulobacteraceae;Brevundimonas;NA;eDNA;bacteria;genus
+Bryobacter;Bacteria;Bacteria;Acidobacteria;Acidobacteriia;Solibacterales;Solibacteraceae (Subgroup 3);Bryobacter;NA;eDNA;bacteria;genus
+BSV13;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prolixibacteraceae;BSV13;NA;eDNA;bacteria;genus
+C39;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;C39;NA;eDNA;bacteria;genus
+Caedibacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caedibacterales;Caedibacteraceae;Caedibacter;NA;eDNA;bacteria;genus
+Calothrix PCC-6303;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Calothrix PCC-6303;NA;eDNA;bacteria;genus
+Candidatus Accumulibacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Candidatus Accumulibacter;NA;eDNA;bacteria;genus
+Candidatus Alysiosphaera;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Tistrellales;Geminicoccaceae;Candidatus Alysiosphaera;NA;eDNA;bacteria;genus
+Candidatus Amoebophilus;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Amoebophilaceae;Candidatus Amoebophilus;NA;eDNA;bacteria;genus
+Candidatus Anammoximicrobium;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Pirellulales;Pirellulaceae;Candidatus Anammoximicrobium;NA;eDNA;bacteria;genus
+Candidatus Aquiluna;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Candidatus Aquiluna;NA;eDNA;bacteria;genus
+Candidatus Aquirestis;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Saprospiraceae;Candidatus Aquirestis;NA;eDNA;bacteria;genus
+Candidatus Berkiella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Gammaproteobacteria Incertae Sedis;Gammaproteobacteria Incertae Sedis;Candidatus Berkiella;NA;eDNA;bacteria;genus
+Candidatus Finniella;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Paracaedibacterales;Paracaedibacteraceae;Candidatus Finniella;NA;eDNA;bacteria;genus
+Candidatus Jidaibacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Midichloriaceae;Candidatus Jidaibacter;NA;eDNA;bacteria;genus
+Candidatus Lariskella;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Midichloriaceae;Candidatus Lariskella;NA;eDNA;bacteria;genus
+Candidatus Limnoluna;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Candidatus Limnoluna;NA;eDNA;bacteria;genus
+Candidatus Megaira;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Rickettsiaceae;Candidatus Megaira;NA;eDNA;bacteria;genus
+Candidatus Methylopumilus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Methylophilaceae;Candidatus Methylopumilus;NA;eDNA;bacteria;genus
+Candidatus Nucleicultrix;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caedibacterales;Caedibacteraceae;Candidatus Nucleicultrix;NA;eDNA;bacteria;genus
+Candidatus Omnitrophus;Bacteria;Bacteria;Omnitrophicaeota;Omnitrophia;Omnitrophales;Omnitrophaceae;Candidatus Omnitrophus;NA;eDNA;bacteria;genus
+Candidatus Ovatusbacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Gammaproteobacteria Incertae Sedis;Gammaproteobacteria Incertae Sedis;Candidatus Ovatusbacter;NA;eDNA;bacteria;genus
+Candidatus Paracaedibacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Paracaedibacterales;Paracaedibacteraceae;Candidatus Paracaedibacter;NA;eDNA;bacteria;genus
+Candidatus Planktoluna;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Candidatus Planktoluna;NA;eDNA;bacteria;genus
+Candidatus Planktophila;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Actinomycetales;Sporichthyaceae;Candidatus Planktophila;NA;eDNA;bacteria;genus
+Candidatus Soleaferrea;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Ruminococcaceae;Candidatus Soleaferrea;NA;eDNA;bacteria;genus
+Candidatus Solibacter;Bacteria;Bacteria;Acidobacteria;Acidobacteriia;Solibacterales;Solibacteraceae (Subgroup 3);Candidatus Solibacter;NA;eDNA;bacteria;genus
+Caulobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Caulobacteraceae;Caulobacter;NA;eDNA;bacteria;genus
+Cellulomonas;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Cellulomonadaceae;Cellulomonas;NA;eDNA;bacteria;genus
+Cellvibrio;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cellvibrionales;Cellvibrionaceae;Cellvibrio;NA;eDNA;bacteria;genus
+Cereibacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Cereibacter;NA;eDNA;bacteria;genus
+Chitinibacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chitinibacteraceae;Chitinibacter;NA;eDNA;bacteria;genus
+Chitinimonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chitinimonadaceae;Chitinimonas;NA;eDNA;bacteria;genus
+Chlorobium;Bacteria;Bacteria;Bacteroidetes;Chlorobia;Chlorobiales;Chlorobiaceae;Chlorobium;NA;eDNA;bacteria;genus
+Chromobacterium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chromobacteriaceae;Chromobacterium;NA;eDNA;bacteria;genus
+Chryseobacterium;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Weeksellaceae;Chryseobacterium;NA;eDNA;bacteria;genus
+Chryseolinea;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Microscillaceae;Chryseolinea;NA;eDNA;bacteria;genus
+Chthonomonas;Bacteria;Bacteria;Armatimonadetes;Chthonomonadetes;Chthonomonadales;Chthonomonadaceae;Chthonomonas;NA;eDNA;bacteria;genus
+CL500-3;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;Phycisphaerales;Phycisphaeraceae;CL500-3;NA;eDNA;bacteria;genus
+Cloacibacterium;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Weeksellaceae;Cloacibacterium;NA;eDNA;bacteria;genus
+Conexibacter;Bacteria;Bacteria;Actinobacteria;Thermoleophilia;Solirubrobacterales;Solirubrobacteraceae;Conexibacter;NA;eDNA;bacteria;genus
+Confluentibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Confluentibacter;NA;eDNA;bacteria;genus
+Crenobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chromobacteriaceae;Crenobacter;NA;eDNA;bacteria;genus
+Crenothrix;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Methylococcales;Methylomonaceae;Crenothrix;NA;eDNA;bacteria;genus
+Crocinitomix;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Crocinitomicaceae;Crocinitomix;NA;eDNA;bacteria;genus
+Cryomorpha;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Cryomorphaceae;Cryomorpha;NA;eDNA;bacteria;genus
+Curvibacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Curvibacter;NA;eDNA;bacteria;genus
+Cuspidothrix LMECYA 163;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Cuspidothrix LMECYA 163;NA;eDNA;bacteria;genus
+Cyanobacterium PCC-10605;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Cyanobacteriaceae;Cyanobacterium PCC-10605;NA;eDNA;bacteria;genus
+Cyanobacterium PCC-7202;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Cyanobacteriaceae;Cyanobacterium PCC-7202;NA;eDNA;bacteria;genus
+Cyanobium PCC-6307;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Synechococcales;Cyanobiaceae;Cyanobium PCC-6307;NA;eDNA;bacteria;genus
+Cyanothece PCC-7424;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Microcystaceae;Cyanothece PCC-7424;NA;eDNA;bacteria;genus
+Cylindrospermum PCC-7417;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Cylindrospermum PCC-7417;NA;eDNA;bacteria;genus
+Cytophaga;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Cytophagaceae;Cytophaga;NA;eDNA;bacteria;genus
+Deefgea;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chitinibacteraceae;Deefgea;NA;eDNA;bacteria;genus
+Defluviicoccus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Rhodopirillaceae;Defluviicoccus;NA;eDNA;bacteria;genus
+Defluviimonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Defluviimonas;NA;eDNA;bacteria;genus
+Defluviitaleaceae UCG-011;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Defluviitaleaceae;Defluviitaleaceae UCG-011;NA;eDNA;bacteria;genus
+Dehalobacter;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Peptococcaceae;Dehalobacter;NA;eDNA;bacteria;genus
+Desulfobulbus;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfobacterales;Desulfobulbaceae;Desulfobulbus;NA;eDNA;bacteria;genus
+Desulfomonile;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Syntrophobacterales;Syntrophaceae;Desulfomonile;NA;eDNA;bacteria;genus
+Desulfovibrio;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfovibrionales;Desulfovibrionaceae;Desulfovibrio;NA;eDNA;bacteria;genus
+Desulfuromonas;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfuromonadales;Desulfuromonadaceae;Desulfuromonas;NA;eDNA;bacteria;genus
+Devosia;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Devosiaceae;Devosia;NA;eDNA;bacteria;genus
+Dinghuibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Dinghuibacter;NA;eDNA;bacteria;genus
+Domibacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Planococcaceae;Domibacillus;NA;eDNA;bacteria;genus
+Dongia;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Dongiales;Dongiaceae;Dongia;NA;eDNA;bacteria;genus
+DSSD61;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;DSSD61;NA;eDNA;bacteria;genus
+Duganella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Duganella;NA;eDNA;bacteria;genus
+Dyadobacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Dyadobacter;NA;eDNA;bacteria;genus
+Ellin6067;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;Ellin6067;NA;eDNA;bacteria;genus
+Elstera;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Elsterales;Elsteraceae;Elstera;NA;eDNA;bacteria;genus
+Emticicia;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Emticicia;NA;eDNA;bacteria;genus
+Enterococcus;Bacteria;Bacteria;Firmicutes;Bacilli;Lactobacillales;Enterococcaceae;Enterococcus;NA;eDNA;bacteria;genus
+Ethanoligenens;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Ruminococcaceae;Ethanoligenens;NA;eDNA;bacteria;genus
+Exiguobacterium;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Family XII;Exiguobacterium;NA;eDNA;bacteria;genus
+Ferribacterium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Ferribacterium;NA;eDNA;bacteria;genus
+Ferruginibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Ferruginibacter;NA;eDNA;bacteria;genus
+Fibrella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Fibrella;NA;eDNA;bacteria;genus
+Fictibacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Fictibacillus;NA;eDNA;bacteria;genus
+Filomicrobium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Hyphomicrobiaceae;Filomicrobium;NA;eDNA;bacteria;genus
+Fimbriiglobus;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Gemmatales;Gemmataceae;Fimbriiglobus;NA;eDNA;bacteria;genus
+Flavihumibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Flavihumibacter;NA;eDNA;bacteria;genus
+Flavitalea;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Flavitalea;NA;eDNA;bacteria;genus
+Flavobacterium;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Flavobacterium;NA;eDNA;bacteria;genus
+Flectobacillus;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Flectobacillus;NA;eDNA;bacteria;genus
+Flexibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Microscillaceae;Flexibacter;NA;eDNA;bacteria;genus
+Fluviicoccus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Fluviicoccus;NA;eDNA;bacteria;genus
+Fluviicola;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Crocinitomicaceae;Fluviicola;NA;eDNA;bacteria;genus
+Fuerstia;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Rubinisphaeraceae;Fuerstia;NA;eDNA;bacteria;genus
+FukuN18;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Chthoniobacterales;Terrimicrobiaceae;FukuN18;NA;eDNA;bacteria;genus
+FukuN57;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;FukuN57;NA;eDNA;bacteria;genus
+Geitlerinema LD9;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Cyanobacteriaceae;Geitlerinema LD9;NA;eDNA;bacteria;genus
+Geminocystis PCC-6308;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Cyanobacteriaceae;Geminocystis PCC-6308;NA;eDNA;bacteria;genus
+Gemmata;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Gemmatales;Gemmataceae;Gemmata;NA;eDNA;bacteria;genus
+Gemmatimonas;Bacteria;Bacteria;Gemmatimonadetes;Gemmatimonadetes;Gemmatimonadales;Gemmatimonadaceae;Gemmatimonas;NA;eDNA;bacteria;genus
+Gemmobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Gemmobacter;NA;eDNA;bacteria;genus
+Geobacter;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfuromonadales;Geobacteraceae;Geobacter;NA;eDNA;bacteria;genus
+Geosporobacter;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Clostridiaceae 4;Geosporobacter;NA;eDNA;bacteria;genus
+Geothrix;Bacteria;Bacteria;Acidobacteria;Holophagae;Holophagales;Holophagaceae;Geothrix;NA;eDNA;bacteria;genus
+Giesbergeria;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Giesbergeria;NA;eDNA;bacteria;genus
+Gillisia;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Gillisia;NA;eDNA;bacteria;genus
+GKS98;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;GKS98;NA;eDNA;bacteria;genus
+GOUTA6;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;GOUTA6;NA;eDNA;bacteria;genus
+Haliscomenobacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Saprospiraceae;Haliscomenobacter;NA;eDNA;bacteria;genus
+Halobacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Halobacillus;NA;eDNA;bacteria;genus
+Halomonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Oceanospirillales;Halomonadaceae;Halomonas;NA;eDNA;bacteria;genus
+Holospora;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Holosporales;Holosporaceae;Holospora;NA;eDNA;bacteria;genus
+Hydrogenophaga;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Hydrogenophaga;NA;eDNA;bacteria;genus
+Hydrotalea;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Hydrotalea;NA;eDNA;bacteria;genus
+Hymenobacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Hymenobacteraceae;Hymenobacter;NA;eDNA;bacteria;genus
+Ideonella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Ideonella;NA;eDNA;bacteria;genus
+Idiomarina;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Alteromonadales;Idiomarinaceae;Idiomarina;NA;eDNA;bacteria;genus
+Igtzschineria;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cardiobacteriales;Wohlfahrtiimonadaceae;Igtzschineria;NA;eDNA;bacteria;genus
+IMCC26134;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Opitutaceae;IMCC26134;NA;eDNA;bacteria;genus
+Inhella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Inhella;NA;eDNA;bacteria;genus
+Iodobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chitinibacteraceae;Iodobacter;NA;eDNA;bacteria;genus
+Jeotgalibacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Planococcaceae;Jeotgalibacillus;NA;eDNA;bacteria;genus
+JSC-12;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Leptolyngbyales;Leptolyngbyaceae;JSC-12;NA;eDNA;bacteria;genus
+Kaistia;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Kaistiaceae;Kaistia;NA;eDNA;bacteria;genus
+Kamptonema PCC-6407;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Phormidiaceae;Kamptonema PCC-6407;NA;eDNA;bacteria;genus
+Kineosporia;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Kineosporiales;Kineosporiaceae;Kineosporia;NA;eDNA;bacteria;genus
+Labrys;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Labraceae;Labrys;NA;eDNA;bacteria;genus
+Lacibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Lacibacter;NA;eDNA;bacteria;genus
+Lacihabitans;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Lacihabitans;NA;eDNA;bacteria;genus
+Lacunisphaera;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Opitutaceae;Lacunisphaera;NA;eDNA;bacteria;genus
+Lamprocystis;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Chromatiales;Chromatiaceae;Lamprocystis;NA;eDNA;bacteria;genus
+Larkinella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Larkinella;NA;eDNA;bacteria;genus
+LD29;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Chthoniobacterales;Chthoniobacteraceae;LD29;NA;eDNA;bacteria;genus
+Legionella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Legionellales;Legionellaceae;Legionella;NA;eDNA;bacteria;genus
+Lentimicrobium;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;Lentimicrobiaceae;Lentimicrobium;NA;eDNA;bacteria;genus
+Lentimonas;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Puniceicoccaceae;Lentimonas;NA;eDNA;bacteria;genus
+Leptolyngbya ANT.L52.2;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Leptolyngbyales;Leptolyngbyaceae;Leptolyngbya ANT.L52.2;NA;eDNA;bacteria;genus
+Leptolyngbya ANT.L67.1;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Leptolyngbyales;Leptolyngbyaceae;Leptolyngbya ANT.L67.1;NA;eDNA;bacteria;genus
+Leptospira;Bacteria;Bacteria;Spirochaetes;Leptospirae;Leptospirales;Leptospiraceae;Leptospira;NA;eDNA;bacteria;genus
+Leptothrix;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Leptothrix;NA;eDNA;bacteria;genus
+Leucobacter;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Leucobacter;NA;eDNA;bacteria;genus
+Lewinella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Saprospiraceae;Lewinella;NA;eDNA;bacteria;genus
+Limnobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Limnobacter;NA;eDNA;bacteria;genus
+Limnohabitans;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Limnohabitans;NA;eDNA;bacteria;genus
+Loktanella;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Loktanella;NA;eDNA;bacteria;genus
+Luteolibacter;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Rubritaleaceae;Luteolibacter;NA;eDNA;bacteria;genus
+Lysobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Xanthomonadaceae;Lysobacter;NA;eDNA;bacteria;genus
+Lyticum;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rickettsiales;Midichloriaceae;Lyticum;NA;eDNA;bacteria;genus
+Macellibacteroides;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Tannerellaceae;Macellibacteroides;NA;eDNA;bacteria;genus
+Magnetospirillum;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Magnetospirillaceae;Magnetospirillum;NA;eDNA;bacteria;genus
+Malikia;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Malikia;NA;eDNA;bacteria;genus
+Meganema;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Alphaproteobacteria Incertae Sedis;Alphaproteobacteria Incertae Sedis;Meganema;NA;eDNA;bacteria;genus
+Mesorhizobium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;NA;eDNA;bacteria;genus
+Methylibium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Methylibium;NA;eDNA;bacteria;genus
+Methylobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Methylococcales;Methylomonaceae;Methylobacter;NA;eDNA;bacteria;genus
+Methylobacterium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;Methylobacterium;NA;eDNA;bacteria;genus
+Methylocystis;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;Methylocystis;NA;eDNA;bacteria;genus
+Methylomonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Methylococcales;Methylomonaceae;Methylomonas;NA;eDNA;bacteria;genus
+Methyloparacoccus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Methylococcales;Methylococcaceae;Methyloparacoccus;NA;eDNA;bacteria;genus
+Methylophaga;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Nitrosococcales;Methylophagaceae;Methylophaga;NA;eDNA;bacteria;genus
+Methylophilus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Methylophilaceae;Methylophilus;NA;eDNA;bacteria;genus
+Methylotenera;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Methylophilaceae;Methylotenera;NA;eDNA;bacteria;genus
+Methyloversatilis;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Methyloversatilis;NA;eDNA;bacteria;genus
+Microcystis PCC-7914;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Microcystaceae;Microcystis PCC-7914;NA;eDNA;bacteria;genus
+Micromonospora;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micromonosporales;Micromonosporaceae;Micromonospora;NA;eDNA;bacteria;genus
+mle1-7;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;mle1-7;NA;eDNA;bacteria;genus
+MND1;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;MND1;NA;eDNA;bacteria;genus
+MSBL3;Bacteria;Bacteria;Kiritimatiellaeota;Kiritimatiellae;Kiritimatiellales;Kiritimatiellaceae;MSBL3;NA;eDNA;bacteria;genus
+Mucilaginibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;Sphingobacteriaceae;Mucilaginibacter;NA;eDNA;bacteria;genus
+MWH-UniP1;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;MWH-UniP1;NA;eDNA;bacteria;genus
+Mycobacterium;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Corynebacteriales;Mycobacteriaceae;Mycobacterium;NA;eDNA;bacteria;genus
+Nevskia;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Salinisphaerales;Solimonadaceae;Nevskia;NA;eDNA;bacteria;genus
+Niabella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Niabella;NA;eDNA;bacteria;genus
+Nocardioides;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Propionibacteriales;Nocardioidaceae;Nocardioides;NA;eDNA;bacteria;genus
+Nodosilinea PCC-7104;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Phormidesmiales;Nodosilineaceae;Nodosilinea PCC-7104;NA;eDNA;bacteria;genus
+Nodularia PCC-9350;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Nodularia PCC-9350;NA;eDNA;bacteria;genus
+Nordella;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiales Incertae Sedis;Nordella;NA;eDNA;bacteria;genus
+Nostoc PCC-73102;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Nostoc PCC-73102;NA;eDNA;bacteria;genus
+Nostoc PCC-7524;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Nostoc PCC-7524;NA;eDNA;bacteria;genus
+Nostoc PCC-8976;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Nostoc PCC-8976;NA;eDNA;bacteria;genus
+Novosphingobium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Novosphingobium;NA;eDNA;bacteria;genus
+oc32;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Nitrosomonadaceae;oc32;NA;eDNA;bacteria;genus
+OM27 clade;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Bdellovibrionales;Bdellovibrionaceae;OM27 clade;NA;eDNA;bacteria;genus
+OM60(NOR5) clade;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Cellvibrionales;Halieaceae;OM60(NOR5) clade;NA;eDNA;bacteria;genus
+Oscillochloris;Bacteria;Bacteria;Chloroflexi;Chloroflexia;Chloroflexales;Chloroflexaceae;Oscillochloris;NA;eDNA;bacteria;genus
+Paenibacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Paenibacillaceae;Paenibacillus;NA;eDNA;bacteria;genus
+Paenisporosarci;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Planococcaceae;Paenisporosarci;NA;eDNA;bacteria;genus
+Paludibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Paludibacteraceae;Paludibacter;NA;eDNA;bacteria;genus
+Paludibaculum;Bacteria;Bacteria;Acidobacteria;Acidobacteriia;Solibacterales;Solibacteraceae (Subgroup 3);Paludibaculum;NA;eDNA;bacteria;genus
+Paludisphaera;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Isosphaerales;Isosphaeraceae;Paludisphaera;NA;eDNA;bacteria;genus
+Paracoccus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Paracoccus;NA;eDNA;bacteria;genus
+Pasteuria;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Pasteuriaceae;Pasteuria;NA;eDNA;bacteria;genus
+Pedobacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;Sphingobacteriaceae;Pedobacter;NA;eDNA;bacteria;genus
+Pedomicrobium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Hyphomicrobiaceae;Pedomicrobium;NA;eDNA;bacteria;genus
+Pelagibacterium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Devosiaceae;Pelagibacterium;NA;eDNA;bacteria;genus
+Pelobacter;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Desulfuromonadales;Desulfuromonadaceae;Pelobacter;NA;eDNA;bacteria;genus
+Peredibacter;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Bdellovibrionales;Bacteriovoracaceae;Peredibacter;NA;eDNA;bacteria;genus
+Perlucidibaca;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Perlucidibaca;NA;eDNA;bacteria;genus
+Phaeospirillum;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;Magnetospirillaceae;Phaeospirillum;NA;eDNA;bacteria;genus
+Phenylobacterium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Caulobacteraceae;Phenylobacterium;NA;eDNA;bacteria;genus
+Phormidesmis ANT.LACV5.1;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Phormidesmiales;Phormidesmiaceae;Phormidesmis ANT.LACV5.1;NA;eDNA;bacteria;genus
+Phormidium MBIC10003;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Phormidesmiales;Phormidesmiaceae;Phormidium MBIC10003;NA;eDNA;bacteria;genus
+Phormidium SAG 37.90;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Phormidesmiales;Phormidesmiaceae;Phormidium SAG 37.90;NA;eDNA;bacteria;genus
+Phreatobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiales Incertae Sedis;Phreatobacter;NA;eDNA;bacteria;genus
+Planctomicrobium;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Rubinisphaeraceae;Planctomicrobium;NA;eDNA;bacteria;genus
+Planctopirus;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Schlesneriaceae;Planctopirus;NA;eDNA;bacteria;genus
+Polaribacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Polaribacter;NA;eDNA;bacteria;genus
+Polaromonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Polaromonas;NA;eDNA;bacteria;genus
+Polynucleobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Polynucleobacter;NA;eDNA;bacteria;genus
+Porphyrobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Porphyrobacter;NA;eDNA;bacteria;genus
+Pragia;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacteriales;Enterobacteriaceae;Pragia;NA;eDNA;bacteria;genus
+Propionivibrio;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Propionivibrio;NA;eDNA;bacteria;genus
+Prosthecobacter;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Verrucomicrobiaceae;Prosthecobacter;NA;eDNA;bacteria;genus
+Pseudanabaena PCC-7429;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Pseudanabaenales;Pseudanabaenaceae;Pseudanabaena PCC-7429;NA;eDNA;bacteria;genus
+Pseudohongiella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Oceanospirillales;Pseudohongiellaceae;Pseudohongiella;NA;eDNA;bacteria;genus
+Pseudomonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Pseudomonadaceae;Pseudomonas;NA;eDNA;bacteria;genus
+Pseudorhizobium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Pseudorhizobium;NA;eDNA;bacteria;genus
+Pseudorhodobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Pseudorhodobacter;NA;eDNA;bacteria;genus
+Psychrobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Psychrobacter;NA;eDNA;bacteria;genus
+Puniceicoccus;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Puniceicoccaceae;Puniceicoccus;NA;eDNA;bacteria;genus
+RBG-16-49-21;Bacteria;Bacteria;Spirochaetes;Leptospirae;Leptospirales;Leptospiraceae;RBG-16-49-21;NA;eDNA;bacteria;genus
+Reyranella;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Reyranellales;Reyranellaceae;Reyranella;NA;eDNA;bacteria;genus
+Rheinheimera;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Alteromonadales;Alteromonadaceae;Rheinheimera;NA;eDNA;bacteria;genus
+Rhodobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Rhodobacter;NA;eDNA;bacteria;genus
+Rhodoblastus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;Rhodoblastus;NA;eDNA;bacteria;genus
+Rhodoferax;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Rhodoferax;NA;eDNA;bacteria;genus
+Rhodoluna;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Microbacteriaceae;Rhodoluna;NA;eDNA;bacteria;genus
+Rhodomicrobium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhodomicrobiaceae;Rhodomicrobium;NA;eDNA;bacteria;genus
+Rhodonellum;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Cyclobacteriaceae;Rhodonellum;NA;eDNA;bacteria;genus
+Rhodoplanes;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Xanthobacteraceae;Rhodoplanes;NA;eDNA;bacteria;genus
+Rhodopseudomonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Xanthobacteraceae;Rhodopseudomonas;NA;eDNA;bacteria;genus
+Romboutsia;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Peptostreptococcaceae;Romboutsia;NA;eDNA;bacteria;genus
+Roseiarcus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Beijerinckiaceae;Roseiarcus;NA;eDNA;bacteria;genus
+Roseococcus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Acetobacterales;Acetobacteraceae;Roseococcus;NA;eDNA;bacteria;genus
+Roseomonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Acetobacterales;Acetobacteraceae;Roseomonas;NA;eDNA;bacteria;genus
+Rubribacterium;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Rubribacterium;NA;eDNA;bacteria;genus
+Rubrivivax;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Rubrivivax;NA;eDNA;bacteria;genus
+Rudanella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Rudanella;NA;eDNA;bacteria;genus
+Salinispira;Bacteria;Bacteria;Spirochaetes;Spirochaetia;Spirochaetales;Spirochaetaceae;Salinispira;NA;eDNA;bacteria;genus
+Salipaludibacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Sporolactobacillaceae;Salipaludibacillus;NA;eDNA;bacteria;genus
+Sandaracinobacter;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Sandaracinobacter;NA;eDNA;bacteria;genus
+Sandaracinus;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Myxococcales;Sandaracinaceae;Sandaracinus;NA;eDNA;bacteria;genus
+Sandarakinorhabdus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Sandarakinorhabdus;NA;eDNA;bacteria;genus
+Sanguibacter;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Micrococcales;Sanguibacteraceae;Sanguibacter;NA;eDNA;bacteria;genus
+Schlesneria;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Schlesneriaceae;Schlesneria;NA;eDNA;bacteria;genus
+Sediminibacterium;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Sediminibacterium;NA;eDNA;bacteria;genus
+Segetibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Segetibacter;NA;eDNA;bacteria;genus
+SH-PL14;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Planctomycetales;Rubinisphaeraceae;SH-PL14;NA;eDNA;bacteria;genus
+Sideroxydans;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Gallionellaceae;Sideroxydans;NA;eDNA;bacteria;genus
+Silanimonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Xanthomonadaceae;Silanimonas;NA;eDNA;bacteria;genus
+Silvanigrella;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Oligoflexales;Oligoflexaceae;Silvanigrella;NA;eDNA;bacteria;genus
+Singulisphaera;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Isosphaerales;Isosphaeraceae;Singulisphaera;NA;eDNA;bacteria;genus
+Smithella;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Syntrophobacterales;Syntrophaceae;Smithella;NA;eDNA;bacteria;genus
+Snowella 0TU37S04;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Microcystaceae;Snowella 0TU37S04;NA;eDNA;bacteria;genus
+Solitalea;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Sphingobacteriales;Sphingobacteriaceae;Solitalea;NA;eDNA;bacteria;genus
+Sphaerotilus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Sphaerotilus;NA;eDNA;bacteria;genus
+Sphingoaurantiacus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Sphingoaurantiacus;NA;eDNA;bacteria;genus
+Sphingomonas;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Sphingomonas;NA;eDNA;bacteria;genus
+Sphingorhabdus;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Sphingomonadales;Sphingomonadaceae;Sphingorhabdus;NA;eDNA;bacteria;genus
+Spirochaeta 2;Bacteria;Bacteria;Spirochaetes;Spirochaetia;Spirochaetales;Spirochaetaceae;Spirochaeta 2;NA;eDNA;bacteria;genus
+Spirosoma;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Spirosoma;NA;eDNA;bacteria;genus
+Steroidobacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Steroidobacterales;Steroidobacteraceae;Steroidobacter;NA;eDNA;bacteria;genus
+Sterolibacterium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Sterolibacterium;NA;eDNA;bacteria;genus
+Streptomyces;Bacteria;Bacteria;Actinobacteria;Actinobacteria;Streptomycetales;Streptomycetaceae;Streptomyces;NA;eDNA;bacteria;genus
+Subgroup 10;Bacteria;Bacteria;Acidobacteria;Thermoanaerobaculia;Thermoanaerobaculales;Thermoanaerobaculaceae;Subgroup 10;NA;eDNA;bacteria;genus
+Subgroup 23;Bacteria;Bacteria;Acidobacteria;Thermoanaerobaculia;Thermoanaerobaculales;Thermoanaerobaculaceae;Subgroup 23;NA;eDNA;bacteria;genus
+Sulfurimonas;Bacteria;Bacteria;Epsilonbacteraeota;Campylobacteria;Campylobacterales;Thiovulaceae;Sulfurimonas;NA;eDNA;bacteria;genus
+Sulfuritalea;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Sulfuritalea;NA;eDNA;bacteria;genus
+Sulfurospirillum;Bacteria;Bacteria;Epsilonbacteraeota;Campylobacteria;Campylobacterales;Sulfurospirillaceae;Sulfurospirillum;NA;eDNA;bacteria;genus
+SWB02;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Hyphomonadaceae;SWB02;NA;eDNA;bacteria;genus
+Synechococcus PCC-7502;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Pseudanabaenales;Pseudanabaenaceae;Synechococcus PCC-7502;NA;eDNA;bacteria;genus
+Synechocystis PCC-6803;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Microcystaceae;Synechocystis PCC-6803;NA;eDNA;bacteria;genus
+Syntrophobacter;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Syntrophobacterales;Syntrophobacteraceae;Syntrophobacter;NA;eDNA;bacteria;genus
+Syntrophorhabdus;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Deltaproteobacteria Incertae Sedis;Syntrophorhabdaceae;Syntrophorhabdus;NA;eDNA;bacteria;genus
+Syntrophus;Bacteria;Bacteria;Proteobacteria;Deltaproteobacteria;Syntrophobacterales;Syntrophaceae;Syntrophus;NA;eDNA;bacteria;genus
+Tabrizicola;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Rhodobacterales;Rhodobacteraceae;Tabrizicola;NA;eDNA;bacteria;genus
+Taeseokella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Spirosomaceae;Taeseokella;NA;eDNA;bacteria;genus
+Tahibacter;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Rhodanobacteraceae;Tahibacter;NA;eDNA;bacteria;genus
+Taibaiella;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Taibaiella;NA;eDNA;bacteria;genus
+Tepidisphaera;Bacteria;Bacteria;Planctomycetes;Phycisphaerae;Tepidisphaerales;Tepidisphaeraceae;Tepidisphaera;NA;eDNA;bacteria;genus
+Terrimonas;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Chitinophagales;Chitinophagaceae;Terrimonas;NA;eDNA;bacteria;genus
+Thermoflexibacter;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Cytophagales;Microscillaceae;Thermoflexibacter;NA;eDNA;bacteria;genus
+Thermomonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Xanthomonadales;Xanthomonadaceae;Thermomonas;NA;eDNA;bacteria;genus
+Thiobacillus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Hydrogenophilaceae;Thiobacillus;NA;eDNA;bacteria;genus
+Thiocapsa;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Chromatiales;Chromatiaceae;Thiocapsa;NA;eDNA;bacteria;genus
+Thiorhodococcus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Chromatiales;Chromatiaceae;Thiorhodococcus;NA;eDNA;bacteria;genus
+Thiothrix;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Thiotrichales;Thiotrichaceae;Thiothrix;NA;eDNA;bacteria;genus
+Tissierella;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Family XI;Tissierella;NA;eDNA;bacteria;genus
+Tolumonas;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Aeromonadales;Aeromonadaceae;Tolumonas;NA;eDNA;bacteria;genus
+Tolypothrix PCC-7601;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Tolypothrix PCC-7601;NA;eDNA;bacteria;genus
+Trichormus HINDAK 2001-4;Bacteria;Bacteria;Cyanobacteria;Oxyphotobacteria;Nostocales;Nostocaceae;Trichormus HINDAK 2001-4;NA;eDNA;bacteria;genus
+Truepera;Bacteria;Bacteria;Deinococcus-Thermus;Deinococci;Deinococcales;Trueperaceae;Truepera;NA;eDNA;bacteria;genus
+Tumebacillus;Bacteria;Bacteria;Firmicutes;Bacilli;Bacillales;Alicyclobacillaceae;Tumebacillus;NA;eDNA;bacteria;genus
+Tyzzerella 3;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;Tyzzerella 3;NA;eDNA;bacteria;genus
+UKL13-1;Bacteria;Bacteria;Proteobacteria;Alphaproteobacteria;Caulobacterales;Hyphomonadaceae;UKL13-1;NA;eDNA;bacteria;genus
+Uliginosibacterium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Uliginosibacterium;NA;eDNA;bacteria;genus
+Undibacterium;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Undibacterium;NA;eDNA;bacteria;genus
+Verruc-01;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Opitutales;Puniceicoccaceae;Verruc-01;NA;eDNA;bacteria;genus
+Verrucomicrobium;Bacteria;Bacteria;Verrucomicrobia;Verrucomicrobiae;Verrucomicrobiales;Verrucomicrobiaceae;Verrucomicrobium;NA;eDNA;bacteria;genus
+Vogesella;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Chromobacteriaceae;Vogesella;NA;eDNA;bacteria;genus
+WCHB1-32;Bacteria;Bacteria;Bacteroidetes;Bacteroidia;Bacteroidales;Prolixibacteraceae;WCHB1-32;NA;eDNA;bacteria;genus
+XBB1006;Bacteria;Bacteria;Firmicutes;Clostridia;Clostridiales;Lachnospiraceae;XBB1006;NA;eDNA;bacteria;genus
+Zavarzinella;Bacteria;Bacteria;Planctomycetes;Planctomycetacia;Gemmatales;Gemmataceae;Zavarzinella;NA;eDNA;bacteria;genus
+Zoogloea;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Rhodocyclaceae;Zoogloea;NA;eDNA;bacteria;genus
+Agitococcus lubricus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Agitococcus;Agitococcus lubricus;eDNA;bacteria;species
+Limnohabitans curvus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Limnohabitans;Limnohabitans curvus;eDNA;bacteria;species
+Polynucleobacter cosmopolitanus;Bacteria;Bacteria;Proteobacteria;Gammaproteobacteria;Betaproteobacteriales;Burkholderiaceae;Polynucleobacter;Polynucleobacter cosmopolitanus;eDNA;bacteria;species
+Anabaena;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Nostocaceae;Anabaena;NA;Morphological;phytoplankton;genus
+Anabaena delicatula;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Nostocaceae;Anabaena;Anabaena delicatula;Morphological;phytoplankton;species
+Anabaena flos-aquae;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Nostocaceae;Anabaena;Anabaena flos-aquae;Morphological;phytoplankton;species
+Aphanizomenon;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Aphanizomenonaceae;Aphanizomenon;NA;Morphological;phytoplankton;genus
+Aphanizomenon aphanizomenon;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Aphanizomenonaceae;Aphanizomenon;Aphanizomenon aphanizomenon;Morphological;phytoplankton;species
+Aphanizomenon gracile;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Aphanizomenonaceae;Aphanizomenon;Aphanizomenon gracile;Morphological;phytoplankton;species
+Arthrospira;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Oscillatoriales;Microcoleaceae;Arthrospira;NA;Morphological;phytoplankton;genus
+Calothrix;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Calothricaceae;Calothrix;NA;Morphological;phytoplankton;genus
+Calothrix braunii;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Calothricaceae;Calothrix;Calothrix braunii;Morphological;phytoplankton;species
+Chroococcus;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Chroococcales;Chroococcaceae;Chroococcus;NA;Morphological;phytoplankton;genus
+Chroococcus minutus;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Chroococcales;Chroococcaceae;Chroococcus;Chroococcus minutus;Morphological;phytoplankton;species
+Cyanophyceae;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;NA;NA;NA;NA;Morphological;phytoplankton;class
+Leptolyngbya;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Leptolyngbyaceae;Leptolyngbya;NA;Morphological;phytoplankton;genus
+Limnococcus limneticus;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Merismopediaceae;Limnococcus;Limnococcus limneticus;Morphological;phytoplankton;species
+Lyngbya;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Oscillatoriales;Oscillatoriaceae;Lyngbya;NA;Morphological;phytoplankton;genus
+Merismopedia;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Merismopediaceae;Merismopedia;NA;Morphological;phytoplankton;genus
+Merismopedia tenuissima;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Merismopediaceae;Merismopedia;Merismopedia tenuissima;Morphological;phytoplankton;species
+Microcystis;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Chroococcales;Microcystaceae;Microcystis;NA;Morphological;phytoplankton;genus
+Nostoc;Bacteria;Bacteria;Cyanobacteria ;Cyanophycea;Nostocales;Nostocaceae;Nostoc;NA;Morphological;phytoplankton;genus
+Nostocales;Bacteria;Bacteria;Cyanobacteria ;Cyanophycea;Nostocales;NA;NA;NA;Morphological;phytoplankton;order
+Oscillatoria;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Oscillatoriales;Oscillatoriaceae;Oscillatoria;NA;Morphological;phytoplankton;genus
+Oscillatoria limosa;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Oscillatoriales;Oscillatoriaceae;Oscillatoria;Oscillatoria limosa;Morphological;phytoplankton;species
+Phormidium;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Oscillatoriales;Oscillatoriaceae;Phormidium;NA;Morphological;phytoplankton;genus
+Pseudanabaena;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Pseudanabaenaceae;Pseudanabaena;NA;Morphological;phytoplankton;genus
+Pseudanabaena limnetica;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Pseudanabaenaceae;Pseudanabaena;Pseudanabaena limnetica;Morphological;phytoplankton;species
+Pseudanabaena mucicola;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Synechococcales;Pseudanabaenaceae;Pseudanabaena;Pseudanabaena mucicola;Morphological;phytoplankton;species
+Rivularia;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Nostocales;Rivulariaceae;Rivularia;NA;Morphological;phytoplankton;genus
+Spirulina;Bacteria;Bacteria;Cyanobacteria;Cyanophyceae;Spirulinales;Spirulinaceae;Spirulina;NA;Morphological;phytoplankton;genus
+Glossiphoniidae;Eukaryota;Animalia;Annelida;Hirudinea;Rhynchobdellida;Glossiphoniidae;NA;NA;Morphological;macroinvertebrates;family
+Oligochaeta;Eukaryota;Animalia;Annelida;Oligochaeta;NA;NA;NA;NA;Morphological;macroinvertebrates;class
+Arhynchobdellida;Eukaryota;Animalia;Annelida;Clitellata;Arhynchobdellida;NA;NA;NA;eDNA;macroinvertebrates;order
+Chaetogaster diaphanus;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Naididae;Chaetogaster;Chaetogaster diaphanus;eDNA;macroinvertebrates;species
+Chaetogaster diastrophus;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Naididae;Chaetogaster;Chaetogaster diastrophus;eDNA;macroinvertebrates;species
+Dero digitata;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Tubificidae;Dero;Dero digitata;eDNA;macroinvertebrates;species
+Limnodrilus hoffmeisteri;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Naididae;Limnodrilus;Limnodrilus hoffmeisteri;eDNA;macroinvertebrates;species
+Lumbriculus;Eukaryota;Animalia;Annelida;Clitellata;Lumbriculida;Lumbriculidae;Lumbriculus;NA;eDNA;macroinvertebrates;genus
+Nais communis;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Naididae;Nais;Nais communis;eDNA;macroinvertebrates;species
+Nais variabilis;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Naididae;Nais;Nais variabilis;eDNA;macroinvertebrates;species
+Piscicolidae;Eukaryota;Animalia;Annelida;Clitellata;Rhynchobdellida;Piscicolidae;NA;NA;eDNA;macroinvertebrates;family
+Polychaeta;Eukaryota;Animalia;Annelida;Polychaeta;NA;NA;NA;NA;eDNA;macroinvertebrates;class
+Tubifex tubifex;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Tubificidae;Tubifex;Tubifex tubifex;eDNA;macroinvertebrates;species
+Chaetogaster limei;Eukaryota;Animalia;Annelida;Clitellata;Haplotaxida;Naididae;Chaetogaster;Chaetogaster limei;eDNA;macroinvertebrates;species
+Arachnida;Eukaryota;Animalia;Arthropoda;Arachnida;NA;NA;NA;NA;Morphological;macroinvertebrates;class
+Pisaura mirabilis;Eukaryota;Animalia;Arthropoda;Arachnida;Araneae;Pisauridae;Pisaura;Pisaura mirabilis;eDNA;macroinvertebrates;species
+Alona guttata;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Chydoridae;Alona;Alona guttata;Morphological;zooplankton;species
+Alona rectangula;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Chydoridae;Alona;Alona rectangula;Morphological;zooplankton;species
+Bosmina longirostris;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Bosminidae;Bosmina;Bosmina longirostris;Morphological;zooplankton;species
+Ceriodaphnia quadrangula;Eukaryota;Animalia;Arthropoda;Branchiopoda;Anomopoda;Daphniidae;Ceriodaphnia;Ceriodaphnia quadrangula;Morphological;zooplankton;species
+Ceriodaphnia reticulata;Eukaryota;Animalia;Arthropoda;Branchiopoda;Anomopoda;Daphniidae;Ceriodaphnia;Ceriodaphnia reticulata;Morphological;zooplankton;species
+Chydorus sphaericus;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Chydoridae;Chydorus;Chydorus sphaericus;Morphological;zooplankton;species
+Daphnia longispina;Eukaryota;Animalia;Arthropoda;Branchiopoda;Diplostraca;Daphniidae;Daphnia;Daphnia longispina;Morphological;zooplankton;species
+Daphnia magna;Eukaryota;Animalia;Arthropoda;Branchiopoda;Diplostraca;Daphniidae;Daphnia;Daphnia magna;Morphological;zooplankton;species
+Daphnia pulicaria;Eukaryota;Animalia;Arthropoda;Branchiopoda;Diplostraca;Daphniidae;Daphnia;Daphnia pulicaria;Morphological;zooplankton;species
+Macrothrix hirsuticornis;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Macrothricidae;Macrothrix;Macrothrix hirsuticornis;Morphological;zooplankton;species
+Megafenestra aurita;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Cladocera;Megafenestra;Megafenestra aurita;Morphological;zooplankton;species
+Moina brachiata;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Moinidae;Moina;Moina brachiata;Morphological;zooplankton;species
+Pleuroxus aduncus;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Chydoridae;Pleuroxus;Pleuroxus aduncus;Morphological;zooplankton;species
+Scapholeberis rammneri;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Cladocera;Scapholeberis;Scapholeberis rammneri;Morphological;zooplankton;species
+Simocephalus vetulus;Eukaryota;Animalia;Arthropoda;Branchiopoda;Cladocera;Cladocera;Simocephalus;Simocephalus vetulus;Morphological;zooplankton;species
+Daphnia obtusa;Eukaryota;Animalia;Arthropoda;Branchiopoda;Diplostraca;Daphniidae;Daphnia;Daphnia obtusa;eDNA;zooplankton;species
+Canthocamptus staphylinus;Eukaryota;Animalia;Arthropoda;Copepoda;Harpacticoida;Canthocamptidae;Canthocamptus;Canthocamptus staphylinus;Morphological;zooplankton;species
+Phyllognathopus viguieri;Eukaryota;Animalia;Arthropoda;Copepoda;Harpacticoida;Phyllognathopodidae;Phyllognathopus;Phyllognathopus viguieri;Morphological;zooplankton;species
+Acanthocyclops americanus_acame_a;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Acanthocyclops;Acanthocyclops americanus;Morphological;zooplankton;species
+Acanthocyclops americanus_acame_c;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Acanthocyclops;Acanthocyclops americanus;Morphological;zooplankton;species
+Acanthocyclops americanus_acame_n;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Acanthocyclops;Acanthocyclops americanus;Morphological;zooplankton;species
+Acanthocyclops robustus_acrob_a;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Acanthocyclops;Acanthocyclops robustus;Morphological;zooplankton;species
+Acanthocyclops robustus_acrob_c;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Acanthocyclops;Acanthocyclops robustus;Morphological;zooplankton;species
+Acanthocyclops robustus_acrob_n;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Acanthocyclops;Acanthocyclops robustus;Morphological;zooplankton;species
+Cyclops abyssorum_cyaby_a;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Cyclops;Cyclops abyssorum;Morphological;zooplankton;species
+Cyclops abyssorum_cyaby_c;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Cyclops;Cyclops abyssorum;Morphological;zooplankton;species
+Cyclops abyssorum_cyaby_n;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Cyclops;Cyclops abyssorum;Morphological;zooplankton;species
+Eucyclops serrulatus_euser_a;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Eucyclops;Eucyclops serrulatus;Morphological;zooplankton;species
+Eucyclops serrulatus_euser_c;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Eucyclops;Eucyclops serrulatus;Morphological;zooplankton;species
+Eucyclops serrulatus_euser_n;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Eucyclops;Eucyclops serrulatus;Morphological;zooplankton;species
+Metacyclops minutus_memin_a;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Metacyclops;Metacyclops minutus;Morphological;zooplankton;species
+Metacyclops minutus_memin_c;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Metacyclops;Metacyclops minutus;Morphological;zooplankton;species
+Metacyclops minutus_memin_n;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Metacyclops;Metacyclops minutus;Morphological;zooplankton;species
+Tropocyclops prasinus_trpra_a;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Tropocyclops;Tropocyclops prasinus;Morphological;zooplankton;species
+Tropocyclops prasinus_trpra_c;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Tropocyclops;Tropocyclops prasinus;Morphological;zooplankton;species
+Tropocyclops prasinus_trpra_n;Eukaryota;Animalia;Arthropoda;Copepoda;Cyclopoida;Cyclopidae;Tropocyclops;Tropocyclops prasinus;Morphological;zooplankton;species
+Centropagidae ;Eukaryota;Animalia;Arthropoda;Hexanauplia;Calanoida;Centropagidae ;NA;NA;eDNA;zooplankton;family
+Hexanauplia;Eukaryota;Animalia;Arthropoda;Hexanauplia;NA;NA;NA;NA;eDNA;zooplankton;class
+Macrocyclops albidus;Eukaryota;Animalia;Arthropoda;Hexanauplia;Cyclopoida;Cyclopidae;Macrocyclops;Macrocyclops albidus;eDNA;zooplankton;species
+Aeshna;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Aeshnidae;Aeshna;NA;Morphological;macroinvertebrates;genus
+Anax ephippiger;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Aeshnidae;Anax;Anax ephippiger;Morphological;macroinvertebrates;species
+Anax parthenope;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Aeshnidae;Anax;Anax parthenope;Morphological;macroinvertebrates;species
+Anthomyiidae;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Anthomyiidae;NA;NA;Morphological;macroinvertebrates;family
+Aphelocheirus aestivalis;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Aphelocheiridae;Aphelocheirus;Aphelocheirus aestivalis;Morphological;macroinvertebrates;species
+Brachythemis leucosticta;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Brachythemis;Brachythemis leucosticta;Morphological;macroinvertebrates;species
+Caenis luctuosa;Eukaryota;Animalia;Arthropoda;Insecta;Ephemeroptera;Caenidae;Caenis;Caenis luctuosa;Morphological;macroinvertebrates;species
+Chalcolestes viridis;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Lestidae;Chalcolestes;Chalcolestes viridis;Morphological;macroinvertebrates;species
+Chrysomelidae;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Chrysomelidae;NA;NA;Morphological;macroinvertebrates;family
+Cloeon dipterum;Eukaryota;Animalia;Arthropoda;Insecta;Ephemeroptera;Baetidae;Cloeon;Cloeon dipterum;Morphological;macroinvertebrates;species
+Coenagrion puella;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Coenagrionidae;Coenagrion;Coenagrion puella;Morphological;macroinvertebrates;species
+Cordulegaster boltonii;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Cordulegastridae;Cordulegaster;Cordulegaster boltonii;Morphological;macroinvertebrates;species
+Curculionidae;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Curculionidae;NA;NA;Morphological;macroinvertebrates;family
+Diplacodes lefebvrei;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Diplacodes;Diplacodes lefebvrei;Morphological;macroinvertebrates;species
+Diptera;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;NA;NA;NA;Morphological;macroinvertebrates;order
+Ecnomus;Eukaryota;Animalia;Arthropoda;Insecta;Trichoptera;Ecnomidae;Ecnomus;NA;Morphological;macroinvertebrates;genus
+Ephydridae;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ephydridae;NA;NA;Morphological;macroinvertebrates;family
+Glyphotaelius pellucidus;Eukaryota;Animalia;Arthropoda;Insecta;Trichoptera;Limnephilidae;Glyphotaelius;Glyphotaelius pellucidus;Morphological;macroinvertebrates;species
+Hydrometra stagnorum;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Hydrometridae;Hydrometra;Hydrometra stagnorum;Morphological;macroinvertebrates;species
+Ischnura pumilio;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Coenagrionidae;Ischnura;Ischnura pumilio;Morphological;macroinvertebrates;species
+Lestes barbarus;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Lestidae;Lestes;Lestes barbarus;Morphological;macroinvertebrates;species
+Lestes dryas;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Lestidae;Lestes;Lestes dryas;Morphological;macroinvertebrates;species
+Lestes virens;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Lestidae;Lestes;Lestes virens;Morphological;macroinvertebrates;species
+Libellula depressa;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Libellula;Libellula depressa;Morphological;macroinvertebrates;species
+Libellula quadrimaculata;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Libellula;Libellula quadrimaculata;Morphological;macroinvertebrates;species
+Limoniidae;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Limoniidae;NA;NA;Morphological;macroinvertebrates;family
+Mesovelia vittigera;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Mesoveliidae;Mesovelia;Mesovelia vittigera;Morphological;macroinvertebrates;species
+Micronecta;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Corixidae;Micronecta;NA;Morphological;macroinvertebrates;genus
+Microvelia;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Veliidae;Microvelia;NA;Morphological;macroinvertebrates;genus
+Naucoris maculatus;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Naucoridae;Naucoris;Naucoris maculatus;Morphological;macroinvertebrates;species
+Orthetrum albistylum;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Orthetrum;Orthetrum albistylum;Morphological;macroinvertebrates;species
+Orthetrum cancellatum;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Orthetrum;Orthetrum cancellatum;Morphological;macroinvertebrates;species
+Orthetrum nitidinerve;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Orthetrum;Orthetrum nitidinerve;Morphological;macroinvertebrates;species
+Plea minutissima;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Pleidae;Plea;Plea minutissima;Morphological;macroinvertebrates;species
+Pyrrhosoma nymphula;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Coenagrionidae;Pyrrhosoma;Pyrrhosoma nymphula;Morphological;macroinvertebrates;species
+Sciomyzidae;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Sciomyzidae;NA;NA;Morphological;macroinvertebrates;family
+Sialis;Eukaryota;Animalia;Arthropoda;Insecta;Megaloptera;Sialidae;Sialis;NA;Morphological;macroinvertebrates;genus
+Stratiomys longicornis;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Stratiomyidae;Stratiomys;Stratiomys longicornis;Morphological;macroinvertebrates;species
+Sympetrum flaveolum;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Sympetrum;Sympetrum flaveolum;Morphological;macroinvertebrates;species
+Sympetrum fonscolombii;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Sympetrum;Sympetrum fonscolombii;Morphological;macroinvertebrates;species
+Sympetrum meridionale;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Sympetrum;Sympetrum meridionale;Morphological;macroinvertebrates;species
+Sympetrum sanguineum;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Sympetrum;Sympetrum sanguineum;Morphological;macroinvertebrates;species
+Sympetrum striolatum;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Sympetrum;Sympetrum striolatum;Morphological;macroinvertebrates;species
+Sympetrum vulgatum;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Sympetrum;Sympetrum vulgatum;Morphological;macroinvertebrates;species
+Tabanidae;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Tabanidae;NA;NA;Morphological;macroinvertebrates;family
+Aedes ochlerotatus_aedoch_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Aedes;Aedes ochlerotatus;Morphological;macroinvertebrates;species
+Aedes ochlerotatus_aedoch_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Aedes;Aedes ochlerotatus;Morphological;macroinvertebrates;species
+Agabus bipustulatus_agabip_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Agabus;Agabus bipustulatus;Morphological;macroinvertebrates;species
+Agabus_agabus_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Agabus;NA;Morphological;macroinvertebrates;genus
+Agabus nebulosus_aganeb_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Agabus;Agabus nebulosus;Morphological;macroinvertebrates;species
+Anacaena globulus_anaglo_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Anacaena;Anacaena globulus;Morphological;macroinvertebrates;species
+Anacaena limbata_analim_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Anacaena;Anacaena limbata;Morphological;macroinvertebrates;species
+Anopheles maculipennis_anomac_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Anopheles;Anopheles maculipennis;Morphological;macroinvertebrates;species
+Berosus_berosu_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Berosus;NA;Morphological;macroinvertebrates;genus
+Berosus signaticollis_bersig_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Berosus;Berosus signaticollis;Morphological;macroinvertebrates;species
+Chaoborus flavicans_chafla_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chaoboridae;Chaoborus;Chaoborus flavicans;Morphological;macroinvertebrates;species
+Chaoborus_chaobo_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chaoboridae;Chaoborus;NA;Morphological;macroinvertebrates;genus
+Chironomus_chiron_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;NA;Morphological;macroinvertebrates;genus
+Chironomus_chiron_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;NA;Morphological;macroinvertebrates;genus
+Colymbetes_colymb_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Colymbetes;NA;Morphological;macroinvertebrates;genus
+Copelatus_copela_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Copelatus;NA;Morphological;macroinvertebrates;genus
+Corixa_corixa_a;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Corixidae;Corixa;NA;Morphological;macroinvertebrates;genus
+Corixa_corixa_l;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Corixidae;Corixa;NA;Morphological;macroinvertebrates;genus
+Corynoneura_coryno_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Corynoneura;NA;Morphological;macroinvertebrates;genus
+Corynoneura_coryno_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Corynoneura;NA;Morphological;macroinvertebrates;genus
+Crocothemis_croery_dif;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Crocothemis;NA;Morphological;macroinvertebrates;genus
+Culex_culex_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Culex;NA;Morphological;macroinvertebrates;genus
+Culicidae_culici_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;NA;NA;Morphological;macroinvertebrates;family
+Culicidae_culici_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;NA;NA;Morphological;macroinvertebrates;family
+Dasyhelea_dasyhe_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae;Dasyhelea;NA;Morphological;macroinvertebrates;genus
+Dasyhelea_dasyhe_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae;Dasyhelea;NA;Morphological;macroinvertebrates;genus
+Dixa_dixa_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Dixidae;Dixa;NA;Morphological;macroinvertebrates;genus
+Dixa_dixa_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Dixidae;Dixa;NA;Morphological;macroinvertebrates;genus
+Dorytomus longimanus_dorlon_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Curculionidae;Dorytomus;Dorytomus longimanus;Morphological;macroinvertebrates;species
+Dryops_dryops_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dryopidae;Dryops;NA;Morphological;macroinvertebrates;genus
+Dryops_dryops_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dryopidae;Dryops;NA;Morphological;macroinvertebrates;genus
+Dytiscus_dytisc_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Dytiscus;NA;Morphological;macroinvertebrates;genus
+Enochrus_enochr_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Enochrus;NA;Morphological;macroinvertebrates;genus
+Enochrus_enochr_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Enochrus;NA;Morphological;macroinvertebrates;genus
+Graptodytes aequalis_graaeq_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Graptodytes;Graptodytes aequalis;Morphological;macroinvertebrates;species
+Haliplus_halipl_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Haliplidae;Haliplus;NA;Morphological;macroinvertebrates;genus
+Helochares_heloch_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Helochares;NA;Morphological;macroinvertebrates;genus
+Helophorus_heloph_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Helophorus;NA;Morphological;macroinvertebrates;genus
+Helochares punctatus_helpun_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Helochares;Helochares punctatus;Morphological;macroinvertebrates;species
+Hemerobiidae_hemero_l;Eukaryota;Animalia;Arthropoda;Insecta;Neuroptera;Hemerobiidae;NA;NA;Morphological;macroinvertebrates;family
+Hydroglyphus geminus_hydgem_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Hydroglyphus;Hydroglyphus geminus;Morphological;macroinvertebrates;species
+Hydrobius_hydrob_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Hydrobius;NA;Morphological;macroinvertebrates;genus
+Hydrochus_hydroc_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Hydrochus;NA;Morphological;macroinvertebrates;genus
+Hydroporus_hydrop_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Hydroporus;NA;Morphological;macroinvertebrates;genus
+Hydroporus_hydrop_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Hydroporus;NA;Morphological;macroinvertebrates;genus
+Hydrophilus_hydroph_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Hydrophilus;NA;Morphological;macroinvertebrates;genus
+Hygrobia hermanni_hygher_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hygrobiidae;Hygrobia;Hygrobia hermanni;Morphological;macroinvertebrates;species
+Hygrotus_hygrot_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Hygrotus;NA;Morphological;macroinvertebrates;genus
+Hyphydrus_hyphyd_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Hyphydrus;NA;Morphological;macroinvertebrates;genus
+Ilybius_ilybiu_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Ilybius;NA;Morphological;macroinvertebrates;genus
+Ilybius_ilybiu_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Ilybius;NA;Morphological;macroinvertebrates;genus
+Laccobius_laccob_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Laccobius;NA;Morphological;macroinvertebrates;genus
+Laccobius_laccob_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Laccobius;NA;Morphological;macroinvertebrates;genus
+Laccophilus_laccop_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Laccophilus;NA;Morphological;macroinvertebrates;genus
+Limnebius_limneb_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydraenidae;Limnebius;NA;Morphological;macroinvertebrates;genus
+Macronychus quadrituberculatus_macqua_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Elmidae;Macronychus;Macronychus quadrituberculatus;Morphological;macroinvertebrates;species
+Meladema coriacea_melcor_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Meladema;Meladema coriacea;Morphological;macroinvertebrates;species
+Meladema coriacea_melcor_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Meladema;Meladema coriacea;Morphological;macroinvertebrates;species
+Micropsectra_microp_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Micropsectra;NA;Morphological;macroinvertebrates;genus
+Micropsectra_microp_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Micropsectra;NA;Morphological;macroinvertebrates;genus
+Nebrioporus_nebrio_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Nebrioporus;NA;Morphological;macroinvertebrates;genus
+Neoculex territans_neoter_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Neoculex;Neoculex territans;Morphological;macroinvertebrates;species
+Normandia_norman_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Elmidae;Normandia;NA;Morphological;macroinvertebrates;genus
+Ochthebius_ochthe_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydraenidae;Ochthebius;NA;Morphological;macroinvertebrates;genus
+Chironomidae_orthoc_orthoc_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae_orthoc;NA;NA;Morphological;macroinvertebrates;family
+Chironomidae_orthoc_orthoc_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae_orthoc;NA;NA;Morphological;macroinvertebrates;family
+Oulimnius_oulimn_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Elmidae;Oulimnius;NA;Morphological;macroinvertebrates;genus
+Ceratopogonidae_palpom_palpom_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae_palpom;NA;NA;Morphological;macroinvertebrates;family
+Ceratopogonidae_palpom_palpom_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae_palpom;NA;NA;Morphological;macroinvertebrates;family
+Platambus_platam_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Platambus;NA;Morphological;macroinvertebrates;genus
+Pomatinus substriatus_pomsub_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dryopidae;Pomatinus;Pomatinus substriatus;Morphological;macroinvertebrates;species
+Potamophilus acuminatus_potacu_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Elmidae;Potamophilus;Potamophilus acuminatus;Morphological;macroinvertebrates;species
+Riolus_riolus_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Elmidae;Riolus;NA;Morphological;macroinvertebrates;genus
+Scarodytes halensis_scahal_a;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Scarodytes;Scarodytes halensis;Morphological;macroinvertebrates;species
+Serromyia_serrom_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae;Serromyia;NA;Morphological;macroinvertebrates;genus
+Sigara_sigara_a;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Corixidae;Sigara;NA;Morphological;macroinvertebrates;genus
+Sigara_sigara_l;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Corixidae;Sigara;NA;Morphological;macroinvertebrates;genus
+Ceratopogonidae_sphaer_sphaer_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae_sphaer;NA;NA;Morphological;macroinvertebrates;family
+Stictonectes_sticto_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Stictonectes;NA;Morphological;macroinvertebrates;genus
+Chironomidae_tanypo_tanypo_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae_tanypo;NA;NA;Morphological;macroinvertebrates;family
+Chironomidae_tanypo_tanypo_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae_tanypo;NA;NA;Morphological;macroinvertebrates;family
+Tanytarsus_tanyta_l;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Tanytarsus;NA;Morphological;macroinvertebrates;genus
+Tanytarsus_tanyta_n;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Tanytarsus;NA;Morphological;macroinvertebrates;genus
+Yola bicarinata_yolbic_l;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Yola;Yola bicarinata;Morphological;macroinvertebrates;species
+Anacaena lutescens;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Anacaena;Anacaena lutescens;eDNA;macroinvertebrates;species
+Centroptilum;Eukaryota;Animalia;Arthropoda;Insecta;Ephemeroptera;Baetidae;Centroptilum;NA;eDNA;macroinvertebrates;genus
+Cercyon quisquilius;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Cercyon;Cercyon quisquilius;eDNA;macroinvertebrates;species
+Chaetocladius melaleucus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chaetocladius;Chaetocladius melaleucus;eDNA;macroinvertebrates;species
+Chironomidae;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;NA;NA;eDNA;macroinvertebrates;family
+Chironomus aprilinus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;Chironomus aprilinus;eDNA;macroinvertebrates;species
+Chironomus luridus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;Chironomus luridus;eDNA;macroinvertebrates;species
+Chironomus pseudothummi;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;Chironomus pseudothummi;eDNA;macroinvertebrates;species
+Chironomus riparius;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;Chironomus riparius;eDNA;macroinvertebrates;species
+Chironomus transvaalensis;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Chironomus;Chironomus transvaalensis;eDNA;macroinvertebrates;species
+Culex hayashii;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Culex;Culex hayashii;eDNA;macroinvertebrates;species
+Culex hortensis;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Culex;Culex hortensis;eDNA;macroinvertebrates;species
+Culex modestus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Culex;Culex modestus;eDNA;macroinvertebrates;species
+Culicoides circumscriptus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Ceratopogonidae;Culicoides;Culicoides circumscriptus;eDNA;macroinvertebrates;species
+Culiseta longiareolata;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Culicidae;Culiseta;Culiseta longiareolata;eDNA;macroinvertebrates;species
+Gerris gibbifer;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Gerridae;Gerris;Gerris gibbifer;eDNA;macroinvertebrates;species
+Graptodytes castilianus;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Graptodytes;Graptodytes castilianus;eDNA;macroinvertebrates;species
+Gymnometriocnemus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Gymnometriocnemus;NA;eDNA;macroinvertebrates;genus
+Helochares lividus;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Hydrophilidae;Helochares;Helochares lividus;eDNA;macroinvertebrates;species
+Hydroporus pubescens;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Hydroporus;Hydroporus pubescens;eDNA;macroinvertebrates;species
+Ilybius chalconatus;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Ilybius;Ilybius chalconatus;eDNA;macroinvertebrates;species
+Notonecta maculata;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Notonectidae;Notonecta;Notonecta maculata;eDNA;macroinvertebrates;species
+Paratanytarsus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Paratanytarsus;NA;eDNA;macroinvertebrates;genus
+Polypedilum nubifer;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Polypedilum;Polypedilum nubifer;eDNA;macroinvertebrates;species
+Rhantus suturalis;Eukaryota;Animalia;Arthropoda;Insecta;Coleoptera;Dytiscidae;Rhantus;Rhantus suturalis;eDNA;macroinvertebrates;species
+Sigara nigrolineata;Eukaryota;Animalia;Arthropoda;Insecta;Hemiptera;Corixidae;Sigara;Sigara nigrolineata;eDNA;macroinvertebrates;species
+Tanytarsus ejuncidus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Tanytarsus;Tanytarsus ejuncidus;eDNA;macroinvertebrates;species
+Tanytarsus formosanus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Tanytarsus;Tanytarsus formosanus;eDNA;macroinvertebrates;species
+Ladona depressa;Eukaryota;Animalia;Arthropoda;Insecta;Odonata;Libellulidae;Ladona;Ladona depressa;eDNA;macroinvertebrates;species
+Metriocnemus eurynotus;Eukaryota;Animalia;Arthropoda;Insecta;Diptera;Chironomidae;Metriocnemus;Metriocnemus eurynotus;eDNA;macroinvertebrates;species
+Amphipoda;Eukaryota;Animalia;Arthropoda;Malacostraca;Amphipoda;NA;NA;NA;eDNA;macroinvertebrates;order
+Decapoda;Eukaryota;Animalia;Arthropoda;Malacostraca;Decapoda;NA;NA;NA;eDNA;macroinvertebrates;order
+Platorchestia joi;Eukaryota;Animalia;Arthropoda;Malacostraca;Amphipoda;Talitridae;Platorchestia;Platorchestia joi;eDNA;macroinvertebrates;species
+Arthropoda;Eukaryota;Animalia;Arthropoda;NA;NA;NA;NA;NA;eDNA;macroinvertebrates;phylum
+Cypridopsis hartwigi;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Cypridopsis;Cypridopsis hartwigi;Morphological;zooplankton;species
+Cypridopsis vidua;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Cypridopsis;Cypridopsis vidua;Morphological;zooplankton;species
+Cypris bispinosa;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Cypris;Cypris bispinosa;Morphological;zooplankton;species
+Eucypris virens;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Eucypris;Eucypris virens;Morphological;zooplankton;species
+Herpetocypris chevreuxi;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Herpetocypris;Herpetocypris chevreuxi;Morphological;zooplankton;species
+Herpetocypris incongruens;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Herpetocypris;Herpetocypris incongruens;Morphological;zooplankton;species
+Herpetocypris salina;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Herpetocypris;Herpetocypris salina;Morphological;zooplankton;species
+Ilyocypris gibba;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Ilyocypris;Ilyocypris gibba;Morphological;zooplankton;species
+Isocypris beauchampi;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Isocypris;Isocypris beauchampi;Morphological;zooplankton;species
+Limnocythere inopinata;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cytheridae;Limnocythere;Limnocythere inopinata;Morphological;zooplankton;species
+Notodromas persica;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Notodromadidae;Notodromas;Notodromas persica;Morphological;zooplankton;species
+Plesiocypridopsis newtoni;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Plesiocypridopsis;Plesiocypridopsis newtoni;Morphological;zooplankton;species
+Potamocypris villosa;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Potamocypris;Potamocypris villosa;Morphological;zooplankton;species
+Sarscypridopsis aculeata;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Sarscypridopsis;Sarscypridopsis aculeata;Morphological;zooplankton;species
+Cypria;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyclocyprididae;Cypria;NA;eDNA;zooplankton;genus
+Cyprididae;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;NA;NA;eDNA;zooplankton;family
+Heterocypris incongruens;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Heterocypris;Heterocypris incongruens;eDNA;zooplankton;species
+Heterocypris salina;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Cyprididae;Heterocypris;Heterocypris salina;eDNA;zooplankton;species
+Notodromas monacha;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;Notodromadidae;Notodromas;Notodromas monacha;eDNA;zooplankton;species
+Podocopida;Eukaryota;Animalia;Arthropoda;Ostracoda;Podocopida;NA;NA;NA;eDNA;zooplankton;order
+Chaetonotus;Eukaryota;Animalia;Gastrotricha;Gastrotricha incertae sedis;Chaetonotida;Chaetonotidae;Chaetonotus;NA;eDNA;macroinvertebrates;genus
+Chaetonotus cf. maximus;Eukaryota;Animalia;Gastrotricha;Gastrotricha incertae sedis;Chaetonotida;Chaetonotidae;Chaetonotus;Chaetonotus cf. maximus;eDNA;macroinvertebrates;species
+Gastrotricha;Eukaryota;Animalia;Gastrotricha;NA;NA;NA;NA;NA;eDNA;macroinvertebrates;phylum
+Heterolepidoderma;Eukaryota;Animalia;Gastrotricha;Gastrotricha incertae sedis;Chaetonotida;Chaetonotidae;Heterolepidoderma;NA;eDNA;macroinvertebrates;genus
+Lepidodermella;Eukaryota;Animalia;Gastrotricha;Gastrotricha incertae sedis;Chaetonotida;Chaetonotidae;Lepidodermella;NA;eDNA;macroinvertebrates;genus
+Lepidodermella squamata;Eukaryota;Animalia;Gastrotricha;Gastrotricha incertae sedis;Chaetonotida;Chaetonotidae;Lepidodermella;Lepidodermella squamata;eDNA;macroinvertebrates;species
+Corbicula;Eukaryota;Animalia;Mollusca;Bivalvia;Veneroida;Corbiculidae;Corbicula;NA;Morphological;macroinvertebrates;genus
+Gyraulus;Eukaryota;Animalia;Mollusca;Gastropoda;Basommatophora;Planorbidae;Gyraulus;NA;Morphological;macroinvertebrates;genus
+Physa;Eukaryota;Animalia;Mollusca;Gastropoda;Basommatophora;Physidae;Physa;NA;Morphological;macroinvertebrates;genus
+Planorbarius dufourii;Eukaryota;Animalia;Mollusca;Gastropoda;Basommatophora;Planorbidae;Planorbarius;Planorbarius dufourii;Morphological;macroinvertebrates;species
+Planorbis;Eukaryota;Animalia;Mollusca;Gastropoda;Basommatophora;Planorbidae;Planorbis;NA;Morphological;macroinvertebrates;genus
+Potamopyrgus antipodarum;Eukaryota;Animalia;Mollusca;Gastropoda;Mesogastropoda;Hydrobiidae;Potamopyrgus;Potamopyrgus antipodarum;Morphological;macroinvertebrates;species
+Segmentina nitida;Eukaryota;Animalia;Mollusca;Gastropoda;Basommatophora;Planorbidae;Segmentina;Segmentina nitida;Morphological;macroinvertebrates;species
+Stagnicola fuscus;Eukaryota;Animalia;Mollusca;Gastropoda;Basommatophora;Lymnaeidae;Stagnicola;Stagnicola fuscus;Morphological;macroinvertebrates;species
+Valvata;Eukaryota;Animalia;Mollusca;Gastropoda;Heterostropha;Valvatidae;Valvata;NA;Morphological;macroinvertebrates;genus
+Armiger crista;Eukaryota;Animalia;Mollusca;Gastropoda;Gastropoda incertae sedis;Planorbidae;Armiger;Armiger crista;eDNA;macroinvertebrates;species
+Gastropoda;Eukaryota;Animalia;Mollusca;Gastropoda;NA;NA;NA;NA;eDNA;macroinvertebrates;class
+Planorbidae;Eukaryota;Animalia;Mollusca;Gastropoda;Gastropoda incertae sedis;Planorbidae;NA;NA;eDNA;macroinvertebrates;family
+UnioNAa;Eukaryota;Animalia;Mollusca;Bivalvia;Unionoida;NA;NA;NA;eDNA;macroinvertebrates;order
+Metazoa;Eukaryota;Animalia;NA;NA;NA;NA;NA;NA;eDNA;macroinvertebrates;kingdom
+Monhysteridae;Eukaryota;Animalia;Nematoda;Chromadorea;Monhysterida;Monhysteridae;NA;NA;eDNA;macroinvertebrates;family
+Strongyloides;Eukaryota;Animalia;Nematoda;Secernentea;Rhabditida;Strongyloididae;Strongyloides;NA;eDNA;macroinvertebrates;genus
+Tobrilus gracilis;Eukaryota;Animalia;Nematoda;Enoplea;Triplonchida;Tobrilidae;Tobrilus;Tobrilus gracilis;eDNA;macroinvertebrates;species
+Plectus aquatilis;Eukaryota;Animalia;Nematoda;Chromadorea;Araeolaimida;Plectidae;Plectus;Plectus aquatilis;eDNA;macroinvertebrates;species
+Tridentulus;Eukaryota;Animalia;Nematoda;Chromadorea;Monhysterida;Monhysteridae;Tridentulus;NA;eDNA;macroinvertebrates;genus
+Prostoma eilhardi;Eukaryota;Animalia;Nemertea;Hoplonemertea ;Monostilifera;Prostomatidae;Prostoma;Prostoma eilhardi;eDNA;macroinvertebrates;species
+Catenula lemnae;Eukaryota;Animalia;Platyhelminthes;Turbellaria;Catenulida;Catenulidae;Catenula;Catenula lemnae;eDNA;macroinvertebrates;species
+Opisthocystis goettei;Eukaryota;Animalia;Platyhelminthes;Turbellaria;Rhabdocoela;Polycystididae;Opisthocystis;Opisthocystis goettei;eDNA;macroinvertebrates;species
+Stenostomum;Eukaryota;Animalia;Platyhelminthes;Turbellaria;Catenulida;Stenostomidae;Stenostomum;NA;eDNA;macroinvertebrates;genus
+Stenostomum leucops;Eukaryota;Animalia;Platyhelminthes;Turbellaria;Turbellaria incertae sedis;Stenostomidae;Stenostomum;Stenostomum leucops;eDNA;macroinvertebrates;species
+Anuraeopsis fissa;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Anuraeopsis;Anuraeopsis fissa;Morphological;zooplankton;species
+Ascomorpha ovalis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Gastropodidae;Ascomorpha;Ascomorpha ovalis;Morphological;zooplankton;species
+Bdelloidea;Eukaryota;Animalia;Rotifera;Bdelloidea;NA;NA;NA;NA;Morphological;zooplankton;class
+Brachionus angularis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Brachionus;Brachionus angularis;Morphological;zooplankton;species
+Brachionus calyciflorus;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Brachionus;Brachionus calyciflorus;Morphological;zooplankton;species
+Brachionus plicatilis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Brachionus;Brachionus plicatilis;Morphological;zooplankton;species
+Brachionus urceolaris;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Brachionus;Brachionus urceolaris;Morphological;zooplankton;species
+Cephalodella catellina;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Notommatidae;Cephalodella;Cephalodella catellina;Morphological;zooplankton;species
+Cephalodella forficula;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Notommatidae;Cephalodella;Cephalodella forficula;Morphological;zooplankton;species
+Cephalodella gibba;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Notommatidae;Cephalodella;Cephalodella gibba;Morphological;zooplankton;species
+Epiphanes senta;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Epiphanidae;Epiphanes;Epiphanes senta;Morphological;zooplankton;species
+Euchlanis dilatata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Euchlanidae;Euchlanis;Euchlanis dilatata;Morphological;zooplankton;species
+Hexarthra oxyurus;Eukaryota;Animalia;Rotifera;Eurotatoria;Flosculariaceae;Hexarthridae;Hexarthra;Hexarthra oxyurus;Morphological;zooplankton;species
+Keratella cochlearis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Keratella;Keratella cochlearis;Morphological;zooplankton;species
+Keratella cochlearis tecta;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Keratella;Keratella cochlearis tecta;Morphological;zooplankton;species
+Keratella quadrata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Keratella;Keratella quadrata;Morphological;zooplankton;species
+Lecane bulla;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane bulla;Morphological;zooplankton;species
+Lecane closterocerca;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane closterocerca;Morphological;zooplankton;species
+Lecane copeis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane copeis;Morphological;zooplankton;species
+Lecane flexilis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane flexilis;Morphological;zooplankton;species
+Lecane hamata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane hamata;Morphological;zooplankton;species
+Lecane inopinata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane inopinata;Morphological;zooplankton;species
+Lecane lamellata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane lamellata;Morphological;zooplankton;species
+Lecane luna;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane luna;Morphological;zooplankton;species
+Lecane lunaris;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane lunaris;Morphological;zooplankton;species
+Lecane nana;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lecanidae;Lecane;Lecane nana;Morphological;zooplankton;species
+Lepadella acuminata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lepadellidae;Lepadella;Lepadella acuminata;Morphological;zooplankton;species
+Lepadella patella;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lepadellidae;Lepadella;Lepadella patella;Morphological;zooplankton;species
+Mytilina mucronata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Mytilinidae;Mytilina;Mytilina mucronata;Morphological;zooplankton;species
+Mytilina ventralis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Mytilinidae;Mytilina;Mytilina ventralis;Morphological;zooplankton;species
+Polyarthra vulgaris;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Synchaetidae;Polyarthra;Polyarthra vulgaris;Morphological;zooplankton;species
+Pompholyx sulcata;Eukaryota;Animalia;Rotifera;Eurotatoria;Flosculariaceae;Testudinellidae;Pompholyx;Pompholyx sulcata;Morphological;zooplankton;species
+Synchaeta pectinata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Synchaetidae;Synchaeta;Synchaeta pectinata;Morphological;zooplankton;species
+Testudinella patina;Eukaryota;Animalia;Rotifera;Eurotatoria;Flosculariaceae;Testudinellidae;Testudinella;Testudinella patina;Morphological;zooplankton;species
+Trichocerca;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Trichocercidae;Trichocerca;NA;Morphological;zooplankton;genus
+Trichocerca elongata;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Trichocercidae;Trichocerca;Trichocerca elongata;Morphological;zooplankton;species
+Trichocerca vernalis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Trichocercidae;Trichocerca;Trichocerca vernalis;Morphological;zooplankton;species
+Trichotria pocillum;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Trichotriidae;Trichotria;Trichotria pocillum;Morphological;zooplankton;species
+Brachionidae;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;NA;NA;eDNA;zooplankton;family
+Brachionus macracanthus;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Brachionus;Brachionus macracanthus;eDNA;zooplankton;species
+Brachionus variabilis;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Brachionus;Brachionus variabilis;eDNA;zooplankton;species
+Keratella tropica;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Keratella;Keratella tropica;eDNA;zooplankton;species
+Lepadellidae;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Lepadellidae;NA;NA;eDNA;zooplankton;family
+Notommata allantois;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Notommatidae;Notommata;Notommata allantois;eDNA;zooplankton;species
+Philodina;Eukaryota;Animalia;Rotifera;Bdelloidea;Philodinida;Philodinidae;Philodina;NA;eDNA;zooplankton;genus
+Philodina citrina;Eukaryota;Animalia;Rotifera;Bdelloidea;Philodinida;Philodinidae;Philodina;Philodina citrina;eDNA;zooplankton;species
+Philodina megalotrocha;Eukaryota;Animalia;Rotifera;Bdelloidea;Philodinida;Philodinidae;Philodina;Philodina megalotrocha;eDNA;zooplankton;species
+Philodinidae;Eukaryota;Animalia;Rotifera;Bdelloidea;Philodinida;Philodinidae;NA;NA;eDNA;zooplankton;family
+Plationus patulus macracanthus;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Brachionidae;Plationus;Plationus patulus macracanthus;eDNA;zooplankton;species
+Rotaria rotatoria;Eukaryota;Animalia;Rotifera;Bdelloidea;Philodinida;Philodinidae;Rotaria;Rotaria rotatoria;eDNA;zooplankton;species
+Synchaeta tremula;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Synchaetidae;Synchaeta;Synchaeta tremula;eDNA;zooplankton;species
+Trichocerca rattus;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Trichocercidae;Trichocerca;Trichocerca rattus;eDNA;zooplankton;species
+Scaridium longicaudum;Eukaryota;Animalia;Rotifera;Eurotatoria;Ploima;Scaridiidae;Scaridium;Scaridium longicaudum;eDNA;zooplankton;species
+Dactylobiotus parthenogeneticus;Eukaryota;Animalia;Tardigrada;Eutardigrada;Parachela;Murrayidae ;Dactylobiotus;Dactylobiotus parthenogeneticus;eDNA;macroinvertebrates;species
+Achnanthes;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Mastogloiales;Achnanthaceae;Achnanthes;NA;Morphological;phytoplankton;genus
+Achnanthidium minutissimum;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cocconeidales;Achnanthidiaceae;Achnanthidium;Achnanthidium minutissimum;Morphological;phytoplankton;species
+Amphora;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Thalassiophysales;Catenulaceae;Amphora;NA;Morphological;phytoplankton;genus
+Aspidisca fusca;Eukaryota;Chromista;Ciliophora;Spirotrichea;Euplotida;Aspidiscidae;Aspidisca;Aspidisca fusca;eDNA;phytoplankton;species
+Aulacoseira;Eukaryota;Chromista;Bacillariophyta;Coscinodiscophyceae;Aulacoseirales;Aulocoseiraceae;Aulacoseira;NA;Morphological;phytoplankton;genus
+Aulacoseira ambigua;Eukaryota;Chromista;Bacillariophyta;Coscinodiscophyceae;Aulacoseirales;Aulocoseiraceae;Aulacoseira;Aulacoseira ambigua;Morphological;phytoplankton;species
+Aulacoseira distans;Eukaryota;Chromista;Bacillariophyta;Coscinodiscophyceae;Aulacoseirales;Aulocoseiraceae;Aulacoseira;Aulacoseira distans;Morphological;phytoplankton;species
+Bacillariophyceae;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;NA;NA;NA;NA;Morphological;phytoplankton;class
+Bacillariophyta;Eukaryota;Chromista;Bacillariophyta;NA;NA;NA;NA;NA;Morphological;phytoplankton;phylum
+Bicosoecales;Eukaryota;Chromista;Bigyra;Bikosea;Bicosoecales;NA;NA;NA;eDNA;phytoplankton;order
+Campylodiscus bicostatus;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Surirelalles;Surirellaceae;Campylodiscus;Campylodiscus bicostatus;Morphological;phytoplankton;species
+Cercomonadida;Eukaryota;Chromista;Cercozoa;Sarcomonadea ;Cercomonadida;NA;NA;NA;eDNA;phytoplankton;order
+Cercomonas;Eukaryota;Chromista;Cercozoa;Sarcomonadea;Cercomonadida;Cercomonadidae;Cercomonas;NA;eDNA;phytoplankton;genus
+Cercozoa;Eukaryota;Chromista;Cercozoa;NA;NA;NA;NA;NA;eDNA;phytoplankton;phylum
+Characiopsis;Eukaryota;Chromista;Ochrophyta;Xanthophyceae;Mischococcales;Characiopsidaceae;Characiopsis;NA;Morphological;phytoplankton;genus
+Chromista;Eukaryota;Chromista;NA;NA;NA;NA;NA;NA;eDNA;phytoplankton;kingdom
+Chromulinaceae;Eukaryota;Chromista;Ochrophyta;Chrysophyceae;Chromulinales;Chromulinaceae;NA;NA;eDNA;phytoplankton;family
+Chrysocapsa;Eukaryota;Chromista;Ochrophyta;Chrysophyceae;Chromulinales;Chrysocapsaceae;Chrysocapsa;NA;eDNA;phytoplankton;genus
+Chrysochromulina;Eukaryota;Chromista;Haptophyta;Coccolithophyceae;Prymnesiales;Chrysochromulinaceae;Chrysochromulina;NA;eDNA;phytoplankton;genus
+Chrysophyceae;Eukaryota;Chromista;Ochrophyta;Chrysophyceae;NA;NA;NA;NA;eDNA;phytoplankton;class
+Cocconeis;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cocconeidales;Cocconeidaceae;Cocconeis;NA;Morphological;phytoplankton;genus
+Colpodella;Eukaryota;Chromista;Apicomplexa;Apicomonadea;Colpodellida;Colpodellidae;Colpodella;NA;eDNA;phytoplankton;genus
+Coscinodiscophyceae;Eukaryota;Chromista;Bacillariophyta;Coscinodiscophyceae;NA;NA;NA;NA;Morphological;phytoplankton;class
+Cryptomonas;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;NA;Morphological;phytoplankton;genus
+Cryptomonas erosa;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;Cryptomonas erosa;Morphological;phytoplankton;species
+Cryptomonas gyropyreNAosa;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;Cryptomonas gyropyrenoidosa;eDNA;phytoplankton;species
+Cryptomonas marssonii;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;Cryptomonas marssonii;eDNA;phytoplankton;species
+Cryptomonas ovata;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;Cryptomonas ovata;Morphological;phytoplankton;species
+Cryptomonas paramecium;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;Cryptomonas paramecium;eDNA;phytoplankton;species
+Cryptomonas pyreNAifera;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Cryptomonadaceae;Cryptomonas;Cryptomonas pyrenoidifera;eDNA;phytoplankton;species
+Cyclidium plouneouri;Eukaryota;Chromista;Ciliophora;Oligohymenophorea;Pleuronematida;Cyclidiidae;Cyclidium;Cyclidium plouneouri;eDNA;phytoplankton;species
+Cyclotella;Eukaryota;Chromista;Bacillariophyta;Mediophyceae;Stephanodiscales;Stephanodiscaceae;Cyclotella;NA;Morphological;phytoplankton;genus
+Cymbella;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cymbellales;Cymbellaceae;Cymbella;NA;Morphological;phytoplankton;genus
+Dinobryon;Eukaryota;Chromista;Ochrophyta;Chrysophyceae;Chromulinales;Dinobryaceae;Dinobryon;NA;Morphological;phytoplankton;genus
+Dinobryon divergens;Eukaryota;Chromista;Ochrophyta;Chrysophyceae;Chromulinales;Dinobryaceae;Dinobryon;Dinobryon divergens;Morphological;phytoplankton;species
+Diploneis;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Diploneidaceae;Diploneis;NA;Morphological;phytoplankton;genus
+Encyonema;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cymbellales;Gomphonemataceae;Encyonema;NA;Morphological;phytoplankton;genus
+Encyonema neogracile;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cymbellales;Gomphonemataceae;Encyonema;Encyonema neogracile;Morphological;phytoplankton;species
+Epithemia;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Rhopalodiales;Rhopalodiaceae;Epithemia;NA;Morphological;phytoplankton;genus
+Epithemia sorex;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Rhopalodiales;Rhopalodiaceae;Epithemia;Epithemia sorex;Morphological;phytoplankton;genus
+Esoptrodinium;Eukaryota;Chromista;Miozoa;Dinophyceae;Tovelliales;Tovelliaceae;Esoptrodinium;NA;eDNA;phytoplankton;species
+Eustigmatophyceae;Eukaryota;Chromista;Ochrophyta;Eustigmatophyceae;NA;NA;NA;NA;eDNA;phytoplankton;class
+Fragilaria;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Fragilariales;Fragilariaceae;Fragilaria;NA;Morphological;phytoplankton;genus
+Fragilaria crotonensis;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Fragilariales;Fragilariaceae;Fragilaria;Fragilaria crotonensis;Morphological;phytoplankton;species
+Fragilariaceae;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Fragilariales;Fragilariaceae;NA;NA;Morphological;phytoplankton;family
+Frontonia;Eukaryota;Chromista;Ciliophora;Oligohymenophorea;Peniculida;Frontoniidae;Frontonia;NA;eDNA;phytoplankton;genus
+Frustulia rhomboides;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Amphipleuraceae;Frustulia;Frustulia rhomboides;Morphological;phytoplankton;species
+Glissomonadida;Eukaryota;Chromista;Cercozoa;Sarcomonadea;Glissomonadida;NA;NA;NA;eDNA;phytoplankton;order
+Gomphonema parvulum;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cymbellales;Gomphonemataceae;Gomphonema;Gomphonema parvulum;Morphological;phytoplankton;species
+Goniomonas;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Goniomonadaceae;Goniomonas;NA;eDNA;phytoplankton;genus
+Gyrosigma acuminatum;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Naviculaceae;Gyrosigma;Gyrosigma acuminatum;Morphological;phytoplankton;species
+Komma caudata;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Cryptomonadales;Hemiselmidaceae;Komma;Komma caudata;eDNA;phytoplankton;species
+Lemnicola hungarica;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cocconeidales;Achnanthidiaceae;Lemnicola;Lemnicola hungarica;eDNA;phytoplankton;species
+Mallomonas;Eukaryota;Chromista;Ochrophyta;Synurophyceae;Synuralles;Mallomonadaceae;Mallomonas;NA;Morphological;phytoplankton;genus
+Massisteria;Eukaryota;Chromista;Cercozoa;Sarcomonadea;Cercomonadida;Massisteriidae;Massisteria;NA;eDNA;phytoplankton;genus
+Navicula;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Naviculaceae;Navicula;NA;Morphological;phytoplankton;genus
+Naviculaceae;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Naviculaceae;NA;NA;Morphological;phytoplankton;family
+Neidium;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Neidiaceae;Neidium;NA;Morphological;phytoplankton;genus
+Nitzschia acidoclinata;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Bacillarialles;Bacillariaceae;Nitzschia;Nitzschia acidoclinata;Morphological;phytoplankton;species
+Nitzschia palea;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Bacillarialles;Bacillariaceae;Nitzschia;Nitzschia palea;Morphological;phytoplankton;species
+NA;Eukaryota;Chromista;Miozoa;NA;NA;NA;NA;NA;Morphological;phytoplankton;phylum
+Oligohymenophorea;Eukaryota;Chromista;Ciliophora;Oligohymenophorea;NA;NA;NA;NA;eDNA;phytoplankton;class
+Parvodinium;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniopsidaceae;Parvodinium;NA;Morphological;phytoplankton;genus
+Parvodinium pusillum;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniopsidaceae;Parvodinium;Parvodinium pusillum;Morphological;phytoplankton;species
+Peridinium bipes;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniaceae;Peridinium;Peridinium bipes;eDNA;phytoplankton;species
+Peridinium cinctum;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniaceae;Peridinium;Peridinium cinctum;Morphological;phytoplankton;species
+Peridinium gatunense;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniaceae;Peridinium;Peridinium gatunense;eDNA;phytoplankton;species
+Peridinium umbunatum;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniaceae;Peridinium;Peridinium umbunatum;Morphological;phytoplankton;species
+Peridinium willei;Eukaryota;Chromista;Miozoa;Dinophyceae;Peridiniales;Peridiniaceae;Peridinium;Peridinium willei;Morphological;phytoplankton;species
+Pinnularia;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Pinnulareaceae;Pinnularia;NA;Morphological;phytoplankton;genus
+Plagioselmis nannoplanctica;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Pyrenomonadales;Geminigeraceae;Plagioselmis;Plagioselmis nannoplanctica;Morphological;phytoplankton;species
+Planothidium lanceolatum;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Cocconeidales;Achnanthidiaceae;Planothidium;Planothidium lanceolatum;eDNA;phytoplankton;species
+Pseudodifflugia cf. gracilis;Eukaryota;Chromista;Cercozoa;Thecofilosea;Tectofilosida;Pseudodifflugiidae;Pseudodifflugia;Pseudodifflugia cf. gracilis;eDNA;phytoplankton;species
+Pseudopedinella elastica;Eukaryota;Chromista;Ochrophyta;Dictyochophyceae;Pedinellales;Pedinellaceae;Pseudopedinella;Pseudopedinella elastica;eDNA;phytoplankton;species
+Pterocystis;Eukaryota;Chromista;Heliozoa;Centrohelea;Pterocystida;Pterocystidae;Pterocystis;NA;eDNA;phytoplankton;genus
+Rhodomonas lacustris;Eukaryota;Chromista;Cryptophyta;Cryptophyceae;Pyrenomonadales;Pyrenomonadaceae;Rhodomonas;Rhodomonas lacustris;Morphological;phytoplankton;species
+Rhopalodia gibba;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Rhopalodiales;Rhopalodiaceae;Rhopalodia;Rhopalodia gibba;Morphological;phytoplankton;species
+Spirotrichea;Eukaryota;Chromista;Ciliophora;Spirotrichea;NA;NA;NA;NA;eDNA;phytoplankton;class
+Stauroneis;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Naviculales;Stauroneidaceae;Stauroneis;NA;Morphological;phytoplankton;genus
+Staurosira;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Fragilariales;Staurosiraceae;Staurosira;NA;Morphological;phytoplankton;genus
+Surirella;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Surirelalles;Surirellaceae;Surirella;NA;Morphological;phytoplankton;genus
+Symbiodinium;Eukaryota;Chromista;Miozoa;Dinophyceae;Suessiales;Symbiodiniaceae;Symbiodinium;NA;eDNA;phytoplankton;genus
+Tribonema;Eukaryota;Chromista;Ochrophyta;Xanthophyceae;Tribonematales;Tribonemataceae;Tribonema;NA;Morphological;phytoplankton;genus
+Ulnaria delicatissima;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Licmophorales;Ulnariaceae;Ulnaria;Ulnaria delicatissima;Morphological;phytoplankton;species
+Ulnaria ulna;Eukaryota;Chromista;Bacillariophyta;Bacillariophyceae;Licmophorales;Ulnariaceae;Ulnaria;Ulnaria ulna;Morphological;phytoplankton;species
+Uroglena;Eukaryota;Chromista;Ochrophyta;Chrysophyceae;Chromulinales;Chromulinaceae;Uroglena;NA;eDNA;phytoplankton;genus
+Urosolenia;Eukaryota;Chromista;Bacillariophyta;Coscinodiscophyceae;Rhizosoleniales;Rhizosoleniaceae;Urosolenia;NA;Morphological;phytoplankton;genus
+Vorticella;Eukaryota;Chromista;Ciliophora;Oligohymenophorea;Sessilida;Vorticellidae;Vorticella;NA;eDNA;phytoplankton;genus
+NA;Eukaryota;Chromista;Miozoa;NA;NA;NA;NA;NA;Morphological;phytoplankton;phylum
+Euglypha tuberculata;Eukaryota;Chromista;Cercozoa;Imbricatea;Euglyphida;Euglyphidae;Euglypha;Euglypha tuberculata;eDNA;phytoplankton;species
+Ichthyophthirius multifiliis;Eukaryota;Chromista;Ciliophora;Oligohymenophorea;Hymenostomatida;Ichthyophthiriidae;Ichthyophthirius;Ichthyophthirius multifiliis;eDNA;phytoplankton;species
+Loxodes vorax;Eukaryota;Chromista;Ciliophora;Karyorelictea;Loxodida;Loxodidae;Loxodes;Loxodes vorax;eDNA;phytoplankton;species
+Pseudocharaciopsis ovalis;Eukaryota;Chromista;Ochrophyta;Eustigmatophyceae;Eustigmatales;Eustigmataceae;Pseudocharaciopsis;Pseudocharaciopsis ovalis;eDNA;phytoplankton;species
+Thaumatomonas;Eukaryota;Chromista;Cercozoa;Imbricatea;Thaumatomonadida;Thaumatomastigidae;Thaumatomonas;NA;eDNA;phytoplankton;genus
+Thaumatomonas coloniensis;Eukaryota;Chromista;Cercozoa;Imbricatea;Thaumatomonadida;Thaumatomastigidae;Thaumatomonas;Thaumatomonas coloniensis;eDNA;phytoplankton;species
+Eukaryota;Eukaryota;NA;NA;NA;NA;NA;NA;NA;eDNA;phytoplankton;domain
+Actinotaenium kriegeri;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Actinotaenium;Actinotaenium kriegeri;Morphological;phytoplankton;species
+Acutodesmus acutiformis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Acutodesmus;Acutodesmus acutiformis;Morphological;phytoplankton;species
+Ankistrodesmus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Ankistrodesmus;NA;Morphological;phytoplankton;genus
+Ankistrodesmus arcuatum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Ankistrodesmus;Ankistrodesmus arcuatum;Morphological;phytoplankton;species
+Aphanochaete confervicola;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chaetophorales;Aphanochaetaceae;Aphanochaete;Aphanochaete confervicola;eDNA;phytoplankton;species
+Botryococcus braunii;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Trebouxiales;Botryococcaceae;Botryococcus;Botryococcus braunii;Morphological;phytoplankton;species
+Bulbochaete;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Bulbochaete;NA;Morphological;phytoplankton;genus
+Carteria;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Carteria;NA;Morphological;phytoplankton;genus
+Carteria crucifera;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Carteria;Carteria crucifera;eDNA;phytoplankton;species
+Carteria incisa;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Carteria;Carteria incisa;eDNA;phytoplankton;species
+Chaetopeltis orbicularis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chaetopeltidales;Chaetopeltidaceae;Chaetopeltis;Chaetopeltis orbicularis;eDNA;phytoplankton;species
+Chaetosphaeridium pringsheimii;Eukaryota;Plantae;Charophyta;Coleochaetophyceae;Chaetosphaeridiales;Chaetosphaeridiaceae;Chaetosphaeridium;Chaetosphaeridium pringsheimii;eDNA;phytoplankton;species
+Characium acuminatum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Characiaceae;Characium;Characium acuminatum;eDNA;phytoplankton;species
+Characium oviforme;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Characiaceae;Characium;Characium oviforme;eDNA;phytoplankton;species
+Chlamydomonadales;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;NA;NA;NA;eDNA;phytoplankton;order
+Chlamydomonas;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;NA;Morphological;phytoplankton;genus
+Chlamydomonas asymmetrica;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas asymmetrica;eDNA;phytoplankton;species
+Chlamydomonas baca;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas baca;eDNA;phytoplankton;species
+Chlamydomonas debaryana;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas debaryana;eDNA;phytoplankton;species
+Chlamydomonas globosa;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas globosa;eDNA;phytoplankton;species
+Chlamydomonas gyrus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas gyrus;eDNA;phytoplankton;species
+Chlamydomonas leiostraca;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas leiostraca;eDNA;phytoplankton;species
+Chlamydomonas splendida;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas splendida;eDNA;phytoplankton;species
+Chlamydomonas pseudoplanoconvexa;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chlamydomonas;Chlamydomonas pseudoplanoconvexa;eDNA;phytoplankton;species
+Chlorella;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorelalles;Chlorellaceae;Chlorella;NA;Morphological;phytoplankton;genus
+Chlorochytrium lemnae;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlorochytriaceae;Chlorochytrium;Chlorochytrium lemnae;eDNA;phytoplankton;species
+Chlorococcum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlorococcaceae;Chlorococcum;NA;Morphological;phytoplankton;genus
+Chlorolobion;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Chlorolobion;NA;Morphological;phytoplankton;genus
+Chlorolobion lunatum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Chlorolobion;Chlorolobion lunatum;Morphological;phytoplankton;species
+Chloromonas;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadaceae;Chloromonas;NA;eDNA;phytoplankton;genus
+Chlorophyceae;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;NA;NA;NA;NA;Morphological;phytoplankton;class
+Chlorophyta;Eukaryota;Plantae;Chlorophyta;NA;NA;NA;NA;NA;Morphological;phytoplankton;phylum
+Closteriopsis acicularis;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorelalles;Chlorellaceae;Closteriopsis;Closteriopsis acicularis;Morphological;phytoplankton;species
+Closterium;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;NA;Morphological;phytoplankton;genus
+Closterium aciculare;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium aciculare;Morphological;phytoplankton;species
+Closterium acutum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium acutum;Morphological;phytoplankton;species
+Closterium dinae var dinae ;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium dinae var dinae ;Morphological;phytoplankton;species
+Closterium leibleinii;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium leibleinii;Morphological;phytoplankton;species
+Closterium moniliferum ;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium moniliferum ;Morphological;phytoplankton;species
+Closterium parvulum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium parvulum;Morphological;phytoplankton;species
+Closterium pronum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium pronum;Morphological;phytoplankton;species
+Closterium tumidilum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Closteriaceae;Closterium;Closterium tumidilum;Morphological;phytoplankton;species
+Coelastrella;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Coelastrella;NA;eDNA;phytoplankton;genus
+Coelastrum microporum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Coelastrum;Coelastrum microporum;Morphological;phytoplankton;species
+Coelastrum pseudomicroporum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Coelastrum;Coelastrum pseudomicroporum;Morphological;phytoplankton;species
+Coelastrum rugosum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Coelastrum;Coelastrum rugosum;eDNA;phytoplankton;species
+Coenochloris;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Radiococcaceae;Coenochloris;NA;Morphological;phytoplankton;genus
+Coenocystis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Radiococcaceae;Coenocystis;NA;Morphological;phytoplankton;genus
+Cosmarium;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;NA;Morphological;phytoplankton;genus
+Cosmarium abbreviatum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium abbreviatum;Morphological;phytoplankton;species
+Cosmarium biretum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium biretum;Morphological;phytoplankton;species
+Cosmarium botrytis;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium botrytis;Morphological;phytoplankton;species
+Cosmarium contractum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium contractum;Morphological;phytoplankton;species
+Cosmarium contractum var minutum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium contractum var minutum;Morphological;phytoplankton;species
+Cosmarium depressum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium depressum;Morphological;phytoplankton;species
+Cosmarium jugatum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium jugatum;Morphological;phytoplankton;species
+Cosmarium ornatum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium ornatum;Morphological;phytoplankton;species
+Cosmarium punctulatum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium punctulatum;Morphological;phytoplankton;species
+Cosmarium reniforme;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium reniforme;Morphological;phytoplankton;species
+Cosmarium sp1;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium sp1;Morphological;phytoplankton;species
+Cosmarium sp2;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium sp2;Morphological;phytoplankton;species
+Cosmarium subgranatum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium subgranatum;Morphological;phytoplankton;species
+Cosmarium tenue;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium tenue;Morphological;phytoplankton;species
+Cosmarium tinctum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Cosmarium;Cosmarium tinctum;Morphological;phytoplankton;species
+Crucigenia quadrata;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Trebouxiophyceae ordo incertae sedis;Trebouxiophyceae ordo incertae sedis;Crucigenia;Crucigenia quadrata;Morphological;phytoplankton;species
+Crucigenia tetrapedia;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Trebouxiophyceae ordo incertae sedis;Trebouxiophyceae ordo incertae sedis;Crucigenia;Crucigenia tetrapedia;Morphological;phytoplankton;species
+Cyanidiaceae;Eukaryota;Plantae;Rhodophyta;Cyanidiophyceae;Cyanidiales;Cyanidiaceae;NA;NA;eDNA;phytoplankton;family
+Cyanidioschyzon;Eukaryota;Plantae;Rhodophyta;Cyanidiophyceae;Cyanidiales;Cyanidiaceae;Cyanidioschyzon;NA;eDNA;phytoplankton;genus
+Desmidiaceae;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;NA;NA;Morphological;phytoplankton;family
+Desmidium swartzii;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Desmidium;Desmidium swartzii;Morphological;phytoplankton;species
+Desmodesmus arthrodesmiformis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Desmodesmus;Desmodesmus arthrodesmiformis;eDNA;phytoplankton;species
+Desmodesmus bicellularis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Desmodesmus;Desmodesmus bicellularis;eDNA;phytoplankton;species
+Desmodesmus intermedius;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Desmodesmoideae;Desmodesmus;Desmodesmus intermedius;Morphological;phytoplankton;species
+Desmodesmus opoliensis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Desmodesmoideae;Desmodesmus;Desmodesmus opoliensis;Morphological;phytoplankton;species
+Desmodesmus perdix;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Desmodesmus;Desmodesmus perdix;eDNA;phytoplankton;species
+Dictyosphaerium subsolitarium;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Chlorellaceae;Dictyosphaerium;Dictyosphaerium subsolitarium;Morphological;phytoplankton;species
+Didymocystis;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Oocystaceae;Didymocystis;NA;Morphological;phytoplankton;genus
+Disctyosphaerium sp;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Chlorellaceae;Dictyosphaerium;NA;Morphological;phytoplankton;genus
+Dunaliella;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Dunaliellaceae;Dunaliella;NA;eDNA;phytoplankton;genus
+Elakatothrix;Eukaryota;Plantae;Charophyta;Klebsormidiophyceae;Klebsormidiales;Elakatotrichaceae;Elakatothrix;NA;Morphological;phytoplankton;genus
+Elakatothrix gelationosa;Eukaryota;Plantae;Charophyta;Klebsormidiophyceae;Klebsormidiales;Elakatotrichaceae;Elakatothrix;Elakatothrix gelationosa;Morphological;phytoplankton;species
+Elakatothrix genevensis;Eukaryota;Plantae;Charophyta;Klebsormidiophyceae;Klebsormidiales;Elakatotrichaceae;Elakatothrix;Elakatothrix genevensis;Morphological;phytoplankton;species
+Euastrum;Eukaryota;Plantae;Charophyta;Zygnematophyceae;Desmidiales;Desmidiaceae;Euastrum;NA;Morphological;phytoplankton;genus
+Euastrum coeselii;Eukaryota;Plantae;Charophyta;Zygnematophyceae;Desmidiales;Desmidiaceae;Euastrum;Euastrum coeselii;Morphological;phytoplankton;species
+Euastrum insulare;Eukaryota;Plantae;Charophyta;Zygnematophyceae;Desmidiales;Desmidiaceae;Euastrum;Euastrum insulare;Morphological;phytoplankton;species
+Eudorina elegans;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Volvocaceae;Eudorina;Eudorina elegans;Morphological;phytoplankton;species
+Eudorina unicocca;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Volvocaceae;Eudorina;Eudorina unicocca;eDNA;phytoplankton;species
+Gloeocystis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Radiococcaceae;Gloeocystis;NA;Morphological;phytoplankton;genus
+Gonatozygon;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Gonatozygaceae;Gonatozygon;NA;Morphological;phytoplankton;genus
+Gonatozygon brebissonii;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Gonatozygaceae;Gonatozygon;Gonatozygon brebissonii;Morphological;phytoplankton;species
+Gonatozygon monotaenium;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Gonatozygaceae;Gonatozygon;Gonatozygon monotaenium;Morphological;phytoplankton;species
+Gonotazygon kinahanii;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Gonatozygaceae;Gonatozygon;Gonatozygon kinahanii;Morphological;phytoplankton;species
+Hariotina reticulata;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Hariotina;Hariotina reticulata;Morphological;phytoplankton;species
+Kirchneriella aperta;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Kirchneriella;Kirchneriella aperta;eDNA;phytoplankton;species
+Kirchneriella contorta;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Kirchneriella;Kirchneriella contorta;Morphological;phytoplankton;species
+Kirchneriella lacustris;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Kirchneriella;Kirchneriella lacustris;Morphological;phytoplankton;species
+Kirchneriella lunaris;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Kirchneriella;Kirchneriella lunaris;Morphological;phytoplankton;species
+Kirchneriella obesa;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Kirchneriella;Kirchneriella obesa;Morphological;phytoplankton;species
+Kirchneriella rotunda;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Kirchneriella;Kirchneriella rotunda;Morphological;phytoplankton;species
+Klebsormidium;Eukaryota;Plantae;Charophyta;Klebsormidiophyceae;Klebsormidiales;Klebsormidiaceae;Klebsormidium;NA;Morphological;phytoplankton;genus
+Lemmermannia komarekii;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Trebouxiophyceae ordo incertae sedis;Trebouxiophyceae incertae sedis;Lemmermannia;Lemmermannia komarekii;Morphological;phytoplankton;species
+Lemmermannia triangularis;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Trebouxiophyceae ordo incertae sedis;Trebouxiophyceae incertae sedis;Lemmermannia;Lemmermannia triangularis;Morphological;phytoplankton;species
+Messastrum gracile;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Messastrum;Messastrum gracile;Morphological;phytoplankton;species
+Monomastix;Eukaryota;Plantae;Chlorophyta;Mamiellophyceae;Monomastigales;Monomastigaceae;Monomastix;NA;eDNA;phytoplankton;genus
+Monoraphidium;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;NA;Morphological;phytoplankton;genus
+Monoraphidium arcuatum ;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;Monoraphidium arcuatum ;Morphological;phytoplankton;species
+Monoraphidium contortum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;Monoraphidium contortum;Morphological;phytoplankton;species
+Monoraphidium gracile;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;Monoraphidium gracile;Morphological;phytoplankton;species
+Monoraphidium griffithii;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;Monoraphidium griffithii;Morphological;phytoplankton;species
+Monoraphidium komarkovae;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;Monoraphidium komarkovae;Morphological;phytoplankton;species
+Monoraphidium minutum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Monoraphidium;Monoraphidium minutum;Morphological;phytoplankton;species
+Mougeotia;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Zygnematales;Zygnemataceae;Mougeotia;NA;Morphological;phytoplankton;genus
+Mucidosphaerium planctonicum;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Chlorellaceae;Mucidosphaerium;Mucidosphaerium planctonicum;eDNA;phytoplankton;species
+Mucidosphaerium pulchellum;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Chlorellaceae;Mucidosphaerium;Mucidosphaerium pulchellum;Morphological;phytoplankton;species
+Mychonastes;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Mychonastaceae;Mychonastes;NA;eDNA;phytoplankton;genus
+Nannochloris;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Chlorellaceae;Nannochloris;NA;eDNA;phytoplankton;genus
+Neglectella peisonis;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Eremosphaeraceae;Neglectella;Neglectella peisonis;eDNA;phytoplankton;species
+Neglectella solitaria;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Eremosphaeraceae;Neglectella;Neglectella solitaria;Morphological;phytoplankton;species
+Neochloris;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Neochloridaceae;Neochloris;NA;Morphological;phytoplankton;genus
+Neochloris conjuncta;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Neochloridaceae;Neochloris;Neochloris conjuncta;eDNA;phytoplankton;species
+Neocystis lacustris;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Radiococcaceae;Neocystis;NA;Morphological;phytoplankton;genus
+Oedogonium angustistomum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Oedogonium;Oedogonium angustistomum;eDNA;phytoplankton;species
+Oedogonium borisianum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Oedogonium;Oedogonium borisianum;eDNA;phytoplankton;species
+Oedogonium donnellii;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Oedogonium;Oedogonium donnellii;eDNA;phytoplankton;species
+Oedogonium howardii;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Oedogonium;Oedogonium howardii;eDNA;phytoplankton;species
+Oedogonium oblongum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Oedogonium;Oedogonium oblongum;eDNA;phytoplankton;species
+Oedogonium tenerum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Oedogoniales;Oedogoniaceae;Oedogonium;Oedogonium tenerum;eDNA;phytoplankton;species
+Oocystis borgei;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Oocystaceae;Oocystis;Oocystis borgei;Morphological;phytoplankton;species
+Oocystis lacustris;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Oocystaceae;Oocystis;Oocystis lacustris;Morphological;phytoplankton;species
+Oocystis marsonii;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Oocystaceae;Oocystis;Oocystis marsonii;Morphological;phytoplankton;species
+Oocystis parva;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Oocystaceae;Oocystis;Oocystis parva;Morphological;phytoplankton;species
+Oocystis rhomboidea;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Oocystaceae;Oocystis;Oocystis rhomboidea;Morphological;phytoplankton;species
+Pandorina;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamidomonadales;Volvocaceae;Pandorina;NA;Morphological;phytoplankton;genus
+Paulschulzia pseudovolvox;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Tetrasporaceae;Paulschulzia;Paulschulzia pseudovolvox;Morphological;phytoplankton;species
+Pediastrum boryanum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Pediastrum;Pediastrum boryanum;Morphological;phytoplankton;species
+Pediastrum boryanum var brevicorni;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Pediastrum;Pediastrum boryanum var brevicorni;Morphological;phytoplankton;species
+Pediastrum tetras;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Pediastrum;Pediastrum tetras;Morphological;phytoplankton;species
+Pedinomonas;Eukaryota;Plantae;Chlorophyta;Pedinophyceae;Pedinomonadales;Pedinomonadaceae;Pedinomonas;NA;Morphological;phytoplankton;genus
+Planktosphaeria gelatinosa;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Schizochlamydaceae;Planktosphaeria;Planktosphaeria gelatinosa;Morphological;phytoplankton;species
+Pleurotaenium;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Pleurotaenium;NA;Morphological;phytoplankton;genus
+Porphyridium purpureum;Eukaryota;Plantae;Rhodophyta;Porphyridiophyceae;Porphyridiales;Porphyridiaceae;Porphyridium;Porphyridium purpureum;eDNA;phytoplankton;species
+Pseudopediastrum boryanum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Pseudopediastrum;Pseudopediastrum boryanum;eDNA;phytoplankton;species
+Pseudoschroederia robusta;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Characiaceae;Pseudoschroederia;Pseudoschroederia robusta;Morphological;phytoplankton;species
+Quadrigula;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Selenastraceae;Quadrigula;NA;Morphological;phytoplankton;genus
+Radiococcus polycoccus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Radiococcaceae;Radiococcus;Radiococcus polycoccus;eDNA;phytoplankton;species
+Scenedesmaceae;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;NA;NA;eDNA;phytoplankton;family
+Scenedesmus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;NA;Morphological;phytoplankton;genus
+Scenedesmus acuminatus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus acuminatus;Morphological;phytoplankton;species
+Scenedesmus acunae;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus acunae;Morphological;phytoplankton;species
+Scenedesmus acutus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus acutus;Morphological;phytoplankton;species
+Scenedesmus alternans;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus alternans;Morphological;phytoplankton;species
+Scenedesmus ecornis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus ecornis;Morphological;phytoplankton;species
+Scenedesmus intermedius var acaudatus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus intermedius var acaudatus;Morphological;phytoplankton;species
+Scenedesmus obtusus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus obtusus;Morphological;phytoplankton;species
+Scenedesmus obtusus f disciformis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus obtusus f disciformis;Morphological;phytoplankton;species
+Scenedesmus quadricauda;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Scenedesmus;Scenedesmus quadricauda;Morphological;phytoplankton;species
+Schizochlamys gelatinosa;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Schizochlamydaceae;Schizochlamys;Schizochlamys gelatinosa;eDNA;phytoplankton;species
+Schroederia;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Schroederiaceae;Schroederia;NA;Morphological;phytoplankton;genus
+Schroederia setigera;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Schroederiaceae;Schroederia;Schroederia setigera;Morphological;phytoplankton;species
+Sphaerocystis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Sphaerocystidaceae;Sphaerocystis;NA;Morphological;phytoplankton;genus
+Sphaerocystis schroeteri;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Sphaerocystidaceae;Sphaerocystis;Sphaerocystis schroeteri;Morphological;phytoplankton;species
+Sphaeropleales;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;NA;NA;NA;eDNA;phytoplankton;order
+Spirogyra;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Zygnematales;Zygnemataceae;Spirogyra;NA;Morphological;phytoplankton;genus
+Spondylosium planum;Eukaryota;Plantae;Charophyta;Zygnematophyceae;Desmidiales;Desmidiaceae;Spondylosium;Spondylosium planum;Morphological;phytoplankton;species
+Staurastrum alternans;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum alternans;Morphological;phytoplankton;species
+Staurastrum brachiatum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum brachiatum;Morphological;phytoplankton;species
+Staurastrum cingulum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum cingulum;Morphological;phytoplankton;species
+Staurastrum gracile;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum gracile;Morphological;phytoplankton;species
+Staurastrum minimum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum minimum;Morphological;phytoplankton;species
+Staurastrum petsamoense;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum petsamoense;Morphological;phytoplankton;species
+Staurastrum pingue;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum pingue;Morphological;phytoplankton;species
+Staurastrum polymorphum;Eukaryota;Plantae;Charophyta;Conjugatophyceae ;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum polymorphum;eDNA;phytoplankton;species
+Staurastrum punctulatum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum punctulatum;Morphological;phytoplankton;species
+Staurastrum subarcuatum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum subarcuatum;Morphological;phytoplankton;species
+Staurastrum tetracerum;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Staurastrum;Staurastrum tetracerum;Morphological;phytoplankton;species
+Stauridium tetras;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Stauridium;Stauridium tetras;eDNA;phytoplankton;species
+Staurodesmus;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Staurodesmus;NA;Morphological;phytoplankton;genus
+Staurodesmus extensus;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Staurodesmus;Staurodesmus extensus;Morphological;phytoplankton;species
+Teilingia granulata;Eukaryota;Plantae;Charophyta;Conjugatophyceae;Desmidiales;Desmidiaceae;Teilingia;Teilingia granulata;Morphological;phytoplankton;species
+Tetradesmus acuminatus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Tetradesmus;Tetradesmus acuminatus;Morphological;phytoplankton;species
+Tetradesmus obliquus;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Tetradesmus;Tetradesmus obliquus;Morphological;phytoplankton;species
+Tetraedron caudatum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Tetraedron;Tetraedon caudatum;Morphological;phytoplankton;species
+Tetraedron minimum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Hydrodictyaceae;Tetraedron;Tetraedron minimum;Morphological;phytoplankton;species
+Tetraselmis;Eukaryota;Plantae;Chlorophyta;Chlorodendrophyceae;Chlorodendrales;Chlorodendraceae;Tetraselmis;NA;eDNA;phytoplankton;genus
+Tetraselmis cordiformis;Eukaryota;Plantae;Chlorophyta;Chlorodendrophyceae;Chlorodendrales;Chlorodendraceae;Tetraselmis;Tetraselmis cordiformis;eDNA;phytoplankton;species
+Treubaria triappendiculata;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Treubariaceae;Treubaria;Treubaria triappendiculata;Morphological;phytoplankton;species
+Ulothrix mucosa;Eukaryota;Plantae;Chlorophyta;Ulvophyceae;Ulotrichales;Ulotrichaceae;Ulothrix;Ulothrix mucosa;eDNA;phytoplankton;species
+Westella botryoides;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Westella;Westella botryoides;eDNA;phytoplankton;species
+Willea;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Willea;NA;Morphological;phytoplankton;genus
+Willea apiculata;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Willea;Willea apiculata;Morphological;phytoplankton;species
+Willea rectangularis;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Scenedesmaceae;Willea;Willea rectangularis;Morphological;phytoplankton;species
+Xanthidium antilopaeum;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Desmidiales;Desmidiaceae;Xanthidium;Xanthidium antilopaeum;Morphological;phytoplankton;species
+Zygnema;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Zygnematales;Zygnemataceae;Zygnema;NA;Morphological;phytoplankton;genus
+Zygnemataceae;Eukaryota;Plantae;Charophyta;Conjugatophyeae;Zygnematales;Zygnemataceae;NA;NA;Morphological;phytoplankton;family
+Collodictyon triciliatum;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Asteromonadaceae;Collodictyon;Collodictyon triciliatum;eDNA;phytoplankton;species
+Edaphochlamys debaryana;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Chlamydomonadales incertae sedis;Edaphochlamys;Edaphochlamys debaryana;eDNA;phytoplankton;species
+Geminella;Eukaryota;Plantae;Chlorophyta;Trebouxiophyceae;Chlorellales;Chlorellaceae;Geminella;NA;eDNA;phytoplankton;genus
+Mychonastes afer;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Sphaeropleales;Mychonastaceae;Mychonastes;Mychonastes afer;eDNA;phytoplankton;species
+Spermatozopsis exsultans;Eukaryota;Plantae;Chlorophyta;Chlorophyceae;Chlamydomonadales;Dunaliellaceae;Spermatozopsis;Spermatozopsis exsultans;eDNA;phytoplankton;species
+Roya;Eukaryota;Plantae ;Charophyta;Conjugatophyceae;Zygnematales;Mesotaeniaceae;Roya;NA;Morphological;phytoplankton;genus
+Archamoebae;Eukaryota;Protozoa;Amoebozoa;Archamoebae;NA;NA;NA;NA;eDNA;phytoplankton;class
+Euglena;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Euglena;NA;Morphological;phytoplankton;genus
+Euglena adhaerens;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Euglena;Euglena adhaerens;eDNA;phytoplankton;species
+Euglena agilis;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Euglena;Euglena agilis;eDNA;phytoplankton;species
+Euglena deses;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Euglena;Euglena deses;eDNA;phytoplankton;species
+Euglena rubra;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Euglena;Euglena rubra;eDNA;phytoplankton;species
+Euglena sanguinea;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Euglena;Euglena sanguinea;eDNA;phytoplankton;species
+Heterolobosea;Eukaryota;Protozoa;Percolozoa;Heterolobosea;NA;NA;NA;NA;eDNA;phytoplankton;class
+Ichthyosporea;Eukaryota;Protozoa;Choanozoa ;Ichthyosporea;NA;NA;NA;NA;eDNA;phytoplankton;class
+Jakobida;Eukaryota;Protozoa;Loukozoa;Jakobea;Jakobida;NA;NA;NA;eDNA;phytoplankton;order
+Lepocinclis fusca;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Phacaceae;Lepocinclis;Lepocinclis fusca;eDNA;phytoplankton;species
+Leptomyxa;Eukaryota;Protozoa;Amoebozoa;Tubulinea;Leptomyxida;Leptomyxidae;Leptomyxa;NA;eDNA;phytoplankton;genus
+Monomorphina;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Monomorphina;NA;eDNA;phytoplankton;genus
+Phacus acuminatus;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Phacaceae;Phacus;Phacus acuminatus;Morphological;phytoplankton;species
+Phacus hamelii;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Phacaceae;Phacus;Phacus hamelii;eDNA;phytoplankton;species
+Platyamoeba;Eukaryota;Protozoa;Amoebozoa;Discosea;Glycostylida;Vannellidae;Platyamoeba;NA;eDNA;phytoplankton;genus
+Pyxidicula operculata;Eukaryota;Protozoa;Amoebozoa;Tubulinea;Arcellinida;Arcellinida incertae sedis;Pyxidicula;Pyxidicula operculata;eDNA;phytoplankton;species
+Salpingoeca urceolata;Eukaryota;Protozoa;Choanozoa;Choanoflagellatea;Craspedida;Salpingoecidae;Salpingoeca;Salpingoeca urceolata;eDNA;phytoplankton;species
+Telaepolella;Eukaryota;Protozoa;Amoebozoa;Variosea;Variosea incertae sedis;Flamellidae;Telaepolella;NA;eDNA;phytoplankton;genus
+Trachelomonas;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;NA;Morphological;phytoplankton;genus
+Trachelomonas abrupta var minor;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas abrupta var minor;Morphological;phytoplankton;species
+Trachelomonas hispida;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas hispida;Morphological;phytoplankton;species
+Trachelomonas oblonga;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas oblonga;Morphological;phytoplankton;species
+Trachelomonas pertyi;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas pertyi;eDNA;phytoplankton;species
+Trachelomonas reticulata;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas reticulata;eDNA;phytoplankton;species
+Trachelomonas volvocina;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas volvocina;Morphological;phytoplankton;species
+Trachelomonas zorensis;Eukaryota;Protozoa;Euglenozoa;Euglenophyceae;Euglenales;Euglenaceae;Trachelomonas;Trachelomonas zorensis;eDNA;phytoplankton;species
+Tubulinea;Eukaryota;Protozoa;Amoebozoa;Tubulinea;NA;NA;NA;NA;eDNA;phytoplankton;class
+Vampyrellida;Eukaryota;Protozoa;Amoebozoa;Amoebozoa incertae sedis;Vampyrellida;NA;NA;NA;eDNA;phytoplankton;order
+Vannella;Eukaryota;Protozoa;Amoebozoa;Discosea;Glycostylida;Vannellidae;Vannella;NA;eDNA;phytoplankton;genus
+Angulamoeba;Eukaryota;Protozoa;Amoebozoa;Variosea;Ramamoebida;Angulamoebidae;Angulamoeba;NA;eDNA;phytoplankton;genus
+Angulamoeba fungorum;Eukaryota;Protozoa;Amoebozoa;Variosea;Ramamoebida;Angulamoebidae;Angulamoeba;Angulamoeba fungorum;eDNA;phytoplankton;species
+Angulamoeba microcystivorans;Eukaryota;Protozoa;Amoebozoa;Variosea;Ramamoebida;Angulamoebidae;Angulamoeba;Angulamoeba microcystivorans;eDNA;phytoplankton;species
+Anisonema;Eukaryota;Protozoa;Euglenozoa;Peranemea;Anisonemida;Anisonemidae;Anisonema;NA;eDNA;phytoplankton;genus
+Cochliopodium actinophorum;Eukaryota;Protozoa;Amoebozoa;Discosea;Himatismenida;Cochliopodiidae;Cochliopodium;Cochliopodium actinophorum;eDNA;phytoplankton;species
+Cochliopodium kieliense;Eukaryota;Protozoa;Amoebozoa;Discosea;Himatismenida;Cochliopodiidae;Cochliopodium;Cochliopodium kieliense;eDNA;phytoplankton;species
+Cochliopodium larifeili;Eukaryota;Protozoa;Amoebozoa;Discosea;Himatismenida;Cochliopodiidae;Cochliopodium;Cochliopodium larifeili;eDNA;phytoplankton;species
+Dermamoeba algensis;Eukaryota;Protozoa;Amoebozoa;Discosea;Dermamoebida;Dermamoebidae;Dermamoeba;Dermamoeba algensis;eDNA;phytoplankton;species
+Ichthyobodo;Eukaryota;Protozoa;Euglenozoa;Kinetoplastea;Prokinetoplastida;Ichthyobodonidae;Ichthyobodo;NA;eDNA;phytoplankton;genus
+Ichthyobodo necator;Eukaryota;Protozoa;Euglenozoa;Kinetoplastea;Prokinetoplastida;Ichthyobodonidae;Ichthyobodo;Ichthyobodo necator;eDNA;phytoplankton;species
+Mastigamoeba balamuthi;Eukaryota;Protozoa;Amoebozoa;Archamoebae;Mastigamoebida;Mastigamoebidae;Mastigamoeba;Mastigamoeba balamuthi;eDNA;phytoplankton;species
+Mastigella eilhardi;Eukaryota;Protozoa;Amoebozoa;Archamoebae;Mastigamoebida;Mastigamoebidae;Mastigella;Mastigella eilhardi;eDNA;phytoplankton;species
+Ovalopodium desertum;Eukaryota;Protozoa;Amoebozoa;Discosea;Himatismenida;Cochliopodiidae;Ovalopodium;Ovalopodium desertum;eDNA;phytoplankton;species
+Rhabdomonas incurva;Eukaryota;Protozoa;Euglenozoa;Peranemea;Natomonadida;Astasiidae;Rhabdomonas;Rhabdomonas incurva;eDNA;phytoplankton;species
+Sawyeria marylandensis;Eukaryota;Protozoa;Percolozoa;Heterolobosea;Schizopyrenida;Vahlkampfiidae;Sawyeria;Sawyeria marylandensis;eDNA;phytoplankton;species
+Schizoplasmodium cavostelioides;Eukaryota;Protozoa;Amoebozoa;Protostelea;Protosteliida;Protosteliaceae;Schizoplasmodium;Schizoplasmodium cavostelioides;eDNA;phytoplankton;species
+Sphaeroeca leprechaunica;Eukaryota;Protozoa;Choanozoa;Choanoflagellatea;Craspedida;Codonosigaceae;Sphaeroeca;Sphaeroeca leprechaunica;eDNA;phytoplankton;species
+Sphaerothecum destruens;Eukaryota;Protozoa;Choanozoa ;Ichthyosporea ;Dermocystida;Rhinosporideaceae;Sphaerothecum;Sphaerothecum destruens;eDNA;phytoplankton;species
