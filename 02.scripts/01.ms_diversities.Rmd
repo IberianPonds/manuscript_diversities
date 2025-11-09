@@ -185,9 +185,9 @@ div_temp
 # Export figure to file
 # --------------------------------------------
 ggsave(
-  "figures/FIGURE_1_Accumulated regional diversity.pdf",
+  "../figures/Figure 2_Regional climate and accumulated diversity across the Iberian Pond Network.pdf",
   plot = div_temp,
-  dpi = 300, width = 100, height = 40, units = "mm"
+  dpi = 300, width = 10, height = 4, units = "in"
 )
 
 
