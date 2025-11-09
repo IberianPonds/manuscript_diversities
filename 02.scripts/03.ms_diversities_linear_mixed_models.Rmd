@@ -1,0 +1,1594 @@
+---
+title: "TEMPERATURE SHAPES MULTI-TROPHIC AQUATIC BIODIVERSITY PATTERNS ACROSS SPACE AND TIME"
+author: "Cátia Lúcio Pereira and Miguel G. Matias"
+date: "09 November 2025"
+output:
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: yes
+---
+
+# Introduction
+We combined environmental DNA and morphological surveys from a multi-region freshwater mesocosm experiment spanning a broad temperature gradient across the Iberian Peninsula to examine how mean temperature and its variability shape multi-trophic aquatic communities.
+In this script we fitted linear mixed-effects models (LMMs) using the lme4 package (Bates et al. 2015) to assess how temperature drives multi-trophic diversity across both space (regions) and time (years). Separate models were built for each diversity component (α, β, γ) and trophic group, as well as for the whole community.
+In regional diversity models, we included Site (region) and, in local and β-diversity models, Pond nested in Site as random factors to account for the spatio-temporal autocorrelation. The most significant mean-temperature term (linear or polynomial) was then used in a set of full models that included  TSD (temperature variability) and Year, as well as their two-way interactions with TMean. These models, therefore, incorporate interannual variation directly as a fixed factor, rather than dividing the dataset by year. However, to visualise year-specific patterns and assess model robustness, we also ran supplementary models separately for each year (2016–2018), using the same model structure but excluding Year as a factor. This step was purely diagnostic, allowing us to confirm that the overall multi-year model captured consistent trends across years.
+Models were compared using AIC, maximum-likelihood estimation, and AIC weights (AICω) to evaluate their relative support. Residual and Q–Q plots were inspected to verify normality and homoscedasticity. We calculated marginal (R²m) and conditional (R²c) coefficients of determination using r.squaredGLMM function (Bartón 2016) and tested model significance with the lmerTest function (Kuznetsova et al. 2017).
+
+
+Clear the memory of all objects
+```{r}
+rm(list=ls())
+```
+
+Load libraries
+```{r}
+library(tidyverse)
+library(tidyr)
+library(dplyr)
+library(knitr)
+library(lme4) # for mixed models
+library(ggplot2)
+library(ggeffects) # helps with visualization of mixed models
+library(MuMIn) # helps with visualization of mixed models results
+library(lmerTest) #check significance of lmm predictors
+```
+
+Load data
+```{r}
+# diversity and environmental data
+load("C:/Users/catia/Desktop/ms_diversities/01.input_data/01.diversity_env_df.RData")
+```
+
+# Data Prep
+
+Create unique IDs for the mesocosms to avoid implicit nesting.
+Mesocosms are meaningless without being assigned to sites, for example, M01 is not the same in the same sites
+```{r}
+div_env_df2 <- div_env_df %>% 
+  separate(sample_code, into = c("site", "year", "mesocosm"), sep = "_")
+
+div_env_df$sample <- paste(div_env_df$site, div_env_df2$mesocosm, sep = "_")
+
+# reorder data frames
+div_env_df <- div_env_df %>% 
+  dplyr::select(site, year, sample_code, sample, everything())
+```
+
+Create data frames for each trophic group
+```{r}
+# local diversity
+# local_wc <- div_env_df %>% filter(group == "Whole-community", scale == "alpha", year != "Mean")
+# local_bact <- div_env_df %>% filter(group == "Bacteria", scale == "alpha", year != "Mean")
+# local_phyto <- div_env_df %>% filter(group == "Phytoplankton", scale == "alpha", year != "Mean")
+# local_zoo <- div_env_df %>% filter(group == "Zooplankton", scale == "alpha", year != "Mean")
+# local_macro <- div_env_df %>% filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean")
+# 
+# # regional diversity
+# reg_wc <- div_env_df %>% filter(group == "Whole-community", scale == "gamma", year != "Mean")
+# reg_bact <- div_env_df %>% filter(group == "Bacteria", scale == "gamma", year != "Mean")
+# reg_phyto <- div_env_df %>% filter(group == "Phytoplankton", scale == "gamma", year != "Mean")
+# reg_zoo <- div_env_df %>% filter(group == "Zooplankton", scale == "gamma", year != "Mean")
+# reg_macro <- div_env_df %>% filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean")
+```
+
+# Linear mixed models for each trophic group with year
+
+To evaluate the changes in the relevant variables (local and regional diversity of whole-community and each trophic group) across sites, years and temperatures predictors, we fitted LMMs regressions.
+
+## Local diversity
+Pond identity nested in the experimental site was included as a random factor in all models to account for the spatio-temporal autocorrelation. All ponds have unique ID to avoid implicit nesting (e.g EV_M01, MR_M01 etc.)
+
+```{r}
+# lmm formulas
+# to compare linear or polynomial effects of mean temperature
+formula1 <- as.formula("diversity ~ est_mean_temp_12M + (1|site) + (1|sample)")
+formula2 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+```
+
+### Whole-community
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_wc, mod_2_wc) # mod_2 is better significantly different
+mod_1_wc
+mod_2_wc
+
+# if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_wc, mod_3_wc) # mod_3 is better slightly significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + year + year:poly(est_mean_temp_12M, 2) + year:sd_temp_12M + (1|site) + (1|sample)")
+
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_wc, mod_4_wc) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_wc, mod_2_wc, mod_3_wc, mod_4_wc)
+```
+
+```{r}
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_wc)
+car::Anova(mod_4_wc)
+AIC(mod_4_wc)
+```
+
+```{r}
+# check model results - mod_4_wc
+
+# residplot(mod_4_wc, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_wc)
+qqnorm(resid(mod_4_wc))
+qqline(resid(mod_4_wc))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_3_wc)
+round(r.squaredGLMM(mod_4_wc),2)
+
+round(Weights(AIC(mod_2_wc, mod_3_wc, mod_4_wc)), digits = 2)
+confint(mod_4_wc)
+```
+
+```{r}
+# check significance of predictors
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_wc)
+anova(mod_4_wc)
+```
+
+### Bacteria
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_bact, mod_2_bact) # mod_2 is better significantly different
+
+mod_1_bact
+mod_2_bact
+
+# if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_bact, mod_3_bact) # mod_2 is better not significantly different
+
+# drop sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_2_bact, mod_4_bact) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_bact, mod_2_bact, mod_3_bact, mod_4_bact)
+```
+
+```{r}
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_bact)
+car::Anova(mod_4_bact)
+AIC(mod_4_bact)
+```
+
+```{r}
+# check model results - mod_47_bact
+
+# residplot(mod_4_bact, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_bact)
+qqnorm(resid(mod_4_bact))
+qqline(resid(mod_4_bact))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_bact)
+round(r.squaredGLMM(mod_4_bact),2)
+
+round(Weights(AIC(mod_2_bact, mod_3_bact, mod_4_bact)), digits = 2)
+confint(mod_4_bact)
+```
+
+```{r}
+# check significance of predictors
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_bact)
+anova(mod_4_bact)
+```
+
+### Phytoplankton
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_phyto, mod_2_phyto) # mod_2 is better significantly different
+
+mod_1_phyto
+mod_2_phyto
+
+# if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_phyto, mod_3_phyto) # mod_3 is better significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + year + year:poly(est_mean_temp_12M, 2) + year:sd_temp_12M + (1|site) + (1|sample)")
+
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_phyto, mod_4_phyto) # mod_3 is better and not significantly different
+# drop year
+```
+
+```{r}
+AIC(mod_1_phyto, mod_2_phyto, mod_3_phyto, mod_4_phyto)
+```
+
+```{r}
+mod_2_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+
+# best model results - using REML estimation
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+summary(mod_3_phyto)
+car::Anova(mod_3_phyto)
+AIC(mod_3_phyto)
+```
+
+```{r}
+# check model results - mod_3_phyto
+
+# residplot(mod_3_phyto, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_3_phyto)
+qqnorm(resid(mod_3_phyto))
+qqline(resid(mod_3_phyto))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_phyto)
+round(r.squaredGLMM(mod_3_phyto),2)
+
+round(Weights(AIC(mod_2_phyto, mod_3_phyto, mod_4_phyto)), digits = 2)
+confint(mod_3_phyto)
+```
+
+```{r}
+# check significance of predictors
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+summary(mod_3_phyto)
+anova(mod_3_phyto)
+```
+
+### Zooplankton
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_zoo, mod_2_zoo) # mod_2 is better not significantly different
+
+mod_1_zoo
+mod_2_zoo
+
+# if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_zoo, mod_3_zoo) # mod_3 is better slightly significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + year + year:poly(est_mean_temp_12M, 2) + year:sd_temp_12M + (1|site) + (1|sample)")
+
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_zoo, mod_4_zoo) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_zoo, mod_2_zoo, mod_3_zoo, mod_4_zoo)
+```
+
+```{r}
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_zoo)
+car::Anova(mod_4_zoo)
+AIC(mod_4_zoo)
+```
+
+```{r}
+# check model results - mod_47_zoo
+
+# residplot(mod_4_zoo, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_zoo)
+qqnorm(resid(mod_4_zoo))
+qqline(resid(mod_4_zoo))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_zoo)
+round(r.squaredGLMM(mod_4_zoo),2)
+
+round(Weights(AIC(mod_2_zoo, mod_3_zoo, mod_4_zoo)), digits = 2)
+confint(mod_4_zoo)
+```
+
+```{r}
+# check significance of predictors
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_zoo)
+anova(mod_4_zoo)
+```
+
+### Macroinvertebrates
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_macro, mod_2_macro) # mod_2 is better significantly different
+
+mod_1_macro
+mod_2_macro
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_macro, mod_3_macro) # mod_3 is better slightly significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + year + year:poly(est_mean_temp_12M, 2) + year:sd_temp_12M + (1|site) + (1|sample)")
+
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_macro, mod_4_macro) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_macro, mod_2_macro, mod_3_macro, mod_4_macro)
+```
+
+```{r}
+mod_2_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_macro)
+car::Anova(mod_4_macro)
+AIC(mod_4_macro)
+```
+
+```{r}
+# check model results - mod_47_macro
+
+# residplot(mod_4_macro, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_macro)
+qqnorm(resid(mod_4_macro))
+qqline(resid(mod_4_macro))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_macro)
+round(r.squaredGLMM(mod_4_macro),2)
+
+round(Weights(AIC(mod_2_macro, mod_3_macro, mod_4_macro)), digits = 2)
+confint(mod_4_macro)
+```
+
+```{r}
+# check significance of predictors
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "alpha", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_macro)
+anova(mod_4_macro)
+```
+
+## Regional diversity
+All models have site ID as random factor (random intercept). 
+
+```{r}
+# lmm formulas
+# to compare linear or polynomial effects of mean temperature
+formula1 <- as.formula("diversity ~ Tmean_est_mean + (1|site)")
+formula2 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + (1|site)")
+```
+
+### Whole-community
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_wc, mod_2_wc) # if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+mod_1_wc
+mod_2_wc
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + (1|site)")
+
+mod_3_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_wc, mod_3_wc) # mod_3 is better significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + year + year:poly(Tmean_est_mean, 2) + year:sd_temp_12M + (1|site)")
+
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_wc, mod_4_wc) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_wc, mod_2_wc, mod_3_wc, mod_4_wc)
+```
+
+```{r}
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_wc)
+car::Anova(mod_4_wc)
+AIC(mod_4_wc)
+```
+
+```{r}
+# check model results - mod_4_wc
+
+# residplot(mod_4_wc, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_wc)
+qqnorm(resid(mod_4_wc))
+qqline(resid(mod_4_wc))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_3_wc)
+round(r.squaredGLMM(mod_4_wc),2)
+
+round(Weights(AIC(mod_2_wc, mod_3_wc, mod_4_wc)), digits = 2)
+confint(mod_4_wc)
+```
+
+```{r}
+# check significance of predictors
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_wc)
+anova(mod_4_wc)
+```
+
+### Bacteria
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_bact, mod_2_bact) # if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+mod_1_bact
+mod_2_bact
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + (1|site)")
+
+mod_3_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_bact, mod_3_bact) # mod_3 is better significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + year + year:poly(Tmean_est_mean, 2) + year:sd_temp_12M + (1|site)")
+
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_bact, mod_4_bact) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_bact, mod_2_bact, mod_3_bact, mod_4_bact)
+```
+
+```{r}
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_bact)
+car::Anova(mod_4_bact)
+AIC(mod_4_bact)
+```
+
+```{r}
+# check model results - mod_4_bact
+
+# residplot(mod_4_bact, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_bact)
+qqnorm(resid(mod_4_bact))
+qqline(resid(mod_4_bact))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_bact)
+round(r.squaredGLMM(mod_4_bact),2)
+
+round(Weights(AIC(mod_2_bact, mod_3_bact, mod_4_bact)), digits = 2)
+confint(mod_4_bact)
+```
+
+```{r}
+# check significance of predictors
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_bact)
+anova(mod_4_bact)
+```
+
+### Phytoplankton
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_phyto, mod_2_phyto) # mod_2 is better not significantly different
+mod_1_phyto
+mod_2_phyto
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + (1|site)")
+
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_phyto, mod_3_phyto) # mod_3 is better significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + year + year:poly(Tmean_est_mean, 2) + year:sd_temp_12M + (1|site)")
+
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_phyto, mod_4_phyto) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_phyto, mod_2_phyto, mod_3_phyto, mod_4_phyto)
+```
+
+```{r}
+mod_2_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = T)
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+
+# best model results - using REML estimation
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_phyto)
+car::Anova(mod_4_phyto)
+AIC(mod_4_phyto)
+```
+
+```{r}
+# check model results - mod_4_phyto
+
+# residplot(mod_4_phyto, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_phyto)
+qqnorm(resid(mod_4_phyto))
+qqline(resid(mod_4_phyto))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_phyto)
+round(r.squaredGLMM(mod_4_phyto),2)
+
+round(Weights(AIC(mod_1_phyto, mod_3_phyto, mod_4_phyto)), digits = 2)
+confint(mod_4_phyto)
+```
+
+```{r}
+# check significance of predictors
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_phyto)
+anova(mod_4_phyto)
+```
+
+### Zooplankton
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_zoo, mod_2_zoo) # mod_2 is better significantly different
+mod_1_zoo
+mod_2_zoo
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + (1|site)")
+
+mod_3_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_zoo, mod_3_zoo) # mod_3 is better significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + year + year:poly(Tmean_est_mean, 2) + year:sd_temp_12M + (1|site)")
+
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_zoo, mod_4_zoo) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_zoo, mod_2_zoo, mod_3_zoo, mod_4_zoo)
+```
+
+```{r}
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = T)
+mod_3_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+
+# best model results - using REML estimation
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_zoo)
+car::Anova(mod_4_zoo)
+AIC(mod_4_zoo)
+```
+
+```{r}
+# check model results - mod_4_zoo
+
+# residplot(mod_4_zoo, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_zoo)
+qqnorm(resid(mod_4_zoo))
+qqline(resid(mod_4_zoo))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_zoo)
+round(r.squaredGLMM(mod_4_zoo),2)
+
+round(Weights(AIC(mod_2_zoo, mod_3_zoo, mod_4_zoo)), digits = 2)
+confint(mod_4_zoo)
+```
+
+```{r}
+# check significance of predictors
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_zoo)
+anova(mod_4_zoo)
+```
+
+### Macroinvertebrates
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_macro, mod_2_macro) # mod_2 is better significantly different
+mod_1_macro
+mod_2_macro
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + (1|site)")
+
+mod_3_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_macro, mod_3_macro) # mod_3 is better significantly different
+
+# keep sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(Tmean_est_mean, 2) + sd_temp_12M + year + year:poly(Tmean_est_mean, 2) + year:sd_temp_12M + (1|site)")
+
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_3_macro, mod_4_macro) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_macro, mod_2_macro, mod_3_macro, mod_4_macro)
+```
+
+```{r}
+mod_2_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula1, REML = T)
+mod_3_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+
+# best model results - using REML estimation
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_macro)
+car::Anova(mod_4_macro)
+AIC(mod_4_macro)
+```
+
+```{r}
+# check model results - mod_4_macro
+
+# residplot(mod_4_macro, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_macro)
+qqnorm(resid(mod_4_macro))
+qqline(resid(mod_4_macro))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_macro)
+round(r.squaredGLMM(mod_4_macro),2)
+
+round(Weights(AIC(mod_1_macro, mod_3_macro, mod_4_macro)), digits = 2)
+confint(mod_4_macro)
+```
+
+```{r}
+# check significance of predictors
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "gamma", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_macro)
+anova(mod_4_macro)
+```
+
+## Beta diversity
+Pond identity nested in the experimental site was included as a random factor in all models to account for the spatio-temporal autocorrelation. All ponds have unique ID to avoid implicit nesting (e.g EV_M01, MR_M01 etc.)
+
+```{r}
+# lmm formulas
+# to compare linear or polynomial effects of mean temperature
+formula1 <- as.formula("diversity ~ est_mean_temp_12M + (1|site) + (1|sample)")
+formula2 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+```
+
+### Whole-community
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_wc, mod_2_wc) # if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+mod_1_wc
+mod_2_wc
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_wc, mod_3_wc) # mod_1 is better not significantly different
+
+# drop sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_2_wc, mod_4_wc) # mod_1 is better and not significantly different
+# drop year
+```
+
+```{r}
+AIC(mod_1_wc, mod_2_wc, mod_3_wc, mod_4_wc)
+```
+
+```{r}
+mod_3_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+mod_4_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_wc)
+
+# best model results - using REML estimation
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+car::Anova(mod_2_wc)
+AIC(mod_2_wc)
+```
+
+```{r}
+# check model results - mod_2_wc
+
+# residplot(mod_2_wc, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_2_wc)
+qqnorm(resid(mod_2_wc))
+qqline(resid(mod_2_wc))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_2_wc)
+round(r.squaredGLMM(mod_2_wc),2)
+
+round(Weights(AIC(mod_2_wc, mod_3_wc, mod_4_wc)), digits = 2)
+confint(mod_2_wc)
+```
+
+```{r}
+# check significance of predictors
+mod_2_wc <- 
+  div_env_df %>% 
+  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+summary(mod_2_wc)
+anova(mod_2_wc)
+```
+
+### Bacteria
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_bact, mod_2_bact) # if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+mod_1_bact
+mod_2_bact
+
+# use polynomial
+```
+
+```{r}
+# does sd_temo improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_bact, mod_3_bact) # mod_1 is better not significantly different
+
+# drop sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_2_bact, mod_4_bact) # mod_1 is better and not significantly different
+# drop year
+```
+
+
+```{r}
+AIC(mod_1_bact, mod_2_bact, mod_3_bact, mod_4_bact)
+```
+
+```{r}
+mod_3_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+mod_4_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_bact)
+
+# best model results - using REML estimation
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+car::Anova(mod_2_bact)
+AIC(mod_2_bact)
+```
+
+```{r}
+# check model results - mod_2_bact
+
+# residplot(mod_2_bact, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_2_bact)
+qqnorm(resid(mod_2_bact))
+qqline(resid(mod_2_bact))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_2_bact)
+round(r.squaredGLMM(mod_2_bact),2)
+
+round(Weights(AIC(mod_2_bact, mod_3_bact, mod_4_bact)), digits = 2)
+confint(mod_2_bact)
+```
+
+```{r}
+# check significance of predictors
+mod_2_bact <- 
+  div_env_df %>% 
+  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+summary(mod_2_bact)
+anova(mod_2_bact)
+```
+
+### Phytoplankton
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_phyto, mod_2_phyto) # mod_2 is better not significantly different
+mod_1_phyto
+mod_2_phyto
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_phyto, mod_3_phyto) # mod_2 is better not significantly different
+
+# drop sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_2_phyto, mod_4_phyto) # mod_4 is better and significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_phyto, mod_2_phyto, mod_3_phyto, mod_4_phyto)
+```
+
+```{r}
+mod_2_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_phyto)
+car::Anova(mod_4_phyto)
+AIC(mod_4_phyto)
+```
+
+```{r}
+# check model results - mod_4_phyto
+
+# residplot(mod_4_phyto, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_phyto)
+qqnorm(resid(mod_4_phyto))
+qqline(resid(mod_4_phyto))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_phyto)
+round(r.squaredGLMM(mod_4_phyto),2)
+
+round(Weights(AIC(mod_2_phyto, mod_3_phyto, mod_4_phyto)), digits = 2)
+confint(mod_4_phyto)
+```
+
+```{r}
+# check significance of predictors
+mod_4_phyto <- 
+  div_env_df %>% 
+  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_phyto)
+anova(mod_4_phyto)
+```
+
+### Zooplankton
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_zoo, mod_2_zoo) # mod_1 is better not significantly different
+mod_1_zoo
+mod_2_zoo
+
+# if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+
+# use polynomial
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_zoo, mod_3_zoo) # mod_1 is better not significantly different
+
+# drop sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:poly(est_mean_temp_12M, 2) + (1|site) + (1|sample)")
+
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_2_zoo, mod_4_zoo) # mod_4 is better and significantly different
+# drop year
+```
+
+```{r}
+AIC(mod_1_zoo, mod_2_zoo, mod_3_zoo, mod_4_zoo)
+```
+
+```{r}
+mod_3_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+mod_4_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+
+# best model results - using REML estimation
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+summary(mod_2_zoo)
+car::Anova(mod_2_zoo)
+AIC(mod_2_zoo)
+```
+
+```{r}
+# check model results - mod_2_zoo
+
+# residplot(mod_2_zoo, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_2_zoo)
+qqnorm(resid(mod_2_zoo))
+qqline(resid(mod_2_zoo))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_4_zoo)
+round(r.squaredGLMM(mod_2_zoo),2)
+
+round(Weights(AIC(mod_2_zoo, mod_3_zoo, mod_4_zoo)), digits = 2)
+confint(mod_2_zoo)
+```
+
+```{r}
+# check significance of predictors
+mod_2_zoo <- 
+  div_env_df %>% 
+  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+summary(mod_2_zoo)
+anova(mod_2_zoo)
+```
+
+### Macroinvertebrates
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# check fixed effects - using ML estimation
+mod_1_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula1, REML = F)
+mod_2_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = F)
+
+anova(mod_1_macro, mod_2_macro) # mod_1 is better not significantly different
+mod_1_macro
+mod_2_macro
+
+# if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
+
+# use polynomial
+
+```
+
+```{r}
+# does sd_temp improves the model?
+formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
+
+mod_3_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = F)
+
+anova(mod_2_macro, mod_3_macro) # mod_2 is better not significantly different
+
+# drop sd_temp
+```
+
+```{r}
+# does year improves the model? are there interactions between year and temperature
+formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:poly(est_mean_temp_12M, 2) + + (1|sample)")
+
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+
+anova(mod_2_macro, mod_4_macro) # mod_4 is better significantly different
+# keep year
+```
+
+```{r}
+AIC(mod_1_macro, mod_2_macro, mod_3_macro, mod_4_macro)
+```
+
+```{r}
+mod_2_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula2, REML = T)
+mod_3_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula3, REML = T)
+
+# best model results - using REML estimation
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = T)
+summary(mod_4_macro)
+car::Anova(mod_4_macro)
+AIC(mod_4_macro)
+```
+
+```{r}
+# check model results - mod_4_macro
+
+# residplot(mod_4_macro, level=2, id= TRUE, newwd = FALSE)
+
+# check residuals
+plot(mod_4_macro)
+qqnorm(resid(mod_4_macro))
+qqline(resid(mod_4_macro))  
+
+# Marginal and conditional R2
+r.squaredGLMM(mod_2_macro)
+round(r.squaredGLMM(mod_4_macro),2)
+
+round(Weights(AIC(mod_2_macro, mod_3_macro, mod_4_macro)), digits = 2)
+confint(mod_4_macro)
+```
+
+```{r}
+# check significance of predictors
+mod_4_macro <- 
+  div_env_df %>% 
+  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  lmer(formula = formula4, REML = F)
+summary(mod_4_macro)
+anova(mod_4_macro)
+```
