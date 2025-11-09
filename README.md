@@ -99,4 +99,5 @@ Scripts can be run chunk by chunk in RStudio or knitted into full reports.
 
 ## Authors
 Cátia Pereira, Museo Nacional de Ciencias Naturales (MNCN-CSIC)
+
 Miguel Matias, Museo Nacional de Ciencias Naturales (MNCN-CSIC)
