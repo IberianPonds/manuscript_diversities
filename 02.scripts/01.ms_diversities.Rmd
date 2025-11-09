@@ -35,7 +35,7 @@ library(broom) # compare linear and quadratic models
 library(ggpmisc) # for stat_poly_eq()
 ```
 
-Load data
+# Load data
 ```{r}
 # community data
 community.df <- read.csv("../01.input_data/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
@@ -180,6 +180,18 @@ div_temp <- ggarrange(
   ncol = 2)
 
 div_temp
+
+# --------------------------------------------
+# Export figure to file
+# --------------------------------------------
+ggsave(
+  "figures/FIGURE_1_Accumulated regional diversity.pdf",
+  plot = div_temp,
+  dpi = 300, width = 100, height = 40, units = "mm"
+)
+
+
+
 ```
 
 # Variation of regional, local, and beta diversity across temperature gradients
