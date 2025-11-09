@@ -2,7 +2,7 @@
 
 This repository contains scripts and data for analyzing how **temperature and its variability shape aquatic biodiversity across trophic levels and spatial scales**. Using environmental DNA and morphological data from freshwater mesocosms distributed across a temperature gradient, the analyses test how mean temperature and variability jointly affect α-, β-, and γ-diversity. Results show that diversity peaks at intermediate temperatures, declines at thermal extremes, and responds nonlinearly to temperature variability—highlighting that both stable and fluctuating environments can sustain high richness.  
 
-![Diversity Patterns](Figure 2_Regional climate and accumulated diversity across the Iberian Pond Network.pdf)
+![Diversity Patterns](figures/Figure 2_Regional climate and accumulated diversity across the Iberian Pond Network.pdf)
 
 ---
 
