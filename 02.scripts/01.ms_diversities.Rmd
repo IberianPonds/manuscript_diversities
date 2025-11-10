@@ -9,8 +9,14 @@ output:
 ---
 
 # Introduction
-We combined environmental DNA and morphological surveys from a multi-region freshwater mesocosm experiment spanning a broad temperature gradient across the Iberian Peninsula to examine how mean temperature and its variability shape multi-trophic aquatic communities.
-This script reproduces the figures in the main text of the manuscript and in the supplements.
+We combined environmental DNA and morphological surveys from a multi-region freshwater mesocosm experiment spanning a broad temperature gradient across the Iberian Peninsula to examine how mean temperature and its variability shape multi-trophic aquatic communities. This script reproduces the figures in the main text of the manuscript and in the supplements.
+
+# Data availability
+The dataset used in the current manuscript was published as part of a methods paper: Pereira, Cátia Lúcio; Gilbert, M. Thomas P.; Araújo, Miguel Bastos; Matias, Miguel Graça (2021). Fine‐tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches. Methods in Ecology and Evolution. https://doi.org/10.1111/2041-210x.13718
+
+This Zenodo repository contains the original code used to combine eDNA and morphological data: Pereira, C. L., Gilbert, M. T. P., Araújo, M. B., & Matias, M. G. (2021). Data from: Fine-tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches. Zenodo. https://doi.org/10.5281/zenodo.5336961
+
+This DRYAD repository contains the dataset used in the current manuscript and can be found here: Pereira, Cátia Lúcio; Gilbert, M. Thomas P.; Araújo, Miguel Bastos; Matias, Miguel Graça (2021). Data from: Fine-tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches [Dataset]. Dryad. https://doi.org/10.5061/dryad.k6djh9w71
 
 Clear the memory of all objects
 ```{r}
@@ -38,10 +44,10 @@ library(ggpmisc) # for stat_poly_eq()
 # Load data
 ```{r}
 # community data
-community.df <- read.csv("../01.input_data/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
+community.df <- read.csv("../input_data/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
 
 # diversity and environmental data
-load("../01.input_data/01.diversity_env_df.RData")
+load("../input_data/01.diversity_env_df.RData")
 ```
 
 # Data Prep
@@ -59,16 +65,18 @@ beta_sn_div <- div_env_df %>%
   filter(scale == "beta") %>% # dataset with only gamma
   arrange(site, year, sample_code, group) # reo-order df
 
-beta_div <- data_frame(site = alpha_div$site,
-                       year = alpha_div$year,
-                       sample_code = alpha_div$sample_code,
-                       group = alpha_div$group,
-                       scale = "beta2",
-                       diversity = gamma_div$diversity/alpha_div$diversity)
+#beta_div <- data_frame(site = alpha_div$site,
+#                       year = alpha_div$year,
+#                       sample_code = alpha_div$sample_code,
+#                       group = alpha_div$group,
+#                       scale = "beta2",
+#                       diversity = gamma_div$diversity/alpha_div$diversity)
+#
+#beta_div[ , 7:ncol(alpha_div)] <- alpha_div[ , 7:ncol(alpha_div)]
 
-beta_div[ , 7:ncol(alpha_div)] <- alpha_div[ , 7:ncol(alpha_div)]
+#div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div, beta_div)
+div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div)
 
-div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div, beta_div)
 ```
 
 # Global diversity along temperature gradient
@@ -182,7 +190,7 @@ div_temp <- ggarrange(
 div_temp
 
 # --------------------------------------------
-# Export figure to file
+# Export Figure 2
 # --------------------------------------------
 ggsave(
   "../figures/Figure_2_Regional_climate_accumulated_diversity.png",
@@ -1545,6 +1553,16 @@ div_mean_temp_plot <- ggarrange(alpha_tmean, gamma_tmean, beta_tmean,
                                 nrow = 2, ncol = 3,
                                 common.legend = T, legend = "bottom", labels = "AUTO")
 div_mean_temp_plot
+
+# --------------------------------------------
+# Export Figure 3
+# --------------------------------------------
+ggsave(
+  "../figures/Figure_3_div_mean_temp_plot.png",
+  plot = div_mean_temp_plot,
+  dpi = 300, width = 14, height = 11.2, units = "in"
+)
+
 ```
 
 ```{r Mean annual temperature temporal avg, fig.width=10, fig.height=4, dpi=300, echo=FALSE}
@@ -1618,6 +1636,15 @@ div_sd_temp_plot <- ggarrange(alpha_tsd, gamma_tsd, beta_tsd,
                               nrow = 2, ncol = 3,
                               common.legend = T, legend = "bottom", labels = "AUTO")
 div_sd_temp_plot
+
+# --------------------------------------------
+# Export Figure 4
+# --------------------------------------------
+ggsave(
+  "../figures/Figure_4_div_sd_temp_plot.png",
+  plot = div_sd_temp_plot,
+  dpi = 300, width = 14, height = 11.2, units = "in"
+)
 
 ```
 
@@ -1736,6 +1763,16 @@ p.id.all <- id.all %>%
           legend.title = element_blank())
 
 p.id.all
+
+# --------------------------------------------
+# Export Figure S2
+# --------------------------------------------
+ggsave(
+  "../figures/Figure_S2_p.id.all.png",
+  plot = p.id.all,
+  dpi = 300, width = 8, units = "in"
+)
+
 ```
 
 ## Regional diversity across regions and years
@@ -1853,5 +1890,15 @@ reg_div <- ggarrange(reg_mean, reg_2016, reg_2017, reg_2018,
                      labels = "AUTO", font.label = list(size = 10),
                      common.legend = T, legend = "bottom")
 reg_div
+
+# --------------------------------------------
+# Export Figure S3
+# --------------------------------------------
+ggsave(
+  "../figures/Figure_S3_reg_div.png",
+  plot = reg_div,
+  dpi = 300, width = 10, height = 8, units = "in"
+)
+
 ```
 
