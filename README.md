@@ -10,12 +10,13 @@ This repository contains scripts and data for analyzing how **temperature and it
 
 ```
 └── inputs/                                     # Input data files (diversity metrics, temperature, site info)
-└── figures/                                    # Output plots and figures
-└── outputs/                                    # Model summaries and tables
 └── scripts/
   └── 01_visualization.Rmd                      # Data processing and visualization
   └── 02_reg_models.Rmd                         # Regression models for diversity–temperature relationships
   └── 03_linear_mixed_models.Rmd                # Linear mixed-effects models
+└── figures/                                    # Output plots and figures
+└── outputs/                                    # Model summaries and tables
+
 ```
 
 ---
