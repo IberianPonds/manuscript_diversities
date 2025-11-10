@@ -9,12 +9,13 @@ This repository contains scripts and data for analyzing how **temperature and it
 ## Project Structure
 
 ```
-├── data/                                  # Input data files (diversity metrics, temperature, site info)
-├── figures/                               # Output plots and figures
-├── outputs/                               # Model summaries and tables
-├── 01.ms_diversities.Rmd                  # Data processing and summary statistics
-├── 02.ms_diversities_reg_models.Rmd       # Regression models for diversity–temperature relationships
-└── 03.ms_diversities_linear_mixed_models.Rmd  # Linear mixed-effects models including temporal interactions
+└── inputs/                                     # Input data files (diversity metrics, temperature, site info)
+└── figures/                                    # Output plots and figures
+└── outputs/                                    # Model summaries and tables
+└── scripts/
+  └── 01_visualization.Rmd                      # Data processing and visualization
+  └── 02_reg_models.Rmd                         # Regression models for diversity–temperature relationships
+  └── 03_linear_mixed_models.Rmd                # Linear mixed-effects models
 ```
 
 ---
@@ -80,13 +81,13 @@ All data files must be placed in the `data/` subfolder of the project root direc
 
 Open and execute the scripts sequentially:
 
-1. **`01.ms_diversities.Rmd`**  
+1. **`01_visualization.Rmd`**  
    Data import, cleaning, and computation of diversity metrics.  
 
-2. **`02.ms_diversities_reg_models.Rmd`**  
+2. **`02_reg_models.Rmd`**  
    Regression analyses assessing diversity–temperature relationships.  
 
-3. **`03.ms_diversities_linear_mixed_models.Rmd`**  
+3. **`03_linear_mixed_models.Rmd`**  
    Mixed-effects models testing the interaction between temperature and time.  
 
 Scripts can be run chunk by chunk in RStudio or knitted into full reports.
