@@ -36,7 +36,7 @@ library(lmerTest) #check significance of lmm predictors
 Load data
 ```{r}
 # diversity and environmental data
-load("../01.input_data/01.diversity_env_df.RData")
+load("../input_data/01.diversity_env_df.RData")
 ```
 
 # Data Prep
