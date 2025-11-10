@@ -61,13 +61,16 @@ if (any(!installed)) install.packages(required_packages[!installed])
 ---
 
 # Data
-
 Ensure the following datasets are available in the `data/` directory before running the scripts:
 
-### 🧩 Diversity and Environmental Data
-- `table_diversity_metrics.csv` — diversity estimates (local, beta, regional) per group and site  
-- `table_environmental.csv` — temperature variables (mean, SD) and year  
-- `table_trophic_groups.csv` — trophic group metadata  
+ - diversity_env_df.RData
+ - hybrid_geo_fit_tax_res.csv
+
+The dataset used in the current manuscript was published as part of a methods paper: Pereira, Cátia Lúcio; Gilbert, M. Thomas P.; Araújo, Miguel Bastos; Matias, Miguel Graça (2021). Fine‐tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches. Methods in Ecology and Evolution. https://doi.org/10.1111/2041-210x.13718
+
+This Zenodo repository contains the original code used to combine eDNA and morphological data: Pereira, C. L., Gilbert, M. T. P., Araújo, M. B., & Matias, M. G. (2021). Data from: Fine-tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches. Zenodo. https://doi.org/10.5281/zenodo.5336961
+
+This DRYAD repository contains the dataset used in the current manuscript and can be found here: Pereira, Cátia Lúcio; Gilbert, M. Thomas P.; Araújo, Miguel Bastos; Matias, Miguel Graça (2021). Data from: Fine-tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches [Dataset]. Dryad. https://doi.org/10.5061/dryad.k6djh9w71
 
 All data files must be placed in the `data/` subfolder of the project root directory.
 
