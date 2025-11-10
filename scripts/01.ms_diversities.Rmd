@@ -37,10 +37,10 @@ library(ggpmisc) # for stat_poly_eq()
 # Load data
 ```{r}
 # community data
-community.df <- read.csv("../input_data/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
+community.df <- read.csv("../inputs/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
 
 # diversity and environmental data
-load("../input_data/01.diversity_env_df.RData")
+load("../inputs/01.diversity_env_df.RData")
 ```
 
 # Data Prep
@@ -49,7 +49,7 @@ Estimate b-diversity
 ```{r}
 # estimate b-diversity = gamma/alpha
 alpha_div <- div_env_df %>% 
-  filter(scale == "alpha") %>% # dataset with only alpha
+  filter(scale == "alpha") %>% # dataset with only alpha´
   arrange(site, year, sample_code, group) # reo-order df
 gamma_div <- div_env_df %>% 
   filter(scale == "gamma") %>% # dataset with only gamma
@@ -117,7 +117,7 @@ meantemp_plot <- div_env_df %>%
   scale_fill_manual(values = color_years, name = "Year", labels = c("Mean", "2016", "2017", "2018")) +
   scale_color_manual(values = color_years, name = "Year", labels = c("Mean", "2016", "2017", "2018")) +
   xlab("Year") +
-  ylab(bquote(Log[10]~T[Mean]~(ºC))) +
+  ylab(bquote(Log~T[Mean]~(ºC))) +
   ggtitle("") +
   ylim(2, 3.5) +
   scale_x_discrete(label = c("Av", "16", "17", "18")) +
@@ -146,7 +146,7 @@ sdtemp_plot <- div_env_df %>%
   scale_fill_manual(values = color_years, name = "Year", labels = c("Mean", "2016", "2017", "2018")) +
   scale_color_manual(values = color_years, name = "Year", labels = c("Mean", "2016", "2017", "2018")) +
   xlab("Year") +
-  ylab(bquote(Log[10]~T[SD]~(ºC))) +
+  ylab(bquote(Log~T[SD]~(ºC))) +
   ggtitle("") +
   # ylim(2, 3.5) +
   scale_x_discrete(label = c("Av", "16", "17", "18")) +
