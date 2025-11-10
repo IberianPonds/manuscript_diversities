@@ -63,7 +63,7 @@ if (any(!installed)) install.packages(required_packages[!installed])
 ---
 
 # Data
-Ensure the following datasets are available in the `data/` directory before running the scripts:
+Ensure the following datasets are available in the `inputs/` directory before running the scripts:
 
  - diversity_env_df.RData
  - hybrid_geo_fit_tax_res.csv
@@ -74,7 +74,7 @@ This Zenodo repository contains the original code used to combine eDNA and morph
 
 This DRYAD repository contains the dataset used in the current manuscript and can be found here: Pereira, Cátia Lúcio; Gilbert, M. Thomas P.; Araújo, Miguel Bastos; Matias, Miguel Graça (2021). Data from: Fine-tuning biodiversity assessments: A framework to pair eDNA metabarcoding and morphological approaches [Dataset]. Dryad. https://doi.org/10.5061/dryad.k6djh9w71
 
-All data files must be placed in the `data/` subfolder of the project root directory.
+All data files must be placed in the `inputs/` subfolder of the project root directory.
 
 ---
 
