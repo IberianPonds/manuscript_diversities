@@ -48,10 +48,10 @@ library(viridisLite)
 Community matrices (taxonomic assignments and trophic groups) and the joint diversity–environment summaries are stored in the `inputs` directory and loaded below. The CSV contains the hybridised community table, whereas the `.RData` object stores pre-computed diversity indices as well as environmental covariates aggregated at different spatial scales.
 ```{r}
 # community data
-community.df <- read.csv("../inputs/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
+hybrid_geo_fit_tax <- read.csv("../inputs/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
 
 # diversity and environmental data
-load("../inputs/3b_diversity_env_df_TEST.RData")
+load("../inputs/data_metrics.RData")
 ```
 
 # Set colours and group labels

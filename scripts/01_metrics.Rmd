@@ -1529,8 +1529,5 @@ div_env_df <- div_df_2 %>%
 ```
 
 ```{r Save objects}
-save(site_labels, group_labels, color_ib, color_group,
-     rarefaction_df, div_env_df, log_ratio_df,
-     file = "../inputs/3b_diversity_env_df_TEST.RData"
-     )
+save(rarefaction_df, div_env_df, file = "../inputs/data_metrics.RData")
 ```
