@@ -9,47 +9,95 @@ output:
 ---
 
 # Introduction
-We combined environmental DNA and morphological surveys from a multi-region freshwater mesocosm experiment spanning a broad temperature gradient across the Iberian Peninsula to examine how mean temperature and its variability shape multi-trophic aquatic communities. This script reproduces the figures in the main text of the manuscript and in the supplements.
+Freshwater ponds across Mediterranean climates experience steep spatial and temporal temperature gradients that cascade across entire food webs. To quantify how these gradients shape biodiversity, we combined environmental DNA metabarcoding with traditional morphological counts from a coordinated mesocosm experiment covering six Iberian regions and three consecutive years.
 
-Clear the memory of all objects
-```{r}
-rm(list=ls())
-```
+This document serves as the computational appendix for the manuscript. It loads the harmonised datasets, performs all preprocessing, and generates publication-quality figures (main text and supplements) along with high-resolution exports. Text accompanying each section highlights the ecological interpretation of the outputs to facilitate manuscript preparation.
 
-Load libraries
-```{r}
+## Analysis setup
+All analyses were performed in R (v4.4+) using the tidyverse ecosystem. We suppress chunk echoes and messages for readability while keeping the full code available here. Colours, factor levels, and default model formulas are defined once to ensure consistency across figures.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center",
+  results = 'hide',
+  dpi = 300
+)
+
+set.seed(20251119)
+
 library(tidyverse)
 library(magrittr)
-library(ggplot2)
-library(tidyr)
-library(dplyr)
 library(ggpmisc)
-library(tidyquant) # theme_tq
-library(ggpubr) # add correlation coefs to plots
+library(tidyquant)
+library(ggpubr)
 library(knitr)
 library(gridExtra)
-library(directlabels) # labels at the end
-library(viridis) # color
-library(broom) # compare linear and quadratic models
-library(ggpmisc) # for stat_poly_eq()
+library(directlabels)
+library(viridis)
+library(broom)
+library(viridisLite)
+
 ```
 
-# Load data
+# Methods
+
+## Data ingestion
+Community matrices (taxonomic assignments and trophic groups) and the joint diversity–environment summaries are stored in the `inputs` directory and loaded below. The CSV contains the hybridised community table, whereas the `.RData` object stores pre-computed diversity indices as well as environmental covariates aggregated at different spatial scales.
 ```{r}
 # community data
 community.df <- read.csv("../inputs/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
 
 # diversity and environmental data
-load("../inputs/01.diversity_env_df.RData")
+#load("../inputs/01.diversity_env_df.RData")
+load("../inputs/3b_diversity_env_df_TEST.RData")
+#load("../inputs/consolidated_dataset.RData")
 ```
 
-# Data Prep
+# Set colours and group labels
+```{r}
+group_levels <- c("Whole-community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
+group_labels <- c("Whole-community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
+color_group <- viridisLite::viridis(option = "viridis", length(group_levels))
+#names(color_group) <- group_levels
+
+ccc <- c("#440154FF","#3B528BFF", "#21908CFF", "#5DC863FF", "#FDE725FF")
+
+#theme_set(theme_tq())
+
+formula <- y ~ poly(x, 2)
+```
+
+## Diversity metrics and derived quantities
+To facilitate plotting across α (local), β (turnover), and γ (regional) diversity, we keep separate data frames per scale and then recombine them. β-diversity estimated via sample-based rarefaction (`beta_sn_div`) is appended to the tidy object used throughout the rest of the workflow.
 
 Estimate b-diversity
+Data prep
+```{r}
+
+# set and order factor levels
+div_env_df$site <- factor(div_env_df$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+div_env_df$year <- factor(div_env_df$year, levels = c("Mean", "2016", "2017", "2018"))
+div_env_df$group <- factor(
+  div_env_df$group,
+  levels = group_levels
+)
+# reorder data frames
+div_env_df <- div_env_df %>% 
+  select(site, year, sample_code, group, scale, everything())
+
+# rename objects
+global_div_env_df <- div_env_df
+
+```
+
+Estimate b-diversity = gamma/alpha
 ```{r}
 # estimate b-diversity = gamma/alpha
 alpha_div <- div_env_df %>% 
-  filter(scale == "alpha") %>% # dataset with only alpha´
+  filter(scale == "alpha") %>% # dataset with only alpha
   arrange(site, year, sample_code, group) # reo-order df
 gamma_div <- div_env_df %>% 
   filter(scale == "gamma") %>% # dataset with only gamma
@@ -58,23 +106,25 @@ beta_sn_div <- div_env_df %>%
   filter(scale == "beta") %>% # dataset with only gamma
   arrange(site, year, sample_code, group) # reo-order df
 
-#beta_div <- data_frame(site = alpha_div$site,
-#                       year = alpha_div$year,
-#                       sample_code = alpha_div$sample_code,
-#                       group = alpha_div$group,
-#                       scale = "beta2",
-#                       diversity = gamma_div$diversity/alpha_div$diversity)
-#
-#beta_div[ , 7:ncol(alpha_div)] <- alpha_div[ , 7:ncol(alpha_div)]
+beta_div <- data_frame(site = alpha_div$site,
+                       year = alpha_div$year,
+                       sample_code = alpha_div$sample_code,
+                       group = alpha_div$group,
+                       scale = "beta2",
+                       diversity = gamma_div$diversity/alpha_div$diversity)
 
-#div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div, beta_div)
-div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div)
+beta_div[ , 7:ncol(alpha_div)] <- alpha_div[ , 7:ncol(alpha_div)]
 
+div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div, beta_div)
 ```
 
-# Global diversity along temperature gradient
+# Results
+The results section mirrors the structure of the main manuscript. Each subsection starts with a brief narrative that highlights the ecological interpretation of the subsequent figure, followed by the code used to generate and export the panel.
 
-## Global regional diversity 
+## Regional climate and accumulated diversity
+We first summarise spatial patterns in thermal regimes and cumulative γ-diversity across the Iberian Pond Network. Boxplots show the distribution of annual mean temperature (TMean) and thermal variability (TSD) for each region and study year, while bar charts highlight accumulated richness per trophic group. These diagnostics provide the contextual backdrop for interpreting temperature–diversity relationships in subsequent sections.
+
+### Global regional diversity 
 ```{r fig.asp=0.4, fig.height=8, fig.width=10, message=FALSE, warning=FALSE, include=FALSE}
 # plot global regional diversity
 global_reg_div <- global_div_env_df %>%
@@ -83,9 +133,15 @@ global_reg_div <- global_div_env_df %>%
              y = diversity, fill = group)) + 
   facet_grid(.~site) +
   geom_bar(stat = "identity", position = "dodge", width = 0.8,
-           outlier.shape = NA) +
-  scale_fill_manual(values = color_group, name = "", labels = c("W", "B", "P", "Z", "M")) +
-  scale_color_manual(values = rep("black", times = 5), name = "", labels = c("W", "B", "P", "Z", "M")) +
+           outlier.shape = NA)  +
+
+  # ✅ This fixes the palette issue completely
+  scale_fill_viridis_d(
+    option = "viridis",
+    direction = 1,
+    labels = c("W","B","P","Z","M")
+  ) +
+
   scale_x_discrete(label = c("W", "B", "P", "Z", "M")) +
   labs(x = "Trophic group", y = expression("Global "*gamma*"-diversity"), title = "") +
   theme_tq() + 
@@ -102,10 +158,8 @@ global_reg_div <- global_div_env_df %>%
         strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid"),
         strip.text.x = element_text(size = 10, color = "black")
         )
-```
 
-## Temperature variation along regions
-```{r}
+### Temperature variation along regions
 color_years <- viridis(5, option = "G", direction = 1)
 
 # variation of mean temp along regions
@@ -169,7 +223,7 @@ sdtemp_plot <- div_env_df %>%
 
 ### Figure 2. Regional climate and accumulated diversity across the Iberian Pond Network
 
-Figure 2. Regional climate and accumulated diversity across the Iberian Pond Network. (A) Average across years (Av) and Annual mean water temperature (TMean) across the six study regions. (B) Annual temperature variability (TSD, standard deviation of daily means). (C) Accumulated regional (γ) diversity across the three-year study period, showing total taxon richness for each trophic group. Regions are ordered from coldest to warmest: MD – Madrid, JC – Jaca, PT – Porto, EV – Évora, TL – Toledo, MR – Murcia. Years: Av – average across 2016–2018; 16 – 2016; 17 – 2017; 18 – 2018. Trophic groups: W – whole community, B – bacteria, P – phytoplankton, Z – zooplankton, M – macroinvertebrates.
+**Figure 2.** Regional climate context and cumulative γ-diversity across the Iberian Pond Network. (A) Average across years (Av) and annual mean water temperature (TMean) for the six study regions. (B) Annual temperature variability (TSD, standard deviation of daily means). (C) Accumulated regional (γ) diversity across the three-year study period, showing total taxon richness for each trophic group. Regions are ordered from coldest to warmest: MD – Madrid, JC – Jaca, PT – Porto, EV – Évora, TL – Toledo, MR – Murcia. Years: Av – average across 2016–2018; 16 – 2016; 17 – 2017; 18 – 2018. Trophic groups: W – whole community, B – bacteria, P – phytoplankton, Z – zooplankton, M – macroinvertebrates.
 
 
 ```{r Accumulated regional diversity, fig.width=10, fig.height=4, dpi=300, echo=FALSE}
@@ -193,52 +247,46 @@ ggsave(
 
 ```
 
-# Variation of regional, local, and beta diversity across temperature gradients
+## Temperature–diversity relationships across spatial scales
+To evaluate how thermal regimes influence biodiversity at nested spatial scales, we model α-, β-, and γ-diversity against both the temporal average of mean temperature and the inter-annual variability in temperature. Figure 3 highlights patterns for TMean, whereas Figure 4 focuses on temperature variability (TSD). Significant quadratic or linear fits reported in the manuscript are reproduced here with the appropriate confidence intervals.
 
-## Regional diversity
+### Regional diversity
 ```{r}
-formula <- y ~ poly(x, 2)
 
 ## Mean temperature
 ### Average
 gamma_mean_temp_mean <- 
   div_env_df %>%
   filter(scale == "gamma", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group), color = color_group[1]) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), 
-              aes(group = group == "Whole-community"), color = color_group[1],
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), 
-              aes(group = group == "Bacteria"), color = color_group[2],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), 
-              aes(group = group == "Phytoplankton"), color = color_group[3],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
-  
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
   ylab(expression("Temporal average "*gamma*"-diversity")) +
-  ggtitle("Regional Scale") +theme_tq() +
-  theme_tq() +
+  ggtitle("Regional Scale") +
+  theme_tq() + 
+  #scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -252,46 +300,42 @@ gamma_mean_temp_mean <-
         strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid"),
         strip.text.x = element_text(size = 10, color = "black")
         )
+```
 
+
+```{r}
 ### 2016
 gamma_mean_temp_2016 <- 
   div_env_df %>%
   filter(scale == "gamma", year == "2016", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), 
-              aes(group = group == "Whole-community"), color = color_group[1],
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), 
-              aes(group = group == "Bacteria"), color = color_group[2],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), 
-              aes(group = group == "Phytoplankton"), color = color_group[3],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), 
-              aes(group = group == "Zooplankton"), color = color_group[4],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
+  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
-  
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2016") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -310,107 +354,70 @@ gamma_mean_temp_2016 <-
 gamma_mean_temp_2017 <- 
   div_env_df %>%
   filter(scale == "gamma", year == "2017", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Whole-community"), 
-              aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Bacteria"), 
-              aes(group = group == "Bacteria"), color = color_group[2],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Phytoplankton"), 
-              aes(group = group == "Phytoplankton"), color = color_group[3],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Zooplankton"), 
-              aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Whole-community"), color = color_group[1]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Whole-community"), 
+              color = color_group[1], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Bacteria"), color = color_group[2]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Bacteria"), 
+              color = color_group[2], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Phytoplankton"), color = color_group[3]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Phytoplankton"), 
+              color = color_group[3], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Zooplankton"), color = color_group[4]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Zooplankton"), 
+              color = color_group[4], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Macroinvertebrates"), color = color_group[5]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Macroinvertebrates"), 
+              color = color_group[5], method = "lm", size = 1.25, formula = formula) +
+
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity)*1.05)) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
-  xlab("") +
-  ylab("") +
   ggtitle("2017") +
+  xlab("") + ylab("") +
   theme_tq() +
-  theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
-        plot.subtitle = element_text(hjust = 0.5, face = "italic"),
-        axis.text = element_text(size = 10),
-        axis.text.y = element_blank(),
-        axis.title = element_text(size = 10),
-        legend.title = element_blank(),
-        legend.position = "none",
-        legend.text = element_text(size = 10),
-        panel.spacing = unit(0.5, "lines"),
-        panel.grid.major = element_blank(), 
-        strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid"),
-        strip.text.x = element_text(size = 10, color = "black")
-        )
+  scale_colour_identity()
 
 ### 2018
 gamma_mean_temp_2018 <- 
   div_env_df %>%
   filter(scale == "gamma", year == "2018", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), 
-              aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = y~x) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), 
-              aes(group = group == "Bacteria"), color = color_group[2],
-              method = "lm", size = 1.25, formula = y~x) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), 
-              aes(group = group == "Phytoplankton"), color = color_group[3],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), 
-              aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = formula) +
-  
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Whole-community"), color = color_group[1]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Whole-community"), 
+              color = color_group[1], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Bacteria"), color = color_group[2]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Bacteria"), 
+              color = color_group[2], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Phytoplankton"), color = color_group[3]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Phytoplankton"), 
+              color = color_group[3], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Zooplankton"), color = color_group[4]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Zooplankton"), 
+              color = color_group[4], method = "lm", size = 1.25, formula = formula) +
+
+  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Macroinvertebrates"), color = color_group[5]) +
+  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Macroinvertebrates"), 
+              color = color_group[5], method = "lm", size = 1.25, formula = formula) +
+
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity)*1.05)) +
   ylim(0, 600) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
-  xlab("") +
-  ylab("") +
   ggtitle("2018") +
+  xlab("") + ylab("") +
   theme_tq() +
-  theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
-        plot.subtitle = element_text(hjust = 0.5, face = "italic"),
-        axis.text = element_text(size = 10),
-        axis.text.y = element_blank(),
-        axis.title = element_text(size = 10),
-        legend.title = element_blank(),
-        legend.position = "none",
-        legend.text = element_text(size = 10),
-        panel.spacing = unit(0.5, "lines"),
-        panel.grid.major = element_blank(), 
-        strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid"),
-        strip.text.x = element_text(size = 10, color = "black")
-        )
+  scale_colour_identity()
 ```
 
 ```{r}
@@ -419,41 +426,40 @@ gamma_mean_temp_2018 <-
 gamma_sd_temp_mean <- 
   div_env_df %>%
   filter(scale == "gamma", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group), color = color_group[1]) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity), color = color_group[1]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.0, 2.1)) +
   xlab("") +
   ylab(expression("Temporal average "*gamma*"-diversity")) +
-  ggtitle("Regional Scale") +theme_tq() +
-  theme_tq() +
+  ggtitle("Regional Scale") +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -472,41 +478,40 @@ gamma_sd_temp_mean <-
 gamma_sd_temp_2016 <- 
   div_env_df %>%
   filter(scale == "gamma", year == "2016", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2016") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -525,41 +530,40 @@ gamma_sd_temp_2016 <-
 gamma_sd_temp_2017 <- 
   div_env_df %>%
   filter(scale == "gamma", year == "2017", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2017") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -578,41 +582,40 @@ gamma_sd_temp_2017 <-
 gamma_sd_temp_2018 <- 
   div_env_df %>%
   filter(scale == "gamma", year == "2018", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
-  ylim(0, 600) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2018") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -628,48 +631,46 @@ gamma_sd_temp_2018 <-
         )
 ```
 
-##Local diversity
+### Local diversity
 ```{r}
 ## Mean temperature
 ### Mean
 alpha_mean_temp_mean <- 
   div_env_df %>%
   filter(scale == "alpha", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group), color = color_group[1]) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity), color = color_group[1]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
-  
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(2.4, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
   ylab(expression("Temporal average "*alpha*"-diversity")) +
-  ggtitle("Local Scale") +theme_tq() +
-  theme_tq() +
+  ggtitle("Local Scale") +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -688,41 +689,40 @@ alpha_mean_temp_mean <-
 alpha_mean_temp_2016 <- 
   div_env_df %>%
   filter(scale == "alpha", year == "2016", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
-  
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
+
   ylim(0, 300) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2016") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -741,41 +741,40 @@ alpha_mean_temp_2016 <-
 alpha_mean_temp_2017 <- 
   div_env_df %>%
   filter(scale == "alpha", year == "2017", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2017") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -794,41 +793,40 @@ alpha_mean_temp_2017 <-
 alpha_mean_temp_2018 <- 
   div_env_df %>%
   filter(scale == "alpha", year == "2018", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = y~x) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2018") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -850,41 +848,40 @@ alpha_mean_temp_2018 <-
 alpha_sd_temp_mean <- 
   div_env_df %>%
   filter(scale == "alpha", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group), color = color_group[1]) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity), color = color_group[1]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"),
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = y~x) + 
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.0, 2.1)) +
   xlab("") +
   ylab(expression("Temporal average "*alpha*"-diversity")) +
-  ggtitle("Local Scale") +theme_tq() +
-  theme_tq() +
+  ggtitle("Local Scale") +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -903,41 +900,40 @@ alpha_sd_temp_mean <-
 alpha_sd_temp_2016 <- 
   div_env_df %>%
   filter(scale == "alpha", year == "2016", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2016") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -956,41 +952,40 @@ alpha_sd_temp_2016 <-
 alpha_sd_temp_2017 <- 
   div_env_df %>%
   filter(scale == "alpha", year == "2017", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"),
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2017") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1009,41 +1004,40 @@ alpha_sd_temp_2017 <-
 alpha_sd_temp_2018 <- 
   div_env_df %>%
   filter(scale == "alpha", year == "2018", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = y~x) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), 
   #             aes(group = group == "Zooplankton"), color = color_group[4],
   #             method = "lm", size = 1.25, formula = formula) +
   
-  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 300) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2018") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1059,41 +1053,39 @@ alpha_sd_temp_2018 <-
         )
 ```
 
-## Beta diversity
+### Beta diversity
 ```{r}
 ## Mean temperature
 ### Mean
 beta_mean_temp_mean <- 
   div_env_df %>%
   filter(scale == "beta", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group), color = color_group[1]) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity), color = color_group[1]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(2.4, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
@@ -1119,41 +1111,40 @@ beta_mean_temp_mean <-
 beta_mean_temp_2016 <- 
   div_env_df %>%
   filter(scale == "beta", year == "2016", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2016") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1172,41 +1163,40 @@ beta_mean_temp_2016 <-
 beta_mean_temp_2017 <- 
   div_env_df %>%
   filter(scale == "beta", year == "2017", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2017") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1225,41 +1215,40 @@ beta_mean_temp_2017 <-
 beta_mean_temp_2018 <- 
   div_env_df %>%
   filter(scale == "beta", year == "2018", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = y~x) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Zooplankton"), 
   #             aes(group = group == "Zooplankton"), color = color_group[4],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.5, 3.0)) +
   xlab("") +
   ylab("") +
   ggtitle("2018") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1281,41 +1270,40 @@ beta_mean_temp_2018 <-
 beta_sd_temp_mean <- 
   div_env_df %>%
   filter(scale == "beta", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group), color = color_group[1]) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity), color = color_group[1]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Phytoplankton"),
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) + 
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Zooplankton"), 
   #             aes(group = group == "Zooplankton"), color = color_group[4],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "Mean" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(1.8, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.0, 2.1)) +
   xlab("") +
   ylab(expression("Temporal average "*beta*"-diversity")) +
-  ggtitle("Turnover") +theme_tq() +
-  theme_tq() +
+  ggtitle("Turnover") +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1334,41 +1322,40 @@ beta_sd_temp_mean <-
 beta_sd_temp_2016 <- 
   div_env_df %>%
   filter(scale == "beta", year == "2016", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = y~x) +
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Phytoplankton"),
               aes(group = group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = y~x) + 
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Zooplankton"), 
   #             aes(group = group == "Zooplankton"), color = color_group[4],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2016" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2016") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1387,41 +1374,40 @@ beta_sd_temp_2016 <-
 beta_sd_temp_2017 <- 
   div_env_df %>%
   filter(scale == "beta", year == "2017", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Zooplankton"), 
   #             aes(group = group == "Zooplankton"), color = color_group[4],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2017" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2017") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1440,41 +1426,40 @@ beta_sd_temp_2017 <-
 beta_sd_temp_2018 <- 
   div_env_df %>%
   filter(scale == "beta", year == "2018", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity, colour = group)) +
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Whole-community"), aes(color = group), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Whole-community"), color = color_group[1]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Whole-community"), 
   #             aes(group = group == "Whole-community"), color = color_group[1],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Bacteria"), aes(color = group), color = color_group[2]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Bacteria"), 
   #             aes(group = group == "Bacteria"), color = color_group[2],
   #             method = "lm", size = 1.25, formula = y~x) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Phytoplankton"), aes(color = group), color = color_group[3]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Phytoplankton"), 
   #             aes(group = group == "Phytoplankton"), color = color_group[3],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Zooplankton"), aes(color = group), color = color_group[4]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Zooplankton"), 
   #             aes(group = group == "Zooplankton"), color = color_group[4],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Macroinvertebrates"), aes(color = group), color = color_group[5]) +
+  geom_point(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta" & year == "2018" & group == "Macroinvertebrates"), 
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  scale_color_manual(values = color_group, name = "", labels = group_labels) +
-  scale_fill_manual(values = color_group, guide = FALSE) +
   ylim(0, 6) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.9, 2.1)) +
   xlab("") +
   ylab("") +
   ggtitle("2018") +
-  theme_tq() +
+  theme_tq() + 
+  scale_colour_identity() +
   theme(plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
         axis.text = element_text(size = 10),
@@ -1492,10 +1477,9 @@ beta_sd_temp_2018 <-
 
 ### Figure 3. Relationships between mean temperature (TMean) and multi-trophic diversity across spatial scales
 
-Figure 3. Relationships between mean temperature (TMean) and multi-trophic diversity across spatial scales. (A–C) Temporal averages for the three diversity components: (A) local (α) diversity, (B) species turnover (β-diversity), and (C) regional (γ) diversity. (D–F) Annual patterns of (D) local, (E) turnover, and (F) regional diversity across the three study years (2016–2018). Significant quadratic or linear regressions of diversity against Log₁₀ TMean are shown as solid lines with shaded 95 % confidence intervals; colours denote trophic groups. Statistical outputs for all regression models are provided in Tables S1–S2. Across trophic levels, diversity generally followed unimodal relationships with mean temperature, particularly for consumers (zooplankton and macroinvertebrates) and at the regional scale, supporting scale-dependent temperature–diversity patterns across the Iberian Pond Network.
+**Figure 3.** Temperature–diversity relationships based on Log₁₀ TMean. (A–C) Temporal averages for (A) local (α), (B) turnover (β), and (C) regional (γ) diversity. (D–F) Annual dynamics of the same three components for 2016–2018. Solid lines with shaded 95 % confidence intervals depict significant quadratic or linear regressions; colours encode trophic groups. Statistical summaries for all models appear in Tables S1–S2. Across trophic levels, diversity generally followed unimodal responses to mean temperature, particularly for consumer groups (zooplankton and macroinvertebrates) and at the regional scale, highlighting scale-dependent thermal constraints on biodiversity.
 
 ```{r include=FALSE, fig.asp=0.8, fig.width=14, dpi=300}
-
 gamma_tmean <- ggarrange(gamma_mean_temp_mean + rremove("ylab") + rremove("xlab"),
                          common.legend = T, legend = "bottom")
 gamma_tmean <- annotate_figure(gamma_tmean, 
@@ -1547,6 +1531,10 @@ div_mean_temp_plot <- ggarrange(alpha_tmean, gamma_tmean, beta_tmean,
                                 common.legend = T, legend = "bottom", labels = "AUTO")
 div_mean_temp_plot
 
+```
+
+
+```{r include=FALSE, fig.asp=0.8, fig.width=14, dpi=300}
 # --------------------------------------------
 # Export Figure 3
 # --------------------------------------------
@@ -1574,7 +1562,7 @@ ggsave(
 
 ### Figure 4. Relationships between temperature variability (TSD) and multi-trophic diversity across spatial scales
 
-Figure 4. Relationships between temperature variability (TSD) and multi-trophic diversity across spatial scales. (A–C) Temporal averages for the three diversity components: (A) local (α) diversity, (B) species turnover (β-diversity), and (C) regional (γ) diversity. (D–F) Annual patterns of (D) local, (E) turnover, and (F) regional diversity across the three study years (2016–2018). Significant quadratic regressions of diversity against Log₁₀ TSD are shown as solid lines with shaded 95 % confidence intervals; colours denote trophic groups. Statistical results of all regression models are provided in Tables S1–S2. Overall, diversity exhibited U-shaped relationships with temperature variability, strongest for consumer groups (zooplankton and macroinvertebrates) and at the regional scale, indicating that moderate thermal regimes sustain higher biodiversity across the Iberian Pond Network.
+**Figure 4.** Effects of Log₁₀ temperature variability (TSD) on α-, β-, and γ-diversity. (A–C) Temporal averages for (A) local, (B) turnover, and (C) regional diversity. (D–F) Annual trajectories for 2016–2018. Significant quadratic regressions are plotted with shaded 95 % confidence intervals, with colours denoting trophic groups. Full statistical details are reported in Tables S1–S2. Diversity often showed U-shaped responses to thermal variability, strongest for consumer groups and at the regional scale, underscoring the role of moderate thermal regimes in sustaining biodiversity across the network.
 
 ```{r include=FALSE, fig.asp=0.8, fig.width=14, dpi=300}
 
@@ -1657,7 +1645,8 @@ ggsave(
 
 
 
-# Supplements
+# Supplementary analyses
+Supplementary sections document additional diagnostics referenced in the main text, including taxonomic resolution summaries for each trophic group and expanded depictions of regional diversity stratified by year.
 
 ## Taxonomic Resolution
 
@@ -1771,31 +1760,42 @@ ggsave(
 ## Regional diversity across regions and years
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-
 # Mean regional diversity
 reg_mean <- div_env_df %>%
   filter(scale == "gamma", year == "Mean") %>% 
   ggplot(aes(x = group, y = diversity, fill = group)) + 
-  facet_grid(.~site) +
-  geom_bar(stat = "identity", position = "dodge", width = 0.8, outlier.shape = NA) +
-  scale_fill_manual(values = color_group, name = "", labels = c("W: Whole-community", "B: Bacteria", "P: Phytoplankton", "Z: Zooplankton", "M: Macroinvertebrates")) +
-  scale_x_discrete(label = c("W", "B", "P", "Z", "M")) +
-  labs(x = "Trophic Group", y = expression("Average "*gamma*"-diversity (Temporal)"), title = "Temporal averaging regional diversity") +
-  ylim(0, 600) +
+  facet_grid(. ~ site) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.8) +
+  
+  scale_fill_manual(values = color_group) +
+  
+  scale_x_discrete(labels = c(
+  "Whole-community" = "W",
+  "Bacteria"        = "B",
+  "Phytoplankton"   = "P",
+  "Zooplankton"     = "Z",
+  "Macroinvertebrates" = "M"
+))+
+  
+  labs(
+    x = "Trophic Group",
+    y = expression("Average "*gamma*"-diversity (Temporal)"),
+    title = "Temporal averaging regional diversity"
+  ) +
+  
+  #ylim(0, 1100) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   theme_tq() + 
-  theme(plot.title = element_text(hjust = 0, size = 10, face = "bold"), 
-        plot.subtitle = element_text(hjust = 0.5, face = "italic"),
-        axis.text = element_text(size = 10),
-        axis.title = element_text(size = 10),
-        legend.title = element_blank(),
-        legend.position = "none",
-        legend.text = element_text(size = 10),
-        panel.spacing = unit(0.5, "lines"),
-        panel.grid.major = element_blank(), 
-        #panel.grid.minor = element_blank(),
-        strip.background = element_rect(fill = "white", size = 0.5, linetype = "solid"),
-        strip.text.x = element_text(size = 10, color = "black")
-        )
+  theme(
+    plot.title = element_text(hjust = 0, size = 10, face = "bold"), 
+    axis.text = element_text(size = 10),
+    axis.title = element_text(size = 10),
+    legend.position = "none",
+    panel.spacing = unit(0.5, "lines"),
+    panel.grid.major = element_blank(),
+    strip.background = element_rect(fill = "white", size = 0.5),
+    strip.text.x = element_text(size = 10, color = "black")
+  )
 
 # 2016 Annual regional diversity
 reg_2016 <- div_env_df %>%
@@ -1806,7 +1806,8 @@ reg_2016 <- div_env_df %>%
   scale_fill_manual(values = color_group, name = "", labels = c("W: Whole-community", "B: Bacteria", "P: Phytoplankton", "Z: Zooplankton", "M: Macroinvertebrates")) +
   scale_x_discrete(label = c("W", "B", "P", "Z", "M")) +
   labs(x = "Trophic Group", y = expression("Annual "*gamma*"-diversity"), title = "2016 Annual regional diversity") +
-  ylim(0, 600) +
+  #ylim(0, 1100) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   theme_tq() + 
   theme(plot.title = element_text(hjust = 0, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
@@ -1831,7 +1832,8 @@ reg_2017 <- div_env_df %>%
   scale_fill_manual(values = color_group, name = "", labels = c("W: Whole-community", "B: Bacteria", "P: Phytoplankton", "Z: Zooplankton", "M: Macroinvertebrates")) +
   scale_x_discrete(label = c("W", "B", "P", "Z", "M")) +
   labs(x = "Trophic Group", y = expression("Annual "*gamma*"-diversity"), title = "2017 Annual regional diversity") +
-  ylim(0, 600) +
+  #ylim(0, 1100) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   theme_tq() + 
   theme(plot.title = element_text(hjust = 0, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
@@ -1856,7 +1858,8 @@ reg_2018 <- div_env_df %>%
   scale_fill_manual(values = color_group, name = "", labels = c("W: Whole-community", "B: Bacteria", "P: Phytoplankton", "Z: Zooplankton", "M: Macroinvertebrates")) +
   scale_x_discrete(label = c("W", "B", "P", "Z", "M")) +
   labs(x = "Trophic group", y = expression("Annual "*gamma*"-diversity"), title = "2018 Annual regional diversity") +
-  ylim(0, 600) +
+  #ylim(0, 1100) +
+  coord_cartesian(ylim = c(0, max(div_env_df$diversity) * 1.05)) +
   theme_tq() + 
   theme(plot.title = element_text(hjust = 0, size = 10, face = "bold"), 
         plot.subtitle = element_text(hjust = 0.5, face = "italic"),
@@ -1893,5 +1896,12 @@ ggsave(
   dpi = 300, width = 10, height = 8, units = "in"
 )
 
+```
+
+# Reproducibility checks
+Documenting the computational environment facilitates independent verification of the analyses.
+
+```{r session-info}
+sessionInfo()
 ```
 

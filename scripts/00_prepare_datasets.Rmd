@@ -1,0 +1,26 @@
+---
+title: "Environmental variables - Prepare final hydro_geo_fit file"
+author: "Cátia Lúcio Pereira"
+date: "15 July 2021"
+output:
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: no
+---
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+

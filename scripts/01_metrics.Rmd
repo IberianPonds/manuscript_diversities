@@ -1,0 +1,1577 @@
+---
+title: "Multi-trophic spatial scaling across temperature gradient - data prep"
+author: "Cátia Lúcio Pereira"
+date: "27 October 2021"
+output:
+  pdf_document: 
+    fig_caption: yes
+    keep_tex: no
+---
+
+
+```{r Clear the memory of macro objects, message=FALSE, warning=FALSE, include=FALSE}
+
+#rm(list=ls())
+
+```
+
+Load libraries
+```{r load libraries, echo = FALSE, message = FALSE, warning = TRUE}
+
+library(factoextra)
+library(ggcorrplot)
+library(vegan)
+library(tidyverse)
+library(viridis)
+library(mobr)
+
+```
+
+Load data
+```{r load data, echo = FALSE, message = FALSE, warning = TRUE}
+
+# environmental data
+load("../inputs/data_enve_all.Rdata")
+
+# macrophytes data
+load("../inputs/all_macrophytes.Rdata")
+
+# hybrid species data
+load("../inputs/0_hybrid_all_geo_fit.RData")
+
+# load bacteria
+load("../inputs/data_eDNA_bacteria_v2.0.RData")
+
+group_levels <- c("Whole-community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
+group_labels <- c("Whole community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
+color_group <- viridis::viridis(length(group_levels), option = "C", direction = -1)
+
+```
+
+# DATA PREPARATION
+
+change PN by MD
+```{r}
+
+data_enve_all <- data_enve_all %>%
+  group_by(site, year) %>%
+  mutate(deltaTemp = temp/mean(temp)) %>% 
+  mutate(est_mean_temp_12M = mean_temp_12M*deltaTemp)
+
+# change PN by MD
+data_enve_all["site"][data_enve_all["site"] == "PN"] <- "MD"
+
+```
+
+
+Overall variables, labels and colors
+```{r}
+
+# variable groups
+time_vars <- c("year")
+
+space_vars <- c("site", "altitude", "x", "y", "local_x", "local_y")
+
+environment_vars <- c("ph", "cond", "chla", "turb", "do_max", "do_min", "do_mean", "nh4", "no", "po4", "nitrogen", "phosphorus", "anchored_emergent", "anchored_submerged_floating_leaves", "free_floating", "free_floating_submerged")
+
+climate_vars <- c("temp", "mean_temp_1M", "sd_temp_1M", "max_temp_1M", "min_temp_1M", "mean_temp_3M", "sd_temp_3M", "max_temp_3M", "min_temp_3M", "mean_temp_6M", "sd_temp_6M", "max_temp_6M", "min_temp_6M", "mean_temp_12M", "sd_temp_12M", "max_temp_12M", "min_temp_12M", "deltaTemp", "est_mean_temp_12M")
+
+# sites labels and codes
+site_labels <- c("Madrid", "Jaca", "Porto", "Evora", "Toledo", "Murcia")
+site_codes <- c("MD", "JC", "PT", "EV", "TL", "MR")
+
+# color palette
+color_ib <- c("midnightblue", "royalblue3", "lightskyblue", "gold", "red",  "darkred")
+
+```
+
+Prepare overall data.frame
+```{r data preparation: prepare overall data.frame}
+
+# get environmental data
+environmental_variables <- data_enve_all
+
+# add column with trophic group
+hybrid.geo.fit.st$group <- NA
+hybrid.geo.fit.st <- hybrid.geo.fit.st %>%
+  dplyr::select(taxa, domain, kingdom, phylum, class, order, family, genus, species, group, everything()) # reorganize columns
+
+
+for (i in 1:nrow(hybrid.geo.fit.st)) { # loop species
+  
+  if (hybrid.geo.fit.st[i, "domain"] == "Bacteria" |
+      hybrid.geo.fit.st[i, "kingdom"] == "Chromista" |
+      hybrid.geo.fit.st[i, "kingdom"] == "Plantae" |
+      hybrid.geo.fit.st[i, "kingdom"] == "Protozoa") {
+    hybrid.geo.fit.st[i, "group"] <- "phyto" # set these to group phyto
+    
+  } else { # not phyto
+    
+    if (hybrid.geo.fit.st[i, "phylum"] == "Rotifera" |
+        hybrid.geo.fit.st[i, "class"] == "Branchiopoda" |
+        hybrid.geo.fit.st[i, "class"] == "Copepoda" |
+        hybrid.geo.fit.st[i, "class"] == "Hexanauplia" |
+        hybrid.geo.fit.st[i, "class"] == "Ostracoda") {
+      hybrid.geo.fit.st[i, "group"] <- "zoo" # set these to group zoo
+      
+    } else { # not phyto or zoo
+      
+      if (hybrid.geo.fit.st[i, "phylum"] == "Mollusca" |
+          hybrid.geo.fit.st[i, "phylum"] == "Nematoda" |
+          hybrid.geo.fit.st[i, "phylum"] == "Annelida" |
+          hybrid.geo.fit.st[i, "phylum"] == "Tardigrada" |
+          hybrid.geo.fit.st[i, "phylum"] == "Gastrotricha" |
+          hybrid.geo.fit.st[i, "phylum"] == "Nemertea" |
+          hybrid.geo.fit.st[i, "phylum"] == "Platyhelminthes" |
+          hybrid.geo.fit.st[i, "class"] == "Arachnida" |
+          hybrid.geo.fit.st[i, "class"] == "Insecta" |
+          hybrid.geo.fit.st[i, "class"] == "Malacostraca") {
+        hybrid.geo.fit.st[i, "group"] <- "macro" # set these to group macro
+      
+        } else { # higher identification, not possible to assigned to a group
+          hybrid.geo.fit.st[i, "group"] <- "not_assigned"
+      }
+    }
+  }
+}
+
+# replace NOID or NA in "taxa" for correct taxon
+hybrid.geo.fit.st$taxa[353] = "Miozoa"
+hybrid.geo.fit.st$taxa[549] = "Miozoa"
+
+# separate taxonomy from abundances
+hybrid_tax <- hybrid.geo.fit.st[ , 1:11]
+hybrid_abund <- hybrid.geo.fit.st[ , 12:ncol(hybrid.geo.fit.st)]
+
+# transpose matrix table
+hybrid_matrix <- data.table::transpose(hybrid_abund, ignore.empty = TRUE) # transpose density table
+rownames(hybrid_matrix) <- colnames(hybrid_abund) # set row names
+colnames(hybrid_matrix) <- rownames(hybrid_abund) # set column names
+hybrid_matrix <- hybrid_matrix[order(row.names(hybrid_matrix)), ] # order row names alphabetically
+
+# change from character to numeric
+hybrid_matrix2 <- as.data.frame(sapply(hybrid_matrix, as.numeric))
+rownames(hybrid_matrix2) <- rownames(hybrid_matrix) # set row names
+
+# sum up the two "Miozoa" columns and delete one
+for (i in 1:nrow(hybrid_matrix2)) {
+  hybrid_matrix2[, 353] <- sum(hybrid_matrix2[i, 353], hybrid_matrix2[i, 549])
+}
+hybrid_matrix2 <- hybrid_matrix2[ , -549]
+hybrid_matrix <- hybrid_matrix2
+
+# merge and filter complete cases for now
+merged_matrix <-
+  hybrid_matrix %>%
+  add_column(sample_code = rownames(hybrid_matrix), .before = "achnan") %>%
+  merge(x = ., y = environmental_variables, by = "sample_code") %>%
+  filter(complete.cases(.)) %>% # remove incomplete cases
+  dplyr::select(sample_code, sample_code_short, site, year, everything()) # reorganize columns
+
+
+# add bacteria
+bact <- reads.bact.eDNA
+facts_bact <- samples.bact.eDNA[,1:3]
+#fungi <- reads.fungi.eDNA
+#facts_fungi <- samples.fungi.eDNA[,1:3]
+
+bact <- cbind(sample_code = facts_bact$sample, bact)
+#fungi <- cbind(sample_code = facts_fungi$sample, fungi)
+
+# select three main groups separately
+grouping <- data.frame(rownames(hybrid.geo.fit.st), hybrid.geo.fit.st$group)  # select taxa and group columns
+colnames(grouping) <- c("species_code", "group") # set columns names
+
+phyto_species <- as.vector(unlist(grouping[grouping$group == "phyto", "species_code"]))
+phyto_species <- phyto_species[phyto_species != "dino"] # remove value that was repeated
+zoo_species <- as.vector(unlist(grouping[grouping$group == "zoo", "species_code"]))
+macro_species <- as.vector(unlist(grouping[grouping$group == "macro", "species_code"]))
+
+phyto <- merged_matrix %>% dplyr::select(all_of(phyto_species))
+zoo <- merged_matrix %>% dplyr::select(all_of(zoo_species))
+macro <- merged_matrix %>% dplyr::select(all_of(macro_species))
+
+empty <- data.frame(
+  phyto = apply(phyto, 1, sum) == 0,
+  zoo = apply(zoo, 1, sum) == 0,
+  macro = apply(macro, 1, sum) == 0
+)
+
+select_samples <- apply(empty, 1, function(x) any(unlist(x))) == FALSE
+
+# select data points with that have all three groups
+phyto <- phyto[select_samples, ]
+zoo <- zoo[select_samples, ]
+macro <- macro[select_samples, ]
+merged_matrix <- merged_matrix[select_samples, ]
+
+# add sample_code
+phyto <- cbind(sample_code = merged_matrix$sample_code, phyto)
+zoo <- cbind(sample_code = merged_matrix$sample_code, zoo)
+macro <- cbind(sample_code = merged_matrix$sample_code, macro)
+
+# remove empty columns
+bact <- bact %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+phyto <- phyto %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+zoo_ <- zoo %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+macro <- macro %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+merged_matrix <- merged_matrix %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+
+# get unique sample codes
+bact_codes <- rownames(bact)
+#fungi_codes <- rownames(fungi)
+merged_codes <- merged_matrix$sample_code
+i_b_merg <- intersect(bact_codes, merged_codes)
+
+# get partial datasets with same samples
+bact2 <- bact %>% filter(sample_code %in% i_b_merg) %>% dplyr::select(-sample_code) %>% mutate_if(is.character, as.numeric)
+merged_matrix2 <- merged_matrix %>% filter(merged_matrix$sample_code %in% i_b_merg)
+merged_matrix2 <- cbind(merged_matrix2, bact2)
+
+```
+
+Select around 51 samples from each site randomly
+```{r}
+
+# Select 17 ponds from each site keep same samples for each year
+
+EV2016 <- c("EV_16_01", "EV_16_03", "EV_16_07", "EV_16_09", "EV_16_10", "EV_16_11", "EV_16_13", "EV_16_17", "EV_16_19", "EV_16_21", "EV_16_22", "EV_16_23", "EV_16_25", "EV_16_27", "EV_16_28", "EV_16_29", "EV_16_31")
+EV16 <- merged_matrix2[which(merged_matrix2$sample_code %in% EV2016), ] %>%
+  arrange(sample_code)
+
+EV2017 <- c("EV_17_01", "EV_17_03", "EV_17_07", "EV_17_09", "EV_17_10", "EV_17_11", "EV_17_13", "EV_17_17", "EV_17_19", "EV_17_21", "EV_17_22", "EV_17_23", "EV_17_25", "EV_17_27", "EV_17_28", "EV_17_29", "EV_17_31")
+EV17 <- merged_matrix2[which(merged_matrix2$sample_code %in% EV2017), ] %>%
+  arrange(sample_code)
+
+EV2018 <- c("EV_18_01", "EV_18_03", "EV_18_07", "EV_18_09", "EV_18_10", "EV_18_11", "EV_18_13", "EV_18_17", "EV_18_19", "EV_18_21", "EV_18_22", "EV_18_23", "EV_18_25", "EV_18_27", "EV_18_28", "EV_18_29", "EV_18_31")
+EV18 <- merged_matrix2[which(merged_matrix2$sample_code %in% EV2018), ] %>%
+  arrange(sample_code)
+
+JC2016 <- c("JC_16_01", "JC_16_03", "JC_16_05", "JC_16_07", "JC_16_09", "JC_16_11", "JC_16_13", "JC_16_15", "JC_16_17", "JC_16_18", "JC_16_19", "JC_16_21", "JC_16_23", "JC_16_25", "JC_16_27", "JC_16_29", "JC_16_31")
+JC16 <- merged_matrix2[which(merged_matrix2$sample_code %in% JC2016), ] %>%
+  arrange(sample_code)
+
+JC2017 <- c("JC_17_01", "JC_17_03", "JC_17_05", "JC_17_07", "JC_17_09", "JC_17_11", "JC_17_13", "JC_17_15", "JC_17_17", "JC_17_18", "JC_17_19", "JC_17_21", "JC_17_23", "JC_17_25", "JC_17_27", "JC_17_29", "JC_17_31")
+JC17 <- merged_matrix2[which(merged_matrix2$sample_code %in% JC2017), ] %>%
+  arrange(sample_code)
+
+JC2018 <- c("JC_18_01", "JC_18_03", "JC_18_05", "JC_18_07", "JC_18_09", "JC_18_11", "JC_18_13", "JC_18_15", "JC_18_17", "JC_18_18", "JC_18_19", "JC_18_21", "JC_18_23", "JC_18_25", "JC_18_27", "JC_18_29", "JC_18_31")
+JC18 <- merged_matrix2[which(merged_matrix2$sample_code %in% JC2018), ] %>%
+  arrange(sample_code)
+
+MD2016 <- c("PN_16_01", "PN_16_03", "PN_16_05", "PN_16_07", "PN_16_09", "PN_16_11", "PN_16_13", "PN_16_16", "PN_16_19", "PN_16_20", "PN_16_23", "PN_16_24", "PN_16_25", "PN_16_27", "PN_16_28", "PN_16_30", "PN_16_31")
+MD16 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2016), ] %>%
+  arrange(sample_code)
+
+MD2017 <- c("PN_17_01", "PN_17_03", "PN_17_05", "PN_17_07", "PN_17_09", "PN_17_11", "PN_17_13", "PN_17_16", "PN_17_19", "PN_17_20", "PN_17_23", "PN_17_24", "PN_17_25", "PN_17_27", "PN_17_28", "PN_17_30", "PN_17_31")
+MD17 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2017), ] %>%
+  arrange(sample_code)
+
+MD2018 <- c("PN_18_01", "PN_18_03", "PN_18_05", "PN_18_07", "PN_18_09", "PN_18_11", "PN_18_13", "PN_18_16", "PN_18_19", "PN_18_20", "PN_18_23", "PN_18_24", "PN_18_25", "PN_18_27", "PN_18_28", "PN_18_30", "PN_18_31")
+MD18 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2018), ] %>%
+  arrange(sample_code)
+
+MR2016 <- c("MR_16_01", "MR_16_05", "MR_16_06", "MR_16_07", "MR_16_09", "MR_16_11", "MR_16_13", "MR_16_14", "MR_16_15", "MR_16_17", "MR_16_19", "MR_16_21", "MR_16_23", "MR_16_25", "MR_16_27", "MR_16_29", "MR_16_31")
+MR16 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2016), ] %>%
+  arrange(sample_code)
+
+MR2017 <- c("MR_17_01", "MR_17_05", "MR_17_06", "MR_17_07", "MR_17_09", "MR_17_11", "MR_17_13", "MR_17_14", "MR_17_15", "MR_17_17", "MR_17_19", "MR_17_21", "MR_17_23", "MR_17_25", "MR_17_27", "MR_17_29", "MR_17_31")
+MR17 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2017), ] %>%
+  arrange(sample_code)
+
+MR2018 <- c("MR_18_01", "MR_18_05", "MR_18_06", "MR_18_07", "MR_18_09", "MR_18_11", "MR_18_13", "MR_18_14", "MR_18_15", "MR_18_17", "MR_18_19", "MR_18_21", "MR_18_23", "MR_18_25", "MR_18_27", "MR_18_29", "MR_18_31")
+MR18 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2018), ] %>%
+  arrange(sample_code)
+
+PT2016 <- c("PT_16_01", "PT_16_02", "PT_16_03", "PT_16_05", "PT_16_09", "PT_16_10", "PT_16_11", "PT_16_13", "PT_16_15", "PT_16_17", "PT_16_19", "PT_16_21", "PT_16_23", "PT_16_25", "PT_16_27", "PT_16_29", "PT_16_31")
+PT16 <- merged_matrix2[which(merged_matrix2$sample_code %in% PT2016), ] %>%
+  arrange(sample_code)
+
+PT2017 <- c("PT_17_01", "PT_17_02", "PT_17_03", "PT_17_05", "PT_17_09", "PT_17_10", "PT_17_11", "PT_17_13", "PT_17_15", "PT_17_17", "PT_17_19", "PT_17_21", "PT_17_23", "PT_17_25", "PT_17_27", "PT_17_29", "PT_17_31")
+PT17 <- merged_matrix2[which(merged_matrix2$sample_code %in% PT2017), ] %>%
+  arrange(sample_code)
+
+PT2018 <- c("PT_18_01", "PT_18_02", "PT_18_03", "PT_18_05", "PT_18_09", "PT_18_10", "PT_18_11", "PT_18_13", "PT_18_15", "PT_18_17", "PT_18_19", "PT_18_21", "PT_18_23", "PT_18_25", "PT_18_27", "PT_18_29", "PT_18_31")
+PT18 <- merged_matrix2[which(merged_matrix2$sample_code %in% PT2018), ] %>%
+  arrange(sample_code)
+
+TL2016 <- c("TL_16_01", "TL_16_03", "TL_16_05", "TL_16_07", "TL_16_09", "TL_16_11", "TL_16_13", "TL_16_15", "TL_16_17", "TL_16_21", "TL_16_23", "TL_16_24", "TL_16_25", "TL_16_26", "TL_16_27", "TL_16_29", "TL_16_31")
+TL16 <- merged_matrix2[which(merged_matrix2$sample_code %in% TL2016), ] %>%
+  arrange(sample_code)
+
+TL2017 <- c("TL_17_01", "TL_17_03", "TL_17_05", "TL_17_07", "TL_17_09", "TL_17_11", "TL_17_13", "TL_17_15", "TL_17_17", "TL_17_21", "TL_17_23", "TL_17_24", "TL_17_25", "TL_17_26", "TL_17_27", "TL_17_29", "TL_17_31")
+TL17 <- merged_matrix2[which(merged_matrix2$sample_code %in% TL2017), ] %>%
+  arrange(sample_code)
+
+TL2018 <- c("TL_18_01", "TL_18_03", "TL_18_05", "TL_18_07", "TL_18_09", "TL_18_11", "TL_18_13", "TL_18_15", "TL_18_17", "TL_18_21", "TL_18_23", "TL_18_24", "TL_18_25", "TL_18_26", "TL_18_27", "TL_18_29", "TL_18_31")
+TL18 <- merged_matrix2[which(merged_matrix2$sample_code %in% TL2018), ] %>%
+  arrange(sample_code)
+
+# merge all
+merged_matrix3 <- rbind(EV16, EV17, EV18, JC16, JC17, JC18,
+                        MD16, MD17, MD18, MR16, MR17, MR18,
+                        PT16, PT17, PT18, TL16, TL17, TL18)
+
+# remove empty columns
+merged_matrix3 <- merged_matrix3 %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+
+```
+
+Keep same samples for other groups
+```{r}
+
+merged_codes <- merged_matrix$sample_code
+merged_codes2 <- merged_matrix3$sample_code
+samp_merg <- intersect(merged_codes, merged_codes2)
+
+bact <- bact %>% filter(sample_code %in% samp_merg) %>% dplyr::select(-sample_code) %>% mutate_if(is.character, as.numeric)
+phyto <- phyto %>% filter(merged_matrix$sample_code %in% samp_merg) %>% dplyr::select(-sample_code)
+zoo <- zoo %>% filter(merged_matrix$sample_code %in% samp_merg) %>% dplyr::select(-sample_code)
+macro <- macro %>% filter(merged_matrix$sample_code %in% samp_merg) %>% dplyr::select(-sample_code)
+
+
+# get abundances
+abund_bact <- bact
+abund_phyto <- phyto
+abund_zoo <- zoo
+abund_macro <- macro
+
+```
+
+Prepare and transform partial data.frames
+```{r prepare and transform partial data.frames}
+
+# create data.frame with factors
+factors <- merged_matrix3[, 1:4]
+factors$site <- factor(factors$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+
+# create community matrix
+community_matrix <- merged_matrix3 %>% dplyr::select(., acari:xtant)
+global_community_matrix <- merged_matrix3 %>% dplyr::select(., -c(sample_code:year, temp:est_mean_temp_12M))
+global_community_matrix <- global_community_matrix %>% mutate_if(is.character, as.numeric)
+
+# create and organize environmental matrix
+environmental_variables <- merged_matrix3 %>% dplyr::select(., sample_code, site, year, temp:est_mean_temp_12M)
+env_var <- merged_matrix3 %>% dplyr::select(., temp:phosphorus, mean_temp_3M:est_mean_temp_12M)
+
+# create and organize environmental matrix
+macrophytes <- merged_matrix3 %>% dplyr::select(., c(anchored_emergent:free_floating_submerged))
+
+# create and organize spatial matrix
+space <- merged_matrix3 %>% dplyr::select(., c(x:local_y))
+
+## data transformation community data
+global_pa_community_matrix <- decostand(global_community_matrix, method = "pa")
+pa_community_matrix <- decostand(community_matrix, method = "pa")
+log_community_matrix <- decostand(community_matrix, method = "pa")
+bact <- decostand(bact, method = "pa")
+#fungi <- decostand(fungi, method = "pa")
+phyto <- decostand(phyto, method = "pa")
+zoo <- decostand(zoo, method = "pa")
+macro <- decostand(macro, method = "pa")
+
+```
+
+
+Transformation environmental data
+```{r transformation environmental data}
+# check variables with 0
+which(environmental_variables$temp == 0)
+environmental_variables$sample_code[230] # TL_17_17
+environmental_variables$temp[230] <- mean(environmental_variables$temp)
+
+# no transformation:
+no_transf <- c("site", "ph", "year")
+
+# log transformation:
+log_transformation <- c("temp", "cond", "chla", "turb", "do_max", "do_min", "do_mean", "nh4", "no", "po4", "nitrogen", "phosphorus", "mean_temp_1M", "sd_temp_1M", "max_temp_1M", "min_temp_1M", "mean_temp_3M", "sd_temp_3M", "max_temp_3M", "min_temp_3M", "mean_temp_6M", "sd_temp_6M", "max_temp_6M", "min_temp_6M", "mean_temp_12M", "sd_temp_12M", "max_temp_12M", "min_temp_12M", "deltaTemp", "est_mean_temp_12M")
+
+# spatial variables:
+spatial <- c("x", "y", "altitude", "local_x", "local_y")
+macrophytes_codes <- c("anchored_emergent", "anchored_submerged_floating_leaves", "free_floating", "free_floating_submerged")
+
+# apply transformations to subsets
+env_var_2 <- 
+  environmental_variables %>%
+  mutate_at(no_transf, identity) %>%
+  mutate_at(log_transformation, function(x)log(x+1)) %>%
+  mutate_at(macrophytes_codes, sqrt)
+
+# remove some variables
+sub_env_var <- env_var_2[ , !(colnames(env_var_2) %in% c("do_min", "do_max",
+                                                         "x", "y", "local_x", "local_y",
+                                                         "mean_temp_1M", "sd_temp_1M", "max_temp_1M", "min_temp_1M",
+                                                         "mean_temp_3M", "sd_temp_3M", "max_temp_3M", "min_temp_3M",
+                                                         "mean_temp_6M", "sd_temp_6M", "max_temp_6M", "min_temp_6M",
+                                                         "max_temp_12M", "min_temp_12M"))]
+
+dataPCA <- sub_env_var[ , !(colnames(sub_env_var) %in% c("sample_code", "site", "year"))] # remove character columns
+factorPCA <- factor(paste(sub_env_var$site), levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+res.pca <- prcomp(dataPCA, center = TRUE, scale = TRUE)
+
+site <- factorPCA
+
+# get PC1 and PC2 axis for future analyses
+pca.axis <- data.frame(
+  sample_code = sub_env_var$sample_code,
+  pca1 = res.pca$x[, 1], pca2 = res.pca$x[, 2],
+  stringsAsFactors = FALSE
+) %>%
+  arrange(pca1, pca2)
+
+# merge with data_enve_all
+sub_env_var_pc <- merge(sub_env_var, pca.axis, by = "sample_code")
+
+
+# Remove highly correlated variables (>0.7)
+environ_vars <- sub_env_var_pc[ , !(colnames(sub_env_var_pc) %in% c("altitude", "po4"))]
+dataPCA <- environ_vars[ , !(colnames(environ_vars) %in% c("sample_code", "site", "year", "pca1", "pca2"))] # remove character columns
+factorPCA <- factor(paste(environ_vars$site), levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+res.pca <- prcomp(dataPCA, center = TRUE, scale = TRUE)
+site <- factorPCA
+
+# add coordinates and mean_temp_12M
+environ_vars <- bind_cols(
+  environ_vars,
+  env_var_2 %>% select(x, y, local_x, local_y)
+)
+
+#save(
+#  space,
+#  environ_vars,
+#  factors,
+#  abund_bact, 
+#  abund_phyto, 
+#  abund_zoo,
+#  abund_macro,
+#  community_matrix,
+#  global_pa_community_matrix,
+#     
+#     pa_community_matrix, log_community_matrix,
+#     
+#     file = "../inputs/consolidated_matrices.RData"
+#     )
+
+```
+
+```{r Datasets prep, message=FALSE, warning=FALSE, include=FALSE}
+
+# combine community matrix and bacteria and fungi
+community_matrix <- cbind(community_matrix, abund_bact, 
+                          #abund_fungi, 
+                          abund_phyto, abund_zoo, abund_macro)
+
+# attach factors THREE trophic group dataset
+comm_df <- cbind(factors, community_matrix)[ ,-c(2)]
+
+# attach factors GLOBAL dataset
+comm_global_pa <- cbind(factors, global_pa_community_matrix)[ ,-c(2)]
+
+# partial datasets
+bact_df <- cbind(factors, abund_bact)[ ,-c(2, 5)]
+phyto_df <- cbind(factors, abund_phyto)[ ,-c(2, 5)]
+zoo_df <- cbind(factors, abund_zoo)[ ,-c(2, 5)]
+macro_df <- cbind(factors, abund_macro)[ ,-c(2, 5)]
+
+groups_list <- list(bact_df,  phyto_df, zoo_df, macro_df)
+
+# factors
+groups <- factors$site
+
+```
+
+```{r Environmental variables, message=FALSE, warning=FALSE, include=FALSE}
+
+# order factors
+target <- c("MD", "JC", "PT", "EV", "TL", "MR")
+
+environmental_data <- left_join(data.frame(site = target),    # Reorder data frame
+                       environ_vars,
+                       by = "site")
+
+# set and order factor levels
+environmental_data$site <- factor(environmental_data$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+
+```
+
+```{r Local richness - Alpha-diversity, message=FALSE, warning=FALSE, include=FALSE}
+
+# calculate local richness (alpha)
+df_local <- comm_df %>% 
+  mutate(local_abundance = rowSums(.[4:ncol(.)]),
+         local_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(site, year, sample_code, local_abundance, local_richness)
+
+df_local_bact <- groups_list[[1]] %>% 
+  mutate(bact_local_abundance = rowSums(.[4:ncol(.)])) %>% 
+  mutate(bact_local_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(bact_local_abundance, bact_local_richness)
+
+df_local_phyto <- groups_list[[1]] %>% 
+  mutate(phyto_local_abundance = rowSums(.[4:ncol(.)])) %>% 
+  mutate(phyto_local_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(phyto_local_abundance, phyto_local_richness)
+
+df_local_zoo <- groups_list[[2]] %>% 
+  mutate(zoo_local_abundance = rowSums(.[4:ncol(.)])) %>% 
+  mutate(zoo_local_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(zoo_local_abundance, zoo_local_richness)
+
+df_local_macro <- groups_list[[3]] %>% 
+  mutate(macro_local_abundance = rowSums(.[4:ncol(.)])) %>% 
+  mutate(macro_local_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(macro_local_abundance, macro_local_richness)
+
+# bind local measures
+df_local <- cbind(df_local, df_local_bact, 
+                  df_local_phyto, df_local_zoo, df_local_macro)
+
+```
+
+```{r Regional richness - Gamma-diversity, message=FALSE, warning=FALSE, include=FALSE}
+
+# calculate regional richness (gamma)
+df_reg <- comm_df[,-1] %>% 
+  mutate(total_abundance = rowSums(.[4:ncol(.)])) %>% 
+  group_by(site, year) %>% 
+  summarise_all(sum) %>%
+  ungroup %>% 
+  mutate(regional_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(site, year, total_abundance, regional_richness)
+
+bact_reg <- groups_list[[1]][,-1] %>% 
+  mutate(bact_total_abundance = rowSums(.[4:ncol(.)])) %>% 
+  group_by(site, year) %>% 
+  summarise_all(sum) %>%
+  ungroup %>% 
+  mutate(bact_regional_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(bact_total_abundance, bact_regional_richness)
+
+phyto_reg <- groups_list[[1]][,-1] %>% 
+  mutate(phyto_total_abundance = rowSums(.[4:ncol(.)])) %>% 
+  group_by(site, year) %>% 
+  summarise_all(sum) %>%
+  ungroup %>% 
+  mutate(phyto_regional_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(phyto_total_abundance, phyto_regional_richness)
+
+zoo_reg <- groups_list[[2]][,-1] %>% 
+  mutate(zoo_total_abundance = rowSums(.[4:ncol(.)])) %>% 
+  group_by(site, year) %>% 
+  summarise_all(sum) %>%
+  ungroup %>% 
+  mutate(zoo_regional_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(zoo_total_abundance, zoo_regional_richness)
+
+macro_reg <- groups_list[[3]][,-1] %>% 
+  mutate(macro_total_abundance = rowSums(.[4:ncol(.)])) %>% 
+  group_by(site, year) %>% 
+  summarise_all(sum) %>%
+  ungroup %>% 
+  mutate(macro_regional_richness = apply(.[4:(ncol(.)-1)] > 0, 1, sum)) %>%
+  dplyr::select(macro_total_abundance, macro_regional_richness)
+
+# bind regional measures
+df_reg <- cbind(df_reg, bact_reg, 
+                phyto_reg, zoo_reg, macro_reg)
+
+```
+
+```{r Merge local and regional, message=FALSE, warning=FALSE, include=FALSE}
+
+loc_reg_rich <- merge(x = df_reg, y = df_local, by= c("site", "year"))
+loc_reg_rich$year <- as.factor(loc_reg_rich$year)
+
+```
+
+```{r Beta-diversity, message=FALSE, warning=FALSE, include=FALSE}
+
+# calculate species density beta-diversity
+comm_df_3 <- 
+  loc_reg_rich %>% 
+  mutate(beta_div = regional_richness/local_richness,
+         beta_div_bact = bact_regional_richness/bact_local_richness,
+         beta_div_phyto = phyto_regional_richness/phyto_local_richness,
+         beta_div_zoo = zoo_regional_richness/zoo_local_richness,
+         beta_div_macro = macro_regional_richness/macro_local_richness
+         )
+
+# calculate alpha per site
+comm_df_alpha <- 
+  comm_df_3 %>% 
+  dplyr::group_by(site, year) %>% 
+  dplyr::summarize(alpha = mean(local_richness),
+                   alpha_bact = mean(bact_local_richness),
+                   alpha_phyto = mean(phyto_local_richness),
+                   alpha_zoo = mean(zoo_local_richness),
+                   alpha_macro = mean(macro_local_richness)
+                   )
+
+# merge with alpha diversity
+comm_df_3 <- merge(comm_df_3, comm_df_alpha, by = c("site", "year"))
+
+# merge with environmental
+comm_df_3 <- merge(comm_df_3, environ_vars, by = "sample_code", suffixes = "")
+
+# fix factors
+comm_df_3$site <- factor(comm_df_3$site)
+comm_df_3$year <- factor(comm_df_3$year)
+
+comm_df_alpha_merge <- merge(comm_df_3, comm_df_alpha, by = c("site", "year"), suffixes = "")
+
+# set and order factor levels
+comm_df_alpha_merge$site <- factor(comm_df_alpha_merge$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+
+```
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+
+round <- comm_df[ ,-c(1:3)] %>% ceiling(.)
+round_bact <- bact_df[ ,-c(1:3)] %>% ceiling(.)
+round_phyto <- phyto_df[ ,-c(1:3)] %>% ceiling(.)
+round_zoo <- zoo_df[ ,-c(1:3)] %>% ceiling(.)
+round_macro <- macro_df[ ,-c(1:3)] %>% ceiling(.)
+
+round <- cbind(factors, round)
+round <- round[match(environmental_data$sample_code, round$sample_code), ]
+
+round_bact <- cbind(factors, round_bact)
+round_bact <- round_bact[match(environmental_data$sample_code, round_bact$sample_code), ]
+
+round_phyto <- cbind(factors, round_phyto)
+round_phyto <- round_phyto[match(environmental_data$sample_code, round_phyto$sample_code), ]
+
+round_zoo <- cbind(factors, round_zoo)
+round_zoo <- round_zoo[match(environmental_data$sample_code, round_zoo$sample_code), ]
+
+round_macro <- cbind(factors, round_macro)
+round_macro <- round_macro[match(environmental_data$sample_code, round_macro$sample_code), ]
+
+```
+
+```{r Rarefactions curves whole-community, message=FALSE, warning=FALSE, include=FALSE}
+
+# SBR Whole-community
+
+SBR_MD <- round %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_JC <- round %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_PT <- round %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_EV <- round %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_TL <- round %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_MR <- round %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+rarefaction_all <- rbind(
+  data.frame(site = rep("MD", length(SBR_MD)), sample = 1:length(SBR_MD), species_richness = SBR_MD),
+  data.frame(site = rep("JC", length(SBR_JC)), sample = 1:length(SBR_JC), species_richness = SBR_JC),
+  data.frame(site = rep("PT", length(SBR_PT)), sample = 1:length(SBR_PT), species_richness = SBR_PT),
+  data.frame(site = rep("EV", length(SBR_EV)), sample = 1:length(SBR_EV), species_richness = SBR_EV),
+  data.frame(site = rep("TL", length(SBR_TL)), sample = 1:length(SBR_TL), species_richness = SBR_TL),
+  data.frame(site = rep("MR", length(SBR_MR)), sample = 1:length(SBR_MR), species_richness = SBR_MR)
+  )
+
+# sSBR Whole-community
+
+sSBR_MD <- round %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MD"), c("local_x", "local_y")])
+sSBR_JC <- round %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "JC"), c("local_x", "local_y")])
+sSBR_PT <- round %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "PT"), c("local_x", "local_y")])
+sSBR_EV <- round %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "EV"), c("local_x", "local_y")])
+sSBR_TL <- round %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "TL"), c("local_x", "local_y")])
+sSBR_MR <- round %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MR"), c("local_x", "local_y")])
+sSBR_all <- rbind(
+  data.frame(site = rep("MD", length(sSBR_MD)), sample = 1:length(sSBR_MD), species_richness = sSBR_MD),
+  data.frame(site = rep("JC", length(sSBR_JC)), sample = 1:length(sSBR_JC), species_richness = sSBR_JC),
+  data.frame(site = rep("PT", length(sSBR_PT)), sample = 1:length(sSBR_PT), species_richness = sSBR_PT),
+  data.frame(site = rep("EV", length(sSBR_EV)), sample = 1:length(sSBR_EV), species_richness = sSBR_EV),
+  data.frame(site = rep("TL", length(sSBR_TL)), sample = 1:length(sSBR_TL), species_richness = sSBR_TL),
+  data.frame(site = rep("MR", length(sSBR_MR)), sample = 1:length(sSBR_MR), species_richness = sSBR_MR)
+  )
+
+# Merge SBR and sSBR
+rarefaction_all$method <- "SBR"
+sSBR_all$method <- "sSBR"
+
+rarefaction_all <- rbind(rarefaction_all, sSBR_all)
+
+```
+
+```{r Rarefactions curves Bacteria, message=FALSE, warning=FALSE, include=FALSE}
+
+# SBR Bacteria
+
+SBR_MD <- round_bact %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_JC <- round_bact %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_PT <- round_bact %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_EV <- round_bact %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_TL <- round_bact %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_MR <- round_bact %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+rarefaction_bact <- rbind(
+  data.frame(site = rep("MD", length(SBR_MD)), sample = 1:length(SBR_MD), species_richness = SBR_MD),
+  data.frame(site = rep("JC", length(SBR_JC)), sample = 1:length(SBR_JC), species_richness = SBR_JC),
+  data.frame(site = rep("PT", length(SBR_PT)), sample = 1:length(SBR_PT), species_richness = SBR_PT),
+  data.frame(site = rep("EV", length(SBR_EV)), sample = 1:length(SBR_EV), species_richness = SBR_EV),
+  data.frame(site = rep("TL", length(SBR_TL)), sample = 1:length(SBR_TL), species_richness = SBR_TL),
+  data.frame(site = rep("MR", length(SBR_MR)), sample = 1:length(SBR_MR), species_richness = SBR_MR)
+)
+
+# sSBR Bacteria
+
+sSBR_MD <- round_bact %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MD"), c("local_x", "local_y")])
+sSBR_JC <- round_bact %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "JC"), c("local_x", "local_y")])
+sSBR_PT <- round_bact %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "PT"), c("local_x", "local_y")])
+sSBR_EV <- round_bact %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "EV"), c("local_x", "local_y")])
+sSBR_TL <- round_bact %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "TL"), c("local_x", "local_y")])
+sSBR_MR <- round_bact %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MR"), c("local_x", "local_y")])
+sSBR_bact <- rbind(
+  data.frame(site = rep("MD", length(sSBR_MD)), sample = 1:length(sSBR_MD), species_richness = sSBR_MD),
+  data.frame(site = rep("JC", length(sSBR_JC)), sample = 1:length(sSBR_JC), species_richness = sSBR_JC),
+  data.frame(site = rep("PT", length(sSBR_PT)), sample = 1:length(sSBR_PT), species_richness = sSBR_PT),
+  data.frame(site = rep("EV", length(sSBR_EV)), sample = 1:length(sSBR_EV), species_richness = sSBR_EV),
+  data.frame(site = rep("TL", length(sSBR_TL)), sample = 1:length(sSBR_TL), species_richness = sSBR_TL),
+  data.frame(site = rep("MR", length(sSBR_MR)), sample = 1:length(sSBR_MR), species_richness = sSBR_MR)
+)
+
+# Merge SBR and sSBR
+rarefaction_bact$method <- "SBR"
+sSBR_bact$method <- "sSBR"
+
+rarefaction_bact <- rbind(rarefaction_bact, sSBR_bact)
+
+```
+
+```{r Rarefactions curves phytoplankton, message=FALSE, warning=FALSE, include=FALSE}
+
+# SBR Phytoplankton
+
+SBR_MD <- round_phyto %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_JC <- round_phyto %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_PT <- round_phyto %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_EV <- round_phyto %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_TL <- round_phyto %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_MR <- round_phyto %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+rarefaction_phyto <- rbind(
+  data.frame(site = rep("MD", length(SBR_MD)), sample = 1:length(SBR_MD), species_richness = SBR_MD),
+  data.frame(site = rep("JC", length(SBR_JC)), sample = 1:length(SBR_JC), species_richness = SBR_JC),
+  data.frame(site = rep("PT", length(SBR_PT)), sample = 1:length(SBR_PT), species_richness = SBR_PT),
+  data.frame(site = rep("EV", length(SBR_EV)), sample = 1:length(SBR_EV), species_richness = SBR_EV),
+  data.frame(site = rep("TL", length(SBR_TL)), sample = 1:length(SBR_TL), species_richness = SBR_TL),
+  data.frame(site = rep("MR", length(SBR_MR)), sample = 1:length(SBR_MR), species_richness = SBR_MR)
+)
+
+# sSBR Phytoplankton
+
+sSBR_MD <- round_phyto %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MD"), c("local_x", "local_y")])
+sSBR_JC <- round_phyto %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "JC"), c("local_x", "local_y")])
+sSBR_PT <- round_phyto %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "PT"), c("local_x", "local_y")])
+sSBR_EV <- round_phyto %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "EV"), c("local_x", "local_y")])
+sSBR_TL <- round_phyto %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "TL"), c("local_x", "local_y")])
+sSBR_MR <- round_phyto %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MR"), c("local_x", "local_y")])
+sSBR_phyto <- rbind(
+  data.frame(site = rep("MD", length(sSBR_MD)), sample = 1:length(sSBR_MD), species_richness = sSBR_MD),
+  data.frame(site = rep("JC", length(sSBR_JC)), sample = 1:length(sSBR_JC), species_richness = sSBR_JC),
+  data.frame(site = rep("PT", length(sSBR_PT)), sample = 1:length(sSBR_PT), species_richness = sSBR_PT),
+  data.frame(site = rep("EV", length(sSBR_EV)), sample = 1:length(sSBR_EV), species_richness = sSBR_EV),
+  data.frame(site = rep("TL", length(sSBR_TL)), sample = 1:length(sSBR_TL), species_richness = sSBR_TL),
+  data.frame(site = rep("MR", length(sSBR_MR)), sample = 1:length(sSBR_MR), species_richness = sSBR_MR)
+)
+
+# Merge SBR and sSBR
+rarefaction_phyto$method <- "SBR"
+sSBR_phyto$method <- "sSBR"
+
+rarefaction_phyto <- rbind(rarefaction_phyto, sSBR_phyto)
+
+```
+
+```{r Rarefactions curves zooplankton, message=FALSE, warning=FALSE, include=FALSE}
+
+# SBR Zooplankton
+
+SBR_MD <- round_zoo %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_JC <- round_zoo %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_PT <- round_zoo %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_EV <- round_zoo %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_TL <- round_zoo %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_MR <- round_zoo %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+rarefaction_zoo <- rbind(
+  data.frame(site = rep("MD", length(SBR_MD)), sample = 1:length(SBR_MD), species_richness = SBR_MD),
+  data.frame(site = rep("JC", length(SBR_JC)), sample = 1:length(SBR_JC), species_richness = SBR_JC),
+  data.frame(site = rep("PT", length(SBR_PT)), sample = 1:length(SBR_PT), species_richness = SBR_PT),
+  data.frame(site = rep("EV", length(SBR_EV)), sample = 1:length(SBR_EV), species_richness = SBR_EV),
+  data.frame(site = rep("TL", length(SBR_TL)), sample = 1:length(SBR_TL), species_richness = SBR_TL),
+  data.frame(site = rep("MR", length(SBR_MR)), sample = 1:length(SBR_MR), species_richness = SBR_MR)
+)
+
+# sSBR Zooplankton
+
+sSBR_MD <- round_zoo %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MD"), c("local_x", "local_y")])
+sSBR_JC <- round_zoo %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "JC"), c("local_x", "local_y")])
+sSBR_PT <- round_zoo %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "PT"), c("local_x", "local_y")])
+sSBR_EV <- round_zoo %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "EV"), c("local_x", "local_y")])
+sSBR_TL <- round_zoo %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "TL"), c("local_x", "local_y")])
+sSBR_MR <- round_zoo %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MR"), c("local_x", "local_y")])
+sSBR_zoo <- rbind(
+  data.frame(site = rep("MD", length(sSBR_MD)), sample = 1:length(sSBR_MD), species_richness = sSBR_MD),
+  data.frame(site = rep("JC", length(sSBR_JC)), sample = 1:length(sSBR_JC), species_richness = sSBR_JC),
+  data.frame(site = rep("PT", length(sSBR_PT)), sample = 1:length(sSBR_PT), species_richness = sSBR_PT),
+  data.frame(site = rep("EV", length(sSBR_EV)), sample = 1:length(sSBR_EV), species_richness = sSBR_EV),
+  data.frame(site = rep("TL", length(sSBR_TL)), sample = 1:length(sSBR_TL), species_richness = sSBR_TL),
+  data.frame(site = rep("MR", length(sSBR_MR)), sample = 1:length(sSBR_MR), species_richness = sSBR_MR)
+)
+
+# Merge SBR and sSBR
+rarefaction_zoo$method <- "SBR"
+sSBR_zoo$method <- "sSBR"
+
+rarefaction_zoo <- rbind(rarefaction_zoo, sSBR_zoo)
+
+```
+
+```{r Rarefactions curves macroinvertebrates, message=FALSE, warning=FALSE, include=FALSE}
+
+# SBR Macroinvertebrates
+
+SBR_MD <- round_macro %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_JC <- round_macro %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_PT <- round_macro %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_EV <- round_macro %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_TL <- round_macro %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+SBR_MR <- round_macro %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "SBR")
+rarefaction_macro <- rbind(
+  data.frame(site = rep("MD", length(SBR_MD)), sample = 1:length(SBR_MD), species_richness = SBR_MD),
+  data.frame(site = rep("JC", length(SBR_JC)), sample = 1:length(SBR_JC), species_richness = SBR_JC),
+  data.frame(site = rep("PT", length(SBR_PT)), sample = 1:length(SBR_PT), species_richness = SBR_PT),
+  data.frame(site = rep("EV", length(SBR_EV)), sample = 1:length(SBR_EV), species_richness = SBR_EV),
+  data.frame(site = rep("TL", length(SBR_TL)), sample = 1:length(SBR_TL), species_richness = SBR_TL),
+  data.frame(site = rep("MR", length(SBR_MR)), sample = 1:length(SBR_MR), species_richness = SBR_MR)
+)
+
+# sSBR Macroinvertebrates
+
+sSBR_MD <- round_macro %>%
+  filter(site == "MD") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MD"), c("local_x", "local_y")])
+sSBR_JC <- round_macro %>%
+  filter(site == "JC") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "JC"), c("local_x", "local_y")])
+sSBR_PT <- round_macro %>%
+  filter(site == "PT") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "PT"), c("local_x", "local_y")])
+sSBR_EV <- round_macro %>%
+  filter(site == "EV") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "EV"), c("local_x", "local_y")])
+sSBR_TL <- round_macro %>%
+  filter(site == "TL") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "TL"), c("local_x", "local_y")])
+sSBR_MR <- round_macro %>%
+  filter(site == "MR") %>% 
+  select(-c(sample_code:year)) %>%
+  rarefaction(., method = "sSBR", latlong = T, coords = environ_vars[which(environ_vars$site == "MR"), c("local_x", "local_y")])
+sSBR_macro <- rbind(
+  data.frame(site = rep("MD", length(sSBR_MD)), sample = 1:length(sSBR_MD), species_richness = sSBR_MD),
+  data.frame(site = rep("JC", length(sSBR_JC)), sample = 1:length(sSBR_JC), species_richness = sSBR_JC),
+  data.frame(site = rep("PT", length(sSBR_PT)), sample = 1:length(sSBR_PT), species_richness = sSBR_PT),
+  data.frame(site = rep("EV", length(sSBR_EV)), sample = 1:length(sSBR_EV), species_richness = sSBR_EV),
+  data.frame(site = rep("TL", length(sSBR_TL)), sample = 1:length(sSBR_TL), species_richness = sSBR_TL),
+  data.frame(site = rep("MR", length(sSBR_MR)), sample = 1:length(sSBR_MR), species_richness = sSBR_MR)
+)
+
+# Merge SBR and sSBR
+rarefaction_macro$method <- "SBR"
+sSBR_macro$method <- "sSBR"
+
+rarefaction_macro <- rbind(rarefaction_macro, sSBR_macro)
+
+```
+
+```{r}
+
+# Merge rarefactions of all  trophic groups into one table
+
+# set and order factor levels
+rarefaction_all$site <- factor(rarefaction_all$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+rarefaction_bact$site <- factor(rarefaction_bact$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+#rarefaction_fungi$site <- factor(rarefaction_fungi$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+rarefaction_phyto$site <- factor(rarefaction_phyto$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+rarefaction_zoo$site <- factor(rarefaction_zoo$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+rarefaction_macro$site <- factor(rarefaction_macro$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+
+# add group column to all
+rarefaction_all$group <- "Whole-community"
+rarefaction_bact$group <- "Bacteria"
+#rarefaction_fungi$group <- "Fungi"
+rarefaction_phyto$group <- "Phytoplankton"
+rarefaction_zoo$group <- "Zooplankton"
+rarefaction_macro$group <- "Macroinvertebrates"
+
+# combine data.frames into one
+rarefaction_df <- rbind(rarefaction_all, rarefaction_bact, 
+                        #rarefaction_fungi, 
+                        rarefaction_phyto, rarefaction_zoo, rarefaction_macro)
+
+# set and order factor levels
+rarefaction_df$site <- factor(rarefaction_df$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+rarefaction_df$group <- factor(rarefaction_df$group, levels = group_labels)
+```
+
+
+```{r}
+# ==============================================================================
+# Function: compute_mobr_div()
+# Purpose:  Compute alpha-, beta-, and gamma-diversity using the MOBR framework
+#           for a given community matrix (bacteria, phytoplankton, zooplankton,
+#           macroinvertebrates, or whole-community).
+#
+# Input:
+#   comm_matrix      = community matrix (species × samples) with first 3 columns
+#                      containing sample identifiers (sample_code, site, year)
+#   factors          = metadata frame containing sample-level factors
+#   environmental_data = environmental metadata for sample ordering
+#   indices          = MOBR diversity metrics to calculate
+#   effort           = standardized rarefaction size (Sn)
+#
+# Output: A list containing:
+#   alpha_samples     = alpha-diversity per sample
+#   beta_samples      = beta-diversity replicated per sample
+#   gamma_samples     = gamma-diversity replicated per sample
+#   alpha_site        = same as alpha_samples
+#   beta_site         = site-level beta-diversity
+#   gamma_site        = site-level gamma-diversity
+#   full_table        = wide-format alpha, beta, gamma (numeric)
+#   SBR               = raw MOBR output
+#
+# Notes:
+#   - Sample order is always matched to environmental_data to ensure consistency.
+#   - Alpha is stored per sample; beta and gamma are site-level but replicated
+#     to samples where needed.
+#   - The returned object is fully compatible with downstream merging and plotting.
+# ==============================================================================
+
+compute_mobr_div <- function(comm_matrix, factors, environmental_data,
+                             indices = c("N", "S", "S_n", "S_PIE"),
+                             effort = 20) {
+  
+  #### 1. Prepare data --------------------------------------------------------
+  # Ceiling the abundance matrix ensures integer counts for MOBR
+  comm_df_round <- comm_matrix[, -c(1:3)] %>% ceiling()
+  # Add sample metadata (sample_code, site, year)
+  comm_df_round <- cbind(factors, comm_df_round)
+  
+  # Ensure sample order matches environmental_data
+  comm_df_round <- comm_df_round[
+    match(environmental_data$sample_code, comm_df_round$sample_code),
+  ]
+  
+  # Convert to factors for grouping
+  comm_df_round$site <- factor(comm_df_round$site)
+  comm_df_round$year <- factor(comm_df_round$year)
+  
+  # Columns excluded from MOBR computation
+  cols_to_drop <- c("sample_code", "sample_code_short", "year")
+  
+  #### 2. Run MOBR per site ---------------------------------------------------
+  # MOBR computes alpha, beta, gamma, and rarefaction-based metrics
+  SBR <- comm_df_round %>%
+    group_by(site) %>%
+    group_modify(~ mobr::calc_comm_div(
+      .x %>% select(-all_of(cols_to_drop)),
+      index  = indices,
+      effort = effort
+    ))
+  
+  #### 3. Alpha diversity (sample-level) -------------------------------------
+  # MOBR outputs alpha rows in the order of samples within each site.
+  alpha_df <- SBR %>%
+    filter(index == "S", scale == "alpha") %>%
+    group_by(site) %>%
+    mutate(row_id = row_number()) %>%   # match sample rows
+    ungroup()
+  
+  # Attach row indices inside each site for matching
+  comm_df_round2 <- comm_df_round %>%
+    group_by(site) %>%
+    mutate(row_id = row_number()) %>%
+    ungroup()
+  
+  # Match alpha diversity back to each sample
+  all_alpha <- comm_df_round2 %>%
+    select(sample_code, site, year, row_id) %>%
+    left_join(alpha_df %>% select(site, row_id, all_alpha = value),
+              by = c("site", "row_id")) %>%
+    select(-row_id)
+  
+  #### 4. Beta diversity (site-level) ----------------------------------------
+  # Extract site-level beta diversity
+  all_beta <- SBR %>%
+    filter(index == "beta_S_n", scale == "beta") %>%
+    select(site, all_beta = value)
+  
+  # Replicate beta to samples
+  all_beta_samples <- comm_df_round %>%
+    select(sample_code, site, year) %>%
+    left_join(all_beta, by = "site")
+  
+  #### 5. Gamma diversity (site-level) ---------------------------------------
+  # Extract numeric gamma values per site
+  all_gamma <- SBR %>%
+    filter(index == "S", scale == "gamma") %>%
+    select(site, all_gamma = value)
+  
+  # Replicate gamma to samples
+  all_gamma_samples <- comm_df_round %>%
+    select(sample_code, site, year) %>%
+    left_join(all_gamma, by = "site")
+  
+  #### 6. Final unified table (wide-format) ----------------------------------
+  # Contains numeric alpha, beta, gamma for each sample
+  full_table <- all_alpha %>%
+    left_join(all_beta,  by = "site") %>%
+    left_join(all_gamma, by = "site")
+  
+  #### 7. Output list ---------------------------------------------------------
+  list(
+    alpha_samples = all_alpha,
+    beta_samples  = all_beta_samples,
+    gamma_samples = all_gamma_samples,
+    alpha_site    = all_alpha,
+    beta_site     = all_beta,
+    gamma_site    = all_gamma,
+    full_table    = full_table,
+    SBR           = SBR
+  )
+}
+
+# ==============================================================================
+# rename_div()
+# Purpose:
+#   Standardize column names for a trophic group by adding a prefix
+#   (e.g., "bact_alpha", "zoo_beta", "macro_gamma").
+# ==============================================================================
+
+rename_div <- function(div_obj, prefix) {
+  div_obj$full_table %>%
+    dplyr::select(sample_code, site, year,
+                  all_alpha, all_beta, all_gamma) %>%
+    dplyr::rename(
+      !!paste0(prefix, "_alpha") := all_alpha,
+      !!paste0(prefix, "_beta")  := all_beta,
+      !!paste0(prefix, "_gamma") := all_gamma
+    )
+}
+
+bact_div  <- compute_mobr_div(bact_df,  factors, environmental_data)
+phyto_div <- compute_mobr_div(phyto_df, factors, environmental_data)
+zoo_div   <- compute_mobr_div(zoo_df,   factors, environmental_data)
+macro_div <- compute_mobr_div(macro_df, factors, environmental_data)
+whole_div <- compute_mobr_div(comm_df,  factors, environmental_data)
+
+all_div   <- rename_div(whole_div, "all")
+bact_div2 <- rename_div(bact_div,  "bact")
+phyto_div2<- rename_div(phyto_div, "phyto")
+zoo_div2  <- rename_div(zoo_div,   "zoo")
+macro_div2<- rename_div(macro_div, "macro")
+
+div_df <- all_div %>%
+  left_join(bact_div2,  by = c("sample_code", "site", "year")) %>%
+  left_join(phyto_div2, by = c("sample_code", "site", "year")) %>%
+  left_join(zoo_div2,   by = c("sample_code", "site", "year")) %>%
+  left_join(macro_div2, by = c("sample_code", "site", "year"))
+
+div_env_df <- div_df %>%
+  left_join(environmental_data, 
+            by = c("sample_code", "site", "year"))
+```
+
+```{r}
+# ------------------------------------------------------------------------------
+# Helper function to convert a trophic group's diversity output (alpha, beta,
+# gamma) into long format. This keeps reproducibility high and avoids 
+# manually generating 15 separate objects (alpha/beta/gamma for each group).
+#
+# Arguments:
+#   div_obj     = output list from compute_mobr_div() for a given trophic group
+#   group_name  = character name of the trophic group (e.g., "Bacteria")
+#
+# Output:
+#   A long-format data frame with columns:
+#     sample_code | site | year | diversity | scale | group
+#
+# This function automatically extracts alpha, beta, and gamma diversity,
+# tags them with the correct scale and group label, and binds them together.
+# ------------------------------------------------------------------------------
+
+make_long <- function(div_obj, group_name) {
+  
+  # ---- Alpha diversity (sample-level) ---------------------------------------
+  alpha <- div_obj$alpha_samples %>%
+    transmute(
+      sample_code, site, year,
+      diversity = all_alpha,     # numeric alpha-div value
+      scale = "alpha",           # identifies the scale
+      group = group_name         # identifies the trophic group
+    )
+  
+  # ---- Beta diversity (sample-level, repeated from site-level) --------------
+  beta <- div_obj$beta_samples %>%
+    transmute(
+      sample_code, site, year,
+      diversity = all_beta,
+      scale = "beta",
+      group = group_name
+    )
+  
+  # ---- Gamma diversity (sample-level, repeated from site-level) -------------
+  gamma <- div_obj$gamma_samples %>%
+    transmute(
+      sample_code, site, year,
+      diversity = all_gamma,
+      scale = "gamma",
+      group = group_name
+    )
+  
+  # ---- Combine alpha, beta, and gamma into long format ----------------------
+  bind_rows(alpha, beta, gamma)
+}
+
+
+```
+
+## Estimate years' average - ## Diversities
+```{r}
+
+# Estimate years' average
+## Diversities
+
+div_2016 <- div_df %>% # data frame for 2016
+  filter(year == "2016")
+div_2017 <- div_df %>% # data frame for 2017
+  filter(year == "2017")
+div_2018 <- div_df %>% # data frame for 2018
+  filter(year == "2018")
+
+mean_sample_code <- gsub(pattern = "_16_", replacement = "_Mean_", div_2016$sample_code, ignore.case = FALSE, perl = FALSE, fixed = FALSE, useBytes = FALSE)
+
+div_mean_temporary <- (div_2016[, -c(1:3)] + div_2017[, -c(1:3)] + div_2018[, -c(1:3)])/3 # estimate diversities' average of three years
+
+div_mean_df <- data_frame(site = div_2016$site, # new data frame
+                                  year = "Mean", # set Mean as year
+                                  sample_code = mean_sample_code
+                          )
+
+div_mean_df <- cbind(div_mean_df, div_mean_temporary) # combine factors with diversities average
+
+div_df <- rbind(div_df, div_mean_df) # add Mean to original diversities' data frame
+
+```
+
+```{r}
+# ------------------------------------------------------------------------------
+# Convert all trophic groups into long format using the helper function
+# ------------------------------------------------------------------------------
+
+all_long   <- make_long(whole_div, "Whole-community")
+bact_long  <- make_long(bact_div,  "Bacteria")
+phyto_long <- make_long(phyto_div, "Phytoplankton")
+zoo_long   <- make_long(zoo_div,   "Zooplankton")
+macro_long <- make_long(macro_div, "Macroinvertebrates")
+
+# ------------------------------------------------------------------------------
+# Combine all trophic groups into a single long-format diversity table
+# This replaces the previous massive rbind() block and prevents misalignment.
+# ------------------------------------------------------------------------------
+
+div_df_2 <- bind_rows(
+  all_long,
+  bact_long,
+  phyto_long,
+  zoo_long,
+  macro_long
+)
+
+# ------------------------------------------------------------------------------
+# Add Mean rows (from wide div_df) into the long-format table
+# ------------------------------------------------------------------------------
+
+mean_rows <- div_df %>% 
+  filter(year == "Mean")
+
+mean_long <- mean_rows %>%
+  pivot_longer(
+    cols = ends_with(c("_alpha", "_beta", "_gamma")),
+    names_to = c("group_code", "scale"),
+    names_sep = "_",
+    values_to = "diversity"
+  ) %>%
+  mutate(
+    group = recode(group_code,
+                   all = "Whole-community",
+                   bact = "Bacteria",
+                   phyto = "Phytoplankton",
+                   zoo = "Zooplankton",
+                   macro = "Macroinvertebrates")
+  ) %>%
+  select(sample_code, site, year, diversity, scale, group)
+
+# Append to div_df_2
+div_df_2 <- bind_rows(div_df_2, mean_long)
+
+# ------------------------------------------------------------------------------
+# Merge diversity table with environmental metadata
+# Ensures each diversity entry is linked to its environmental context
+# ------------------------------------------------------------------------------
+
+div_env_df_2 <- div_df_2 %>%
+  left_join(environmental_data, by = c("sample_code", "site", "year"))
+
+# Final output (kept for backward compatibility)
+div_env_df <- div_env_df_2
+
+```
+
+```{r Ratios}
+
+# Ratios
+
+div_mean <-
+  div_df_2 %>% 
+  group_by(site, scale, group) %>% 
+  summarise(mean_all = mean(diversity, na.rm = T), 
+            sd_all = sd(diversity, na.rm = T)) %>% 
+  filter(scale == "alpha")
+
+log_div <-
+  merge(div_df_2, div_mean) %>% 
+  mutate(log_ratio_all = log(diversity/mean_all))
+
+log_div <-
+  merge(div_df_2, div_mean) %>% 
+  mutate(log_ratio_all = (diversity - mean_all)/sd_all)
+
+log_ratio_df <- merge(log_div, environmental_data, by = c("sample_code", "site", "year"), suffixes = "")
+log_ratio_df$group <- factor(log_ratio_df$group, levels = group_labels)
+
+```
+
+## Estimate years' average - ## Environmental data
+```{r}
+# Estimate years' average
+## Environmental data
+
+env_2016 <- environmental_data %>% # data frame for 2016
+  filter(year == "2016")
+env_2017 <- environmental_data %>% # data frame for 2017
+  filter(year == "2017")
+env_2018 <- environmental_data %>% # data frame for 2018
+  filter(year == "2018")
+
+### Estimate est_temp, TP and TN average per site in each year
+MD_2016 <- env_2016 %>% 
+  filter(site == "MD") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+JC_2016 <- env_2016 %>% 
+  filter(site == "JC") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+PT_2016 <- env_2016 %>% 
+  filter(site == "PT") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+EV_2016 <- env_2016 %>% 
+  filter(site == "EV") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+TL_2016 <- env_2016 %>% 
+  filter(site == "TL") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+MR_2016 <- env_2016 %>% 
+  filter(site == "MR") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+env_2016 <- rbind(MD_2016, JC_2016, PT_2016, EV_2016, TL_2016, MR_2016)
+
+MD_2017 <- env_2017 %>% 
+  filter(site == "MD") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+JC_2017 <- env_2017 %>% 
+  filter(site == "JC") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+PT_2017 <- env_2017 %>% 
+  filter(site == "PT") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+EV_2017 <- env_2017 %>% 
+  filter(site == "EV") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+TL_2017 <- env_2017 %>% 
+  filter(site == "TL") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+MR_2017 <- env_2017 %>% 
+  filter(site == "MR") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+env_2017 <- rbind(MD_2017, JC_2017, PT_2017, EV_2017, TL_2016, MR_2017)
+
+MD_2018 <- env_2018 %>% 
+  filter(site == "MD") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+JC_2018 <- env_2018 %>% 
+  filter(site == "JC") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+PT_2018 <- env_2018 %>% 
+  filter(site == "PT") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+EV_2018 <- env_2018 %>% 
+  filter(site == "EV") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+TL_2018 <- env_2018 %>% 
+  filter(site == "TL") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+MR_2018 <- env_2018 %>% 
+  filter(site == "MR") %>% 
+  mutate(Tmean_est_mean = mean(est_mean_temp_12M),
+         TP_mean = mean(phosphorus),
+         TN_mean = mean(nitrogen))
+env_2018 <- rbind(MD_2018, JC_2018, PT_2018, EV_2018, TL_2018, MR_2018)
+
+env_mean_temporary <- (env_2016[, -c(1:3)] + env_2017[, -c(1:3)] + env_2018[, -c(1:3)])/3 # estimate environmental data average of three years
+
+env_mean_df <- data_frame(site = env_2016$site, # new data frame
+                                  year = "Mean", # set Mean as year
+                                  sample_code = mean_sample_code
+                          )
+env_mean_df <- cbind(env_mean_df, env_mean_temporary) # combine factors with environmental data average
+```
+
+## Add est_temp, TP_mean and TN_mean columns to original env data frame
+```{r}
+
+# 1) Automatically collect all lake-year environmental datasets
+
+# Identify objects in your environment matching the pattern "LAKE_YYYY"
+lake_objs <- ls(pattern = "^(MD|JC|PT|EV|TL|MR)_20(16|17|18)$")
+
+# Extract all these objects into a named list
+env_list <- mget(lake_objs)
+
+# Bind all lake-year data frames together
+env_extra <- bind_rows(env_list) %>%
+  # Keep only the columns we need (add more if required)
+  select(sample_code, site, year,
+         Tmean_est_mean, TP_mean, TN_mean)
+
+# 2) Add the "Mean" environmental columns
+# add Tmean_est_mean, TP_mean, TN_mean to environmental_data
+environmental_data <- environmental_data %>%
+  left_join(env_extra,
+            by = c("sample_code", "site", "year"))
+
+# 3) Merge these environmental variables into environmental_data
+environmental_data <- bind_rows(environmental_data, env_mean_df)
+
+# 4) Merge environmental data into your final diversity–environment table
+
+div_env_df <- div_df_2 %>% 
+  left_join(environmental_data, 
+            by = c("sample_code", "site", "year"))
+
+```
+
+```{r Save objects}
+save(site_labels, group_labels, color_ib, color_group,
+     rarefaction_df, div_env_df, log_ratio_df,
+     file = "../inputs/3b_diversity_env_df_TEST.RData"
+     )
+```
