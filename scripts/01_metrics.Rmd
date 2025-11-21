@@ -1,11 +1,11 @@
 ---
-title: "Multi-trophic spatial scaling across temperature gradient - data prep"
-author: "Cátia Lúcio Pereira"
-date: "27 October 2021"
+title: "TEMPERATURE SHAPES MULTI-TROPHIC AQUATIC BIODIVERSITY PATTERNS ACROSS SPACE AND TIME"
+author: "Cátia Lúcio Pereira and Miguel G. Matias"
+date: "09 November 2025"
 output:
   pdf_document: 
     fig_caption: yes
-    keep_tex: no
+    keep_tex: yes
 ---
 
 
