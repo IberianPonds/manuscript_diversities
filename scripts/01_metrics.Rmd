@@ -436,22 +436,6 @@ environ_vars <- bind_cols(
   env_var_2 %>% select(x, y, local_x, local_y)
 )
 
-#save(
-#  space,
-#  environ_vars,
-#  factors,
-#  abund_bact, 
-#  abund_phyto, 
-#  abund_zoo,
-#  abund_macro,
-#  community_matrix,
-#  global_pa_community_matrix,
-#     
-#     pa_community_matrix, log_community_matrix,
-#     
-#     file = "../inputs/consolidated_matrices.RData"
-#     )
-
 ```
 
 ```{r Datasets prep, message=FALSE, warning=FALSE, include=FALSE}
@@ -1081,36 +1065,11 @@ rarefaction_df$group <- factor(rarefaction_df$group, levels = group_labels)
 
 
 ```{r}
-# ==============================================================================
+
 # Function: compute_mobr_div()
 # Purpose:  Compute alpha-, beta-, and gamma-diversity using the MOBR framework
 #           for a given community matrix (bacteria, phytoplankton, zooplankton,
 #           macroinvertebrates, or whole-community).
-#
-# Input:
-#   comm_matrix      = community matrix (species × samples) with first 3 columns
-#                      containing sample identifiers (sample_code, site, year)
-#   factors          = metadata frame containing sample-level factors
-#   environmental_data = environmental metadata for sample ordering
-#   indices          = MOBR diversity metrics to calculate
-#   effort           = standardized rarefaction size (Sn)
-#
-# Output: A list containing:
-#   alpha_samples     = alpha-diversity per sample
-#   beta_samples      = beta-diversity replicated per sample
-#   gamma_samples     = gamma-diversity replicated per sample
-#   alpha_site        = same as alpha_samples
-#   beta_site         = site-level beta-diversity
-#   gamma_site        = site-level gamma-diversity
-#   full_table        = wide-format alpha, beta, gamma (numeric)
-#   SBR               = raw MOBR output
-#
-# Notes:
-#   - Sample order is always matched to environmental_data to ensure consistency.
-#   - Alpha is stored per sample; beta and gamma are site-level but replicated
-#     to samples where needed.
-#   - The returned object is fully compatible with downstream merging and plotting.
-# ==============================================================================
 
 compute_mobr_div <- function(comm_matrix, factors, environmental_data,
                              indices = c("N", "S", "S_n", "S_PIE"),
@@ -1134,7 +1093,7 @@ compute_mobr_div <- function(comm_matrix, factors, environmental_data,
   # Columns excluded from MOBR computation
   cols_to_drop <- c("sample_code", "sample_code_short", "year")
   
-  #### 2. Run MOBR per site ---------------------------------------------------
+  #### 2. Run MOBR ------------------------------------------------------------
   # MOBR computes alpha, beta, gamma, and rarefaction-based metrics
   SBR <- comm_df_round %>%
     group_by(site) %>%
@@ -1144,7 +1103,7 @@ compute_mobr_div <- function(comm_matrix, factors, environmental_data,
       effort = effort
     ))
   
-  #### 3. Alpha diversity (sample-level) -------------------------------------
+  #### 3. Alpha ---------------------------------------------------------------
   # MOBR outputs alpha rows in the order of samples within each site.
   alpha_df <- SBR %>%
     filter(index == "S", scale == "alpha") %>%
@@ -1165,7 +1124,7 @@ compute_mobr_div <- function(comm_matrix, factors, environmental_data,
               by = c("site", "row_id")) %>%
     select(-row_id)
   
-  #### 4. Beta diversity (site-level) ----------------------------------------
+  #### 4. Beta ----------------------------------------------------------------
   # Extract site-level beta diversity
   all_beta <- SBR %>%
     filter(index == "beta_S_n", scale == "beta") %>%
@@ -1176,7 +1135,7 @@ compute_mobr_div <- function(comm_matrix, factors, environmental_data,
     select(sample_code, site, year) %>%
     left_join(all_beta, by = "site")
   
-  #### 5. Gamma diversity (site-level) ---------------------------------------
+  #### 5. Gamma ---------------------------------------------------------------
   # Extract numeric gamma values per site
   all_gamma <- SBR %>%
     filter(index == "S", scale == "gamma") %>%
@@ -1187,13 +1146,13 @@ compute_mobr_div <- function(comm_matrix, factors, environmental_data,
     select(sample_code, site, year) %>%
     left_join(all_gamma, by = "site")
   
-  #### 6. Final unified table (wide-format) ----------------------------------
+  #### 6. Final table ---------------------------------------------------------
   # Contains numeric alpha, beta, gamma for each sample
   full_table <- all_alpha %>%
     left_join(all_beta,  by = "site") %>%
     left_join(all_gamma, by = "site")
   
-  #### 7. Output list ---------------------------------------------------------
+  #### 7. Outputs -------------------------------------------------------------
   list(
     alpha_samples = all_alpha,
     beta_samples  = all_beta_samples,

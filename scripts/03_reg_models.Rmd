@@ -30,7 +30,6 @@ Load data
 load("../inputs/consolidated_dataset.RData")
 ```
 
-
 # Data prep
 
 ```{r subset data frames}
@@ -166,7 +165,6 @@ macro_beta_2018 <- div_env_df %>%
   filter(scale == "beta", group == "Macroinvertebrates", year == "2018")
 
 ```
-
 
 # Table S1. Linear regression models
 
@@ -352,8 +350,6 @@ resid40 <- resid(lm_gamma_macro_2018_tsd)
 
 ```
 
-
-
 ## Local diversity
 
 ### Mean temperature
@@ -446,7 +442,6 @@ resid60 <- resid(lm_alpha_macro_2018_tmean)
 
 ```
 
-
 ### SD temperature
 ```{r Regional div vs sd_temp}
 
@@ -536,8 +531,6 @@ summary(lm_alpha_macro_2018_tsd)
 resid80 <- resid(lm_alpha_macro_2018_tsd)
 
 ```
-
-
 
 ## Beta-diversity
 
@@ -631,7 +624,6 @@ resid100 <- resid(lm_beta_macro_2018_tmean)
 
 ```
 
-
 ### SD temperature
 ```{r Beta div vs sd_temp}
 
@@ -721,9 +713,6 @@ summary(lm_beta_macro_2018_tsd)
 resid120 <- resid(lm_beta_macro_2018_tsd)
 
 ```
-
-
-
 
 # Table S2. Quadratic regression models
 
@@ -821,7 +810,6 @@ resid140 <- resid(qd_gamma_macro_2018_tmean)
 
 ```
 
-
 ### SD temperature
 ```{r Regional div vs sd_temp}
 
@@ -911,8 +899,6 @@ summary(qd_gamma_macro_2018_tsd)
 resid160 <- resid(qd_gamma_macro_2018_tsd)
 
 ```
-
-
 
 ## Local diversity
 
@@ -1006,7 +992,6 @@ resid180 <- resid(qd_alpha_macro_2018_tmean)
 
 ```
 
-
 ### SD temperature
 ```{r Regional div vs sd_temp}
 
@@ -1096,8 +1081,6 @@ summary(qd_alpha_macro_2018_tsd)
 resid200 <- resid(qd_alpha_macro_2018_tsd)
 
 ```
-
-
 
 ## Beta-diversity
 
@@ -1191,7 +1174,6 @@ resid220 <- resid(qd_beta_macro_2018_tmean)
 
 ```
 
-
 ### SD temperature
 ```{r Beta div vs sd_temp}
 
@@ -1282,7 +1264,6 @@ resid240 <- resid(qd_beta_macro_2018_tsd)
 
 ```
 
-
 # Compare models (statistics in Table S1 and Table S2)
 
 ## Linear regression models
@@ -1341,7 +1322,6 @@ eval_mod39 <- glance(lm_gamma_macro_2017_tsd)
 eval_mod40 <- glance(lm_gamma_macro_2018_tsd)
 ```
 
-
 ### Local diversity
 ```{r}
 
@@ -1397,7 +1377,6 @@ eval_mod80 <- glance(lm_alpha_macro_2018_tsd)
 
 ```
 
-
 ### Beta diversity
 ```{r}
 
@@ -1452,8 +1431,6 @@ eval_mod119 <- glance(lm_beta_macro_2017_tsd)
 eval_mod120 <- glance(lm_beta_macro_2018_tsd)
 
 ```
-
-
 
 ## Quadratic regression models
 
@@ -1511,7 +1488,6 @@ eval_mod159 <- glance(qd_gamma_macro_2017_tsd)
 eval_mod160 <- glance(qd_gamma_macro_2018_tsd)
 ```
 
-
 ### Local diversity
 ```{r}
 
@@ -1566,7 +1542,6 @@ eval_mod199 <- glance(qd_alpha_macro_2017_tsd)
 eval_mod200 <- glance(qd_alpha_macro_2018_tsd)
 
 ```
-
 
 ### Beta diversity
 ```{r}
@@ -1623,8 +1598,6 @@ eval_mod240 <- glance(qd_beta_macro_2018_tsd)
 
 ```
 
-
-
 # Save table
 ```{r}
 
@@ -1652,13 +1625,11 @@ mods_quadratic <- rbind(eval_mod121, eval_mod122, eval_mod123, eval_mod124, eval
                         eval_mod220, eval_mod221, eval_mod222, eval_mod223, eval_mod224, eval_mod225, eval_mod226, eval_mod227, eval_mod228, eval_mod229, eval_mod230,
                         eval_mod231, eval_mod232, eval_mod233, eval_mod234, eval_mod235, eval_mod236, eval_mod237, eval_mod238, eval_mod239, eval_mod240)
 
-
-
 ```
 
 # Save tables
 ```{r Save objects}
 
-write.csv(x = mods_linear, file = paste("../outputs/02.linear_models_evaluation.csv", sep = ""))
-write.csv(x = mods_quadratic, file = paste("../outputs/02.quadratic_models_evaluation.csv", sep = ""))
+write.csv(x = mods_linear, file = paste("../outputs/04_linear_models_evaluation.csv", sep = ""))
+write.csv(x = mods_quadratic, file = paste("../outputs/04_quadratic_models_evaluation.csv", sep = ""))
 ```

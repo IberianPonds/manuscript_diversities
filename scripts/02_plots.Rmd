@@ -51,9 +51,7 @@ Community matrices (taxonomic assignments and trophic groups) and the joint dive
 community.df <- read.csv("../inputs/hybrid_geo_fit_tax_res.csv", sep = ";", header = T)
 
 # diversity and environmental data
-#load("../inputs/01.diversity_env_df.RData")
 load("../inputs/3b_diversity_env_df_TEST.RData")
-#load("../inputs/consolidated_dataset.RData")
 ```
 
 # Set colours and group labels
@@ -63,27 +61,19 @@ group_labels <- c("Whole-community", "Bacteria", "Phytoplankton", "Zooplankton",
 color_group <- viridisLite::viridis(option = "viridis", length(group_levels))
 #names(color_group) <- group_levels
 
-ccc <- c("#440154FF","#3B528BFF", "#21908CFF", "#5DC863FF", "#FDE725FF")
-
-#theme_set(theme_tq())
-
 formula <- y ~ poly(x, 2)
 ```
 
 ## Diversity metrics and derived quantities
 To facilitate plotting across α (local), β (turnover), and γ (regional) diversity, we keep separate data frames per scale and then recombine them. β-diversity estimated via sample-based rarefaction (`beta_sn_div`) is appended to the tidy object used throughout the rest of the workflow.
 
-Estimate b-diversity
 Data prep
 ```{r}
-
 # set and order factor levels
 div_env_df$site <- factor(div_env_df$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
 div_env_df$year <- factor(div_env_df$year, levels = c("Mean", "2016", "2017", "2018"))
-div_env_df$group <- factor(
-  div_env_df$group,
-  levels = group_levels
-)
+div_env_df$group <- factor(div_env_df$group, levels = group_levels)
+
 # reorder data frames
 div_env_df <- div_env_df %>% 
   select(site, year, sample_code, group, scale, everything())
@@ -93,19 +83,21 @@ global_div_env_df <- div_env_df
 
 ```
 
+### Estimate b-diversity
 Estimate b-diversity = gamma/alpha
 ```{r}
-# estimate b-diversity = gamma/alpha
+# isolate each MOBR scale so rows align before computing ratios
 alpha_div <- div_env_df %>% 
-  filter(scale == "alpha") %>% # dataset with only alpha
-  arrange(site, year, sample_code, group) # reo-order df
+  filter(scale == "alpha") %>% # local richness per sample
+  arrange(site, year, sample_code, group) # ensure deterministic ordering
 gamma_div <- div_env_df %>% 
-  filter(scale == "gamma") %>% # dataset with only gamma
-  arrange(site, year, sample_code, group) # reo-order df
+  filter(scale == "gamma") %>% # regional richness per site
+  arrange(site, year, sample_code, group)
 beta_sn_div <- div_env_df %>% 
-  filter(scale == "beta") %>% # dataset with only gamma
-  arrange(site, year, sample_code, group) # reo-order df
+  filter(scale == "beta") %>% # sample-based rarefaction beta
+  arrange(site, year, sample_code, group)
 
+# classical beta (γ/α) for rows sharing the same metadata as alpha_div
 beta_div <- data_frame(site = alpha_div$site,
                        year = alpha_div$year,
                        sample_code = alpha_div$sample_code,
@@ -113,8 +105,10 @@ beta_div <- data_frame(site = alpha_div$site,
                        scale = "beta2",
                        diversity = gamma_div$diversity/alpha_div$diversity)
 
+# bring along environmental covariates and traits from alpha_div
 beta_div[ , 7:ncol(alpha_div)] <- alpha_div[ , 7:ncol(alpha_div)]
 
+# bind all scales so downstream plots can facet on `scale`
 div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div, beta_div)
 ```
 
@@ -134,14 +128,11 @@ global_reg_div <- global_div_env_df %>%
   facet_grid(.~site) +
   geom_bar(stat = "identity", position = "dodge", width = 0.8,
            outlier.shape = NA)  +
-
-  # ✅ This fixes the palette issue completely
   scale_fill_viridis_d(
     option = "viridis",
     direction = 1,
     labels = c("W","B","P","Z","M")
   ) +
-
   scale_x_discrete(label = c("W", "B", "P", "Z", "M")) +
   labs(x = "Trophic group", y = expression("Global "*gamma*"-diversity"), title = "") +
   theme_tq() + 
@@ -225,16 +216,14 @@ sdtemp_plot <- div_env_df %>%
 
 **Figure 2.** Regional climate context and cumulative γ-diversity across the Iberian Pond Network. (A) Average across years (Av) and annual mean water temperature (TMean) for the six study regions. (B) Annual temperature variability (TSD, standard deviation of daily means). (C) Accumulated regional (γ) diversity across the three-year study period, showing total taxon richness for each trophic group. Regions are ordered from coldest to warmest: MD – Madrid, JC – Jaca, PT – Porto, EV – Évora, TL – Toledo, MR – Murcia. Years: Av – average across 2016–2018; 16 – 2016; 17 – 2017; 18 – 2018. Trophic groups: W – whole community, B – bacteria, P – phytoplankton, Z – zooplankton, M – macroinvertebrates.
 
-
 ```{r Accumulated regional diversity, fig.width=10, fig.height=4, dpi=300, echo=FALSE}
+
 div_temp <- ggarrange(
   ggarrange(meantemp_plot, sdtemp_plot,
             nrow = 2, labels = c("A", "B"),
             font.label = list(size = 10)),
   ggarrange(global_reg_div, labels = "C", font.label = list(size = 10)),
   ncol = 2)
-
-div_temp
 
 # --------------------------------------------
 # Export Figure 2
@@ -262,20 +251,16 @@ gamma_mean_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1],
               method = "lm", size = 1.25, formula = formula) +
-  
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), color = color_group[2],
               method = "lm", size = 1.25, formula = formula) +
-  
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Phytoplankton"), color = color_group[3],
               method = "lm", size = 1.25, formula = formula) +
-  
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
               method = "lm", size = 1.25, formula = formula) +
-  
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
@@ -1642,8 +1627,6 @@ ggsave(
 #                                    common.legend = T, legend = "bottom", labels = "AUTO")
 # div_year_sd_temp_plot
 ```
-
-
 
 # Supplementary analyses
 Supplementary sections document additional diagnostics referenced in the main text, including taxonomic resolution summaries for each trophic group and expanded depictions of regional diversity stratified by year.
