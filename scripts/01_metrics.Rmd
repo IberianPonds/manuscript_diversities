@@ -11,7 +11,7 @@ output:
 
 ```{r Clear the memory of macro objects, message=FALSE, warning=FALSE, include=FALSE}
 
-#rm(list=ls())
+rm(list=ls())
 
 ```
 
@@ -92,56 +92,56 @@ Prepare overall data.frame
 environmental_variables <- data_enve_all
 
 # add column with trophic group
-hybrid.geo.fit.st$group <- NA
-hybrid.geo.fit.st <- hybrid.geo.fit.st %>%
+hybrid.geo.fit$group <- NA
+hybrid.geo.fit <- hybrid.geo.fit %>%
   dplyr::select(taxa, domain, kingdom, phylum, class, order, family, genus, species, group, everything()) # reorganize columns
 
 
-for (i in 1:nrow(hybrid.geo.fit.st)) { # loop species
+for (i in 1:nrow(hybrid.geo.fit)) { # loop species
   
-  if (hybrid.geo.fit.st[i, "domain"] == "Bacteria" |
-      hybrid.geo.fit.st[i, "kingdom"] == "Chromista" |
-      hybrid.geo.fit.st[i, "kingdom"] == "Plantae" |
-      hybrid.geo.fit.st[i, "kingdom"] == "Protozoa") {
-    hybrid.geo.fit.st[i, "group"] <- "phyto" # set these to group phyto
+  if (hybrid.geo.fit[i, "domain"] == "Bacteria" |
+      hybrid.geo.fit[i, "kingdom"] == "Chromista" |
+      hybrid.geo.fit[i, "kingdom"] == "Plantae" |
+      hybrid.geo.fit[i, "kingdom"] == "Protozoa") {
+    hybrid.geo.fit[i, "group"] <- "phyto" # set these to group phyto
     
   } else { # not phyto
     
-    if (hybrid.geo.fit.st[i, "phylum"] == "Rotifera" |
-        hybrid.geo.fit.st[i, "class"] == "Branchiopoda" |
-        hybrid.geo.fit.st[i, "class"] == "Copepoda" |
-        hybrid.geo.fit.st[i, "class"] == "Hexanauplia" |
-        hybrid.geo.fit.st[i, "class"] == "Ostracoda") {
-      hybrid.geo.fit.st[i, "group"] <- "zoo" # set these to group zoo
+    if (hybrid.geo.fit[i, "phylum"] == "Rotifera" |
+        hybrid.geo.fit[i, "class"] == "Branchiopoda" |
+        hybrid.geo.fit[i, "class"] == "Copepoda" |
+        hybrid.geo.fit[i, "class"] == "Hexanauplia" |
+        hybrid.geo.fit[i, "class"] == "Ostracoda") {
+      hybrid.geo.fit[i, "group"] <- "zoo" # set these to group zoo
       
     } else { # not phyto or zoo
       
-      if (hybrid.geo.fit.st[i, "phylum"] == "Mollusca" |
-          hybrid.geo.fit.st[i, "phylum"] == "Nematoda" |
-          hybrid.geo.fit.st[i, "phylum"] == "Annelida" |
-          hybrid.geo.fit.st[i, "phylum"] == "Tardigrada" |
-          hybrid.geo.fit.st[i, "phylum"] == "Gastrotricha" |
-          hybrid.geo.fit.st[i, "phylum"] == "Nemertea" |
-          hybrid.geo.fit.st[i, "phylum"] == "Platyhelminthes" |
-          hybrid.geo.fit.st[i, "class"] == "Arachnida" |
-          hybrid.geo.fit.st[i, "class"] == "Insecta" |
-          hybrid.geo.fit.st[i, "class"] == "Malacostraca") {
-        hybrid.geo.fit.st[i, "group"] <- "macro" # set these to group macro
+      if (hybrid.geo.fit[i, "phylum"] == "Mollusca" |
+          hybrid.geo.fit[i, "phylum"] == "Nematoda" |
+          hybrid.geo.fit[i, "phylum"] == "Annelida" |
+          hybrid.geo.fit[i, "phylum"] == "Tardigrada" |
+          hybrid.geo.fit[i, "phylum"] == "Gastrotricha" |
+          hybrid.geo.fit[i, "phylum"] == "Nemertea" |
+          hybrid.geo.fit[i, "phylum"] == "Platyhelminthes" |
+          hybrid.geo.fit[i, "class"] == "Arachnida" |
+          hybrid.geo.fit[i, "class"] == "Insecta" |
+          hybrid.geo.fit[i, "class"] == "Malacostraca") {
+        hybrid.geo.fit[i, "group"] <- "macro" # set these to group macro
       
         } else { # higher identification, not possible to assigned to a group
-          hybrid.geo.fit.st[i, "group"] <- "not_assigned"
+          hybrid.geo.fit[i, "group"] <- "not_assigned"
       }
     }
   }
 }
 
-# replace NOID or NA in "taxa" for correct taxon
-hybrid.geo.fit.st$taxa[353] = "Miozoa"
-hybrid.geo.fit.st$taxa[549] = "Miozoa"
+# Correct Miozoa taxa
+hybrid.geo.fit$taxa[405] = "Miozoa"
+hybrid.geo.fit$taxa[614] = "Miozoa"
 
 # separate taxonomy from abundances
-hybrid_tax <- hybrid.geo.fit.st[ , 1:11]
-hybrid_abund <- hybrid.geo.fit.st[ , 12:ncol(hybrid.geo.fit.st)]
+hybrid_tax <- hybrid.geo.fit[ , 1:11]
+hybrid_abund <- hybrid.geo.fit[ , 12:ncol(hybrid.geo.fit)]
 
 # transpose matrix table
 hybrid_matrix <- data.table::transpose(hybrid_abund, ignore.empty = TRUE) # transpose density table
@@ -155,9 +155,9 @@ rownames(hybrid_matrix2) <- rownames(hybrid_matrix) # set row names
 
 # sum up the two "Miozoa" columns and delete one
 for (i in 1:nrow(hybrid_matrix2)) {
-  hybrid_matrix2[, 353] <- sum(hybrid_matrix2[i, 353], hybrid_matrix2[i, 549])
+  hybrid_matrix2[, 353] <- sum(hybrid_matrix2[i, 405], hybrid_matrix2[i, 614])
 }
-hybrid_matrix2 <- hybrid_matrix2[ , -549]
+hybrid_matrix2 <- hybrid_matrix2[ , -614]
 hybrid_matrix <- hybrid_matrix2
 
 # merge and filter complete cases for now
@@ -179,7 +179,7 @@ bact <- cbind(sample_code = facts_bact$sample, bact)
 #fungi <- cbind(sample_code = facts_fungi$sample, fungi)
 
 # select three main groups separately
-grouping <- data.frame(rownames(hybrid.geo.fit.st), hybrid.geo.fit.st$group)  # select taxa and group columns
+grouping <- data.frame(rownames(hybrid.geo.fit), hybrid.geo.fit$group)  # select taxa and group columns
 colnames(grouping) <- c("species_code", "group") # set columns names
 
 phyto_species <- as.vector(unlist(grouping[grouping$group == "phyto", "species_code"]))
@@ -346,7 +346,7 @@ factors <- merged_matrix3[, 1:4]
 factors$site <- factor(factors$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
 
 # create community matrix
-community_matrix <- merged_matrix3 %>% dplyr::select(., acari:xtant)
+community_matrix <- merged_matrix3 %>% dplyr::select(., c(acame:trident, Bacteria:"Polynucleobacter cosmopolitanus"))
 global_community_matrix <- merged_matrix3 %>% dplyr::select(., -c(sample_code:year, temp:est_mean_temp_12M))
 global_community_matrix <- global_community_matrix %>% mutate_if(is.character, as.numeric)
 
