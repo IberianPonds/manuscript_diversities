@@ -87,7 +87,6 @@ color_ib <- c("midnightblue", "royalblue3", "lightskyblue", "gold", "red",  "dar
 
 Prepare overall data.frame
 ```{r data preparation: prepare overall data.frame}
-
 # get environmental data
 environmental_variables <- data_enve_all
 
@@ -167,8 +166,10 @@ merged_matrix <-
   merge(x = ., y = environmental_variables, by = "sample_code") %>%
   filter(complete.cases(.)) %>% # remove incomplete cases
   dplyr::select(sample_code, sample_code_short, site, year, everything()) # reorganize columns
+```
 
 
+```{r data preparation: prepare overall data.frame}
 # add bacteria
 bact <- reads.bact.eDNA
 facts_bact <- samples.bact.eDNA[,1:3]
@@ -213,7 +214,7 @@ macro <- cbind(sample_code = merged_matrix$sample_code, macro)
 # remove empty columns
 bact <- bact %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
 phyto <- phyto %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
-zoo_ <- zoo %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
+zoo <- zoo %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
 macro <- macro %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
 merged_matrix <- merged_matrix %>% select_if(function(x) !(all(is.na(x)) | all(x=="")))
 
@@ -259,27 +260,28 @@ JC2018 <- c("JC_18_01", "JC_18_03", "JC_18_05", "JC_18_07", "JC_18_09", "JC_18_1
 JC18 <- merged_matrix2[which(merged_matrix2$sample_code %in% JC2018), ] %>%
   arrange(sample_code)
 
-MD2016 <- c("PN_16_01", "PN_16_03", "PN_16_05", "PN_16_07", "PN_16_09", "PN_16_11", "PN_16_13", "PN_16_16", "PN_16_19", "PN_16_20", "PN_16_23", "PN_16_24", "PN_16_25", "PN_16_27", "PN_16_28", "PN_16_30", "PN_16_31")
+MD2016 <- c("PN_16_01", "PN_16_03", "PN_16_05", "PN_16_07", "PN_16_09", "PN_16_11", "PN_16_13", "PN_16_15", "PN_16_16", "PN_16_19", "PN_16_20", "PN_16_23", "PN_16_24", "PN_16_25", "PN_16_27", "PN_16_28", "PN_16_30")
 MD16 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2016), ] %>%
   arrange(sample_code)
 
-MD2017 <- c("PN_17_01", "PN_17_03", "PN_17_05", "PN_17_07", "PN_17_09", "PN_17_11", "PN_17_13", "PN_17_16", "PN_17_19", "PN_17_20", "PN_17_23", "PN_17_24", "PN_17_25", "PN_17_27", "PN_17_28", "PN_17_30", "PN_17_31")
+MD2017 <- c("PN_17_01", "PN_17_03", "PN_17_05", "PN_17_07", "PN_17_09", "PN_17_11", "PN_17_13", "PN_18_15", "PN_17_16", "PN_17_19", "PN_17_20", "PN_17_23", "PN_17_24", "PN_17_25", "PN_17_27", "PN_17_28", "PN_17_30")
 MD17 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2017), ] %>%
   arrange(sample_code)
 
-MD2018 <- c("PN_18_01", "PN_18_03", "PN_18_05", "PN_18_07", "PN_18_09", "PN_18_11", "PN_18_13", "PN_18_16", "PN_18_19", "PN_18_20", "PN_18_23", "PN_18_24", "PN_18_25", "PN_18_27", "PN_18_28", "PN_18_30", "PN_18_31")
+MD2018 <- c("PN_18_01", "PN_18_03", "PN_18_05", "PN_18_07", "PN_18_09", "PN_18_11", "PN_18_13", "PN_18_15", "PN_18_16", "PN_18_19", "PN_18_20", "PN_18_23", "PN_18_24", "PN_18_25", "PN_18_27", "PN_18_28", "PN_18_30")
 MD18 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2018), ] %>%
   arrange(sample_code)
 
-MR2016 <- c("MR_16_01", "MR_16_05", "MR_16_06", "MR_16_07", "MR_16_09", "MR_16_11", "MR_16_13", "MR_16_14", "MR_16_15", "MR_16_17", "MR_16_19", "MR_16_21", "MR_16_23", "MR_16_25", "MR_16_27", "MR_16_29", "MR_16_31")
+MR2016 <- c("MR_16_01", "MR_16_03", "MR_16_05", "MR_16_06", "MR_16_07", "MR_16_11", "MR_16_13", "MR_16_14", "MR_16_15", "MR_16_17", "MR_16_19", "MR_16_21", "MR_16_23", "MR_16_25", "MR_16_27", "MR_16_29", "MR_16_31")
 MR16 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2016), ] %>%
   arrange(sample_code)
 
-MR2017 <- c("MR_17_01", "MR_17_05", "MR_17_06", "MR_17_07", "MR_17_09", "MR_17_11", "MR_17_13", "MR_17_14", "MR_17_15", "MR_17_17", "MR_17_19", "MR_17_21", "MR_17_23", "MR_17_25", "MR_17_27", "MR_17_29", "MR_17_31")
+MR2017 <- c("MR_17_01", "MR_17_03", "MR_17_05", "MR_17_06", "MR_17_07", "MR_17_11", "MR_17_13", "MR_17_14", "MR_17_15", "MR_17_17", "MR_17_19", "MR_17_21", "MR_17_23", "MR_17_25", "MR_17_27", "MR_17_29", "MR_17_31")
 MR17 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2017), ] %>%
   arrange(sample_code)
 
-MR2018 <- c("MR_18_01", "MR_18_05", "MR_18_06", "MR_18_07", "MR_18_09", "MR_18_11", "MR_18_13", "MR_18_14", "MR_18_15", "MR_18_17", "MR_18_19", "MR_18_21", "MR_18_23", "MR_18_25", "MR_18_27", "MR_18_29", "MR_18_31")
+#MR2018 <- c("MR_18_01", "MR_18_05", "MR_18_06", "MR_18_07", "MR_18_09", "MR_18_11", "MR_18_13", "MR_18_14", "MR_18_15", "MR_18_17", #"MR_18_19", "MR_18_21", "MR_18_23", "MR_18_25", "MR_18_27", "MR_18_29", "MR_18_31")
+MR2018 <- c("MR_18_01", "MR_18_03", "MR_18_05", "MR_18_06", "MR_18_07", "MR_18_11", "MR_18_13", "MR_18_14", "MR_18_15", "MR_18_17", "MR_18_19", "MR_18_21", "MR_18_23", "MR_18_25", "MR_18_27", "MR_18_29", "MR_18_31")
 MR18 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2018), ] %>%
   arrange(sample_code)
 
@@ -422,7 +424,6 @@ pca.axis <- data.frame(
 # merge with data_enve_all
 sub_env_var_pc <- merge(sub_env_var, pca.axis, by = "sample_code")
 
-
 # Remove highly correlated variables (>0.7)
 environ_vars <- sub_env_var_pc[ , !(colnames(sub_env_var_pc) %in% c("altitude", "po4"))]
 dataPCA <- environ_vars[ , !(colnames(environ_vars) %in% c("sample_code", "site", "year", "pca1", "pca2"))] # remove character columns
@@ -441,9 +442,9 @@ environ_vars <- bind_cols(
 ```{r Datasets prep, message=FALSE, warning=FALSE, include=FALSE}
 
 # combine community matrix and bacteria and fungi
-community_matrix <- cbind(community_matrix, abund_bact, 
-                          #abund_fungi, 
-                          abund_phyto, abund_zoo, abund_macro)
+# community_matrix <- cbind(community_matrix, abund_bact, 
+#                          #abund_fungi, 
+#                          abund_phyto, abund_zoo, abund_macro)
 
 # attach factors THREE trophic group dataset
 comm_df <- cbind(factors, community_matrix)[ ,-c(2)]
