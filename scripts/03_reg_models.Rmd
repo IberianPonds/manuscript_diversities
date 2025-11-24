@@ -52,13 +52,13 @@ wc_alpha_2017 <- div_env_df %>%
 wc_alpha_2018 <- div_env_df %>% 
   filter(scale == "alpha", group == "Whole-community", year == "2018")
 wc_beta_mean <- div_env_df %>% 
-  filter(scale == "beta", group == "Whole-community", year == "Mean")
+  filter(scale == "beta2", group == "Whole-community", year == "Mean")
 wc_beta_2016 <- div_env_df %>% 
-  filter(scale == "beta", group == "Whole-community", year == "2016")
+  filter(scale == "beta2", group == "Whole-community", year == "2016")
 wc_beta_2017 <- div_env_df %>% 
-  filter(scale == "beta", group == "Whole-community", year == "2017")
+  filter(scale == "beta2", group == "Whole-community", year == "2017")
 wc_beta_2018 <- div_env_df %>% 
-  filter(scale == "beta", group == "Whole-community", year == "2018")
+  filter(scale == "beta2", group == "Whole-community", year == "2018")
 
 # Bacteria
 bact_gamma_mean <- div_env_df %>% 
@@ -78,13 +78,13 @@ bact_alpha_2017 <- div_env_df %>%
 bact_alpha_2018 <- div_env_df %>% 
   filter(scale == "alpha", group == "Bacteria", year == "2018")
 bact_beta_mean <- div_env_df %>% 
-  filter(scale == "beta", group == "Bacteria", year == "Mean")
+  filter(scale == "beta2", group == "Bacteria", year == "Mean")
 bact_beta_2016 <- div_env_df %>% 
-  filter(scale == "beta", group == "Bacteria", year == "2016")
+  filter(scale == "beta2", group == "Bacteria", year == "2016")
 bact_beta_2017 <- div_env_df %>% 
-  filter(scale == "beta", group == "Bacteria", year == "2017")
+  filter(scale == "beta2", group == "Bacteria", year == "2017")
 bact_beta_2018 <- div_env_df %>% 
-  filter(scale == "beta", group == "Bacteria", year == "2018")
+  filter(scale == "beta2", group == "Bacteria", year == "2018")
 
 # Phytoplankton
 phyto_gamma_mean <- div_env_df %>% 
@@ -104,13 +104,13 @@ phyto_alpha_2017 <- div_env_df %>%
 phyto_alpha_2018 <- div_env_df %>% 
   filter(scale == "alpha", group == "Phytoplankton", year == "2018")
 phyto_beta_mean <- div_env_df %>% 
-  filter(scale == "beta", group == "Phytoplankton", year == "Mean")
+  filter(scale == "beta2", group == "Phytoplankton", year == "Mean")
 phyto_beta_2016 <- div_env_df %>% 
-  filter(scale == "beta", group == "Phytoplankton", year == "2016")
+  filter(scale == "beta2", group == "Phytoplankton", year == "2016")
 phyto_beta_2017 <- div_env_df %>% 
-  filter(scale == "beta", group == "Phytoplankton", year == "2017")
+  filter(scale == "beta2", group == "Phytoplankton", year == "2017")
 phyto_beta_2018 <- div_env_df %>% 
-  filter(scale == "beta", group == "Phytoplankton", year == "2018")
+  filter(scale == "beta2", group == "Phytoplankton", year == "2018")
 
 # Zooplankton
 zoo_gamma_mean <- div_env_df %>% 
@@ -130,13 +130,13 @@ zoo_alpha_2017 <- div_env_df %>%
 zoo_alpha_2018 <- div_env_df %>% 
   filter(scale == "alpha", group == "Zooplankton", year == "2018")
 zoo_beta_mean <- div_env_df %>% 
-  filter(scale == "beta", group == "Zooplankton", year == "Mean")
+  filter(scale == "beta2", group == "Zooplankton", year == "Mean")
 zoo_beta_2016 <- div_env_df %>% 
-  filter(scale == "beta", group == "Zooplankton", year == "2016")
+  filter(scale == "beta2", group == "Zooplankton", year == "2016")
 zoo_beta_2017 <- div_env_df %>% 
-  filter(scale == "beta", group == "Zooplankton", year == "2017")
+  filter(scale == "beta2", group == "Zooplankton", year == "2017")
 zoo_beta_2018 <- div_env_df %>% 
-  filter(scale == "beta", group == "Zooplankton", year == "2018")
+  filter(scale == "beta2", group == "Zooplankton", year == "2018")
 
 # Macroinvertebrates
 macro_gamma_mean <- div_env_df %>% 
@@ -156,13 +156,13 @@ macro_alpha_2017 <- div_env_df %>%
 macro_alpha_2018 <- div_env_df %>% 
   filter(scale == "alpha", group == "Macroinvertebrates", year == "2018")
 macro_beta_mean <- div_env_df %>% 
-  filter(scale == "beta", group == "Macroinvertebrates", year == "Mean")
+  filter(scale == "beta2", group == "Macroinvertebrates", year == "Mean")
 macro_beta_2016 <- div_env_df %>% 
-  filter(scale == "beta", group == "Macroinvertebrates", year == "2016")
+  filter(scale == "beta2", group == "Macroinvertebrates", year == "2016")
 macro_beta_2017 <- div_env_df %>% 
-  filter(scale == "beta", group == "Macroinvertebrates", year == "2017")
+  filter(scale == "beta2", group == "Macroinvertebrates", year == "2017")
 macro_beta_2018 <- div_env_df %>% 
-  filter(scale == "beta", group == "Macroinvertebrates", year == "2018")
+  filter(scale == "beta2", group == "Macroinvertebrates", year == "2018")
 
 ```
 
@@ -1633,3 +1633,72 @@ mods_quadratic <- rbind(eval_mod121, eval_mod122, eval_mod123, eval_mod124, eval
 write.csv(x = mods_linear, file = paste("../outputs/04_linear_models_evaluation.csv", sep = ""))
 write.csv(x = mods_quadratic, file = paste("../outputs/04_quadratic_models_evaluation.csv", sep = ""))
 ```
+
+```{r}
+# Get all lm_* and qd_* objects from workspace
+model_list <- mget(ls(pattern = "^(lm|qd)_"))
+
+extract_info <- function(name) {
+  parts <- unlist(strsplit(name, "_"))
+  
+  tibble(
+    model_name = name,
+    model_type = parts[1],   # lm or qd
+    scale      = parts[2],   # gamma / alpha / beta
+    group      = parts[3],   # wc / bact / phyto / zoo / macro
+    year       = parts[4],   # mean / 2016 / 2017 / 2018
+    predictor  = parts[5]    # tmean / tsd
+  )
+}
+
+library(broom)
+library(purrr)
+library(dplyr)
+
+model_results <- map_df(
+  names(model_list),
+  ~ bind_cols(
+      extract_info(.x),
+      glance(model_list[[.x]])
+    )
+)
+
+mods_linear    <- model_results %>% filter(model_type == "lm")
+mods_quadratic <- model_results %>% filter(model_type == "qd")
+
+add_sig <- function(df) {
+  df %>%
+    mutate(
+      sig = case_when(
+        p.value < 0.001 ~ "***",
+        p.value < 0.01  ~ "**",
+        p.value < 0.05  ~ "*",
+        TRUE            ~ "ns"
+      )
+    )
+}
+
+mods_linear    <- add_sig(mods_linear)
+mods_quadratic <- add_sig(mods_quadratic)
+
+round_numeric <- function(df) {
+  df %>%
+    mutate(across(
+      where(is.numeric),
+      ~ round(.x, 2)
+    ))
+}
+
+mods_linear    <- mods_linear %>% add_sig() %>% round_numeric()
+mods_quadratic <- mods_quadratic %>% add_sig() %>% round_numeric()
+
+write.csv(mods_linear,
+          "../outputs/04_linear_models_evaluation_consolidated.csv",
+          row.names = FALSE)
+
+write.csv(mods_quadratic,
+          "../outputs/04_quadratic_models_evaluation_consolidated.csv",
+          row.names = FALSE)
+
+```
+

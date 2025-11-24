@@ -36,7 +36,7 @@ library(lmerTest) #check significance of lmm predictors
 Load data
 ```{r}
 # diversity and environmental data
-load("../inputs/consolidated_dataset.RData")
+load("../inputs/data_metrics.RData")
 ```
 
 # Data Prep
@@ -172,7 +172,7 @@ r.squaredGLMM(mod_3_wc)
 round(r.squaredGLMM(mod_4_wc),2)
 
 round(Weights(AIC(mod_2_wc, mod_3_wc, mod_4_wc)), digits = 2)
-confint(mod_4_wc)
+confint(mod_4_wc, method = "Wald")
 ```
 
 ```{r}
@@ -273,7 +273,7 @@ r.squaredGLMM(mod_4_bact)
 round(r.squaredGLMM(mod_4_bact),2)
 
 round(Weights(AIC(mod_2_bact, mod_3_bact, mod_4_bact)), digits = 2)
-confint(mod_4_bact)
+confint(mod_4_bact, method = "Wald")
 ```
 
 ```{r}
@@ -374,7 +374,7 @@ r.squaredGLMM(mod_4_phyto)
 round(r.squaredGLMM(mod_3_phyto),2)
 
 round(Weights(AIC(mod_2_phyto, mod_3_phyto, mod_4_phyto)), digits = 2)
-confint(mod_3_phyto)
+confint(mod_3_phyto, method = "Wald")
 ```
 
 ```{r}
@@ -475,7 +475,7 @@ r.squaredGLMM(mod_4_zoo)
 round(r.squaredGLMM(mod_4_zoo),2)
 
 round(Weights(AIC(mod_2_zoo, mod_3_zoo, mod_4_zoo)), digits = 2)
-confint(mod_4_zoo)
+confint(mod_4_zoo, method = "Wald")
 ```
 
 ```{r}
@@ -574,7 +574,7 @@ r.squaredGLMM(mod_4_macro)
 round(r.squaredGLMM(mod_4_macro),2)
 
 round(Weights(AIC(mod_2_macro, mod_3_macro, mod_4_macro)), digits = 2)
-confint(mod_4_macro)
+confint(mod_4_macro, method = "Wald")
 ```
 
 ```{r}
@@ -682,7 +682,7 @@ r.squaredGLMM(mod_3_wc)
 round(r.squaredGLMM(mod_4_wc),2)
 
 round(Weights(AIC(mod_2_wc, mod_3_wc, mod_4_wc)), digits = 2)
-confint(mod_4_wc)
+confint(mod_4_wc, method = "Wald")
 ```
 
 ```{r}
@@ -780,7 +780,7 @@ r.squaredGLMM(mod_4_bact)
 round(r.squaredGLMM(mod_4_bact),2)
 
 round(Weights(AIC(mod_2_bact, mod_3_bact, mod_4_bact)), digits = 2)
-confint(mod_4_bact)
+confint(mod_4_bact, method = "Wald")
 ```
 
 ```{r}
@@ -878,7 +878,7 @@ r.squaredGLMM(mod_4_phyto)
 round(r.squaredGLMM(mod_4_phyto),2)
 
 round(Weights(AIC(mod_1_phyto, mod_3_phyto, mod_4_phyto)), digits = 2)
-confint(mod_4_phyto)
+confint(mod_4_phyto, method = "Wald")
 ```
 
 ```{r}
@@ -976,7 +976,7 @@ r.squaredGLMM(mod_4_zoo)
 round(r.squaredGLMM(mod_4_zoo),2)
 
 round(Weights(AIC(mod_2_zoo, mod_3_zoo, mod_4_zoo)), digits = 2)
-confint(mod_4_zoo)
+confint(mod_4_zoo, method = "Wald")
 ```
 
 ```{r}
@@ -1074,7 +1074,7 @@ r.squaredGLMM(mod_4_macro)
 round(r.squaredGLMM(mod_4_macro),2)
 
 round(Weights(AIC(mod_1_macro, mod_3_macro, mod_4_macro)), digits = 2)
-confint(mod_4_macro)
+confint(mod_4_macro, method = "Wald")
 ```
 
 ```{r}
@@ -1087,7 +1087,7 @@ summary(mod_4_macro)
 anova(mod_4_macro)
 ```
 
-## Beta diversity
+## beta2 diversity
 Pond identity nested in the experimental site was included as a random factor in all models to account for the spatio-temporal autocorrelation. All ponds have unique ID to avoid implicit nesting (e.g EV_M01, MR_M01 etc.)
 
 ```{r}
@@ -1102,11 +1102,11 @@ formula2 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + (1|site) + (1|s
 # check fixed effects - using ML estimation
 mod_1_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula1, REML = F)
 mod_2_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 
 anova(mod_1_wc, mod_2_wc) # if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
@@ -1122,7 +1122,7 @@ formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (
 
 mod_3_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = F)
 
 anova(mod_2_wc, mod_3_wc) # mod_1 is better not significantly different
@@ -1136,11 +1136,35 @@ formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:pol
 
 mod_4_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 
 anova(mod_2_wc, mod_4_wc) # mod_1 is better and not significantly different
 # drop year
+
+# Alternative model since this one failed to converge:
+
+# extract data just for this model
+df_wc_beta2 <- div_env_df %>%
+  filter(group == "Whole-community",
+         scale == "beta2",
+         year != "Mean") %>%
+  mutate(
+    est_mean_temp_12M_sc = as.numeric(scale(est_mean_temp_12M)),
+    sd_temp_12M_sc       = as.numeric(scale(sd_temp_12M))
+  )
+
+formula4_scaled <- as.formula(
+  "diversity ~ poly(est_mean_temp_12M_sc, 2) +
+                year +
+                year:poly(est_mean_temp_12M_sc, 2) +
+                (1|site) + (1|sample)"
+)
+
+mod_4_wc_scaled <- lmer(formula4_scaled, data = df_wc_beta2, REML = FALSE)
+summary(mod_4_wc_scaled)
+
+
 ```
 
 ```{r}
@@ -1150,18 +1174,18 @@ AIC(mod_1_wc, mod_2_wc, mod_3_wc, mod_4_wc)
 ```{r}
 mod_3_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = T)
 mod_4_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = T)
 summary(mod_4_wc)
 
 # best model results - using REML estimation
 mod_2_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = T)
 car::Anova(mod_2_wc)
 AIC(mod_2_wc)
@@ -1182,14 +1206,14 @@ r.squaredGLMM(mod_2_wc)
 round(r.squaredGLMM(mod_2_wc),2)
 
 round(Weights(AIC(mod_2_wc, mod_3_wc, mod_4_wc)), digits = 2)
-confint(mod_2_wc)
+confint(mod_2_wc, method = "Wald")
 ```
 
 ```{r}
 # check significance of predictors
 mod_2_wc <- 
   div_env_df %>% 
-  filter(group == "Whole-community", scale == "beta", year != "Mean") %>% 
+  filter(group == "Whole-community", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 summary(mod_2_wc)
 anova(mod_2_wc)
@@ -1200,11 +1224,11 @@ anova(mod_2_wc)
 # check fixed effects - using ML estimation
 mod_1_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula1, REML = F)
 mod_2_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 
 anova(mod_1_bact, mod_2_bact) # if models are not different I selected the polynomial term to test our hypothesis of unimodal diversity-temperature relationship
@@ -1220,7 +1244,7 @@ formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (
 
 mod_3_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = F)
 
 anova(mod_2_bact, mod_3_bact) # mod_1 is better not significantly different
@@ -1234,7 +1258,7 @@ formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:pol
 
 mod_4_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 
 anova(mod_2_bact, mod_4_bact) # mod_1 is better and not significantly different
@@ -1249,18 +1273,18 @@ AIC(mod_1_bact, mod_2_bact, mod_3_bact, mod_4_bact)
 ```{r}
 mod_3_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = T)
 mod_4_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = T)
 summary(mod_4_bact)
 
 # best model results - using REML estimation
 mod_2_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = T)
 car::Anova(mod_2_bact)
 AIC(mod_2_bact)
@@ -1281,14 +1305,14 @@ r.squaredGLMM(mod_2_bact)
 round(r.squaredGLMM(mod_2_bact),2)
 
 round(Weights(AIC(mod_2_bact, mod_3_bact, mod_4_bact)), digits = 2)
-confint(mod_2_bact)
+confint(mod_2_bact, method = "Wald")
 ```
 
 ```{r}
 # check significance of predictors
 mod_2_bact <- 
   div_env_df %>% 
-  filter(group == "Bacteria", scale == "beta", year != "Mean") %>% 
+  filter(group == "Bacteria", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 summary(mod_2_bact)
 anova(mod_2_bact)
@@ -1299,11 +1323,11 @@ anova(mod_2_bact)
 # check fixed effects - using ML estimation
 mod_1_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula1, REML = F)
 mod_2_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 
 anova(mod_1_phyto, mod_2_phyto) # mod_2 is better not significantly different
@@ -1319,7 +1343,7 @@ formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (
 
 mod_3_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = F)
 
 anova(mod_2_phyto, mod_3_phyto) # mod_2 is better not significantly different
@@ -1333,7 +1357,7 @@ formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:pol
 
 mod_4_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 
 anova(mod_2_phyto, mod_4_phyto) # mod_4 is better and significantly different
@@ -1347,17 +1371,17 @@ AIC(mod_1_phyto, mod_2_phyto, mod_3_phyto, mod_4_phyto)
 ```{r}
 mod_2_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = T)
 mod_3_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = T)
 
 # best model results - using REML estimation
 mod_4_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = T)
 summary(mod_4_phyto)
 car::Anova(mod_4_phyto)
@@ -1379,14 +1403,14 @@ r.squaredGLMM(mod_4_phyto)
 round(r.squaredGLMM(mod_4_phyto),2)
 
 round(Weights(AIC(mod_2_phyto, mod_3_phyto, mod_4_phyto)), digits = 2)
-confint(mod_4_phyto)
+confint(mod_4_phyto, method = "Wald")
 ```
 
 ```{r}
 # check significance of predictors
 mod_4_phyto <- 
   div_env_df %>% 
-  filter(group == "Phytoplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Phytoplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 summary(mod_4_phyto)
 anova(mod_4_phyto)
@@ -1397,11 +1421,11 @@ anova(mod_4_phyto)
 # check fixed effects - using ML estimation
 mod_1_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula1, REML = F)
 mod_2_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 
 anova(mod_1_zoo, mod_2_zoo) # mod_1 is better not significantly different
@@ -1419,7 +1443,7 @@ formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (
 
 mod_3_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = F)
 
 anova(mod_2_zoo, mod_3_zoo) # mod_1 is better not significantly different
@@ -1433,7 +1457,7 @@ formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:pol
 
 mod_4_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 
 anova(mod_2_zoo, mod_4_zoo) # mod_4 is better and significantly different
@@ -1447,17 +1471,17 @@ AIC(mod_1_zoo, mod_2_zoo, mod_3_zoo, mod_4_zoo)
 ```{r}
 mod_3_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = T)
 mod_4_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = T)
 
 # best model results - using REML estimation
 mod_2_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = T)
 summary(mod_2_zoo)
 car::Anova(mod_2_zoo)
@@ -1479,14 +1503,14 @@ r.squaredGLMM(mod_4_zoo)
 round(r.squaredGLMM(mod_2_zoo),2)
 
 round(Weights(AIC(mod_2_zoo, mod_3_zoo, mod_4_zoo)), digits = 2)
-confint(mod_2_zoo)
+confint(mod_2_zoo, method = "Wald")
 ```
 
 ```{r}
 # check significance of predictors
 mod_2_zoo <- 
   div_env_df %>% 
-  filter(group == "Zooplankton", scale == "beta", year != "Mean") %>% 
+  filter(group == "Zooplankton", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 summary(mod_2_zoo)
 anova(mod_2_zoo)
@@ -1497,11 +1521,11 @@ anova(mod_2_zoo)
 # check fixed effects - using ML estimation
 mod_1_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula1, REML = F)
 mod_2_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = F)
 
 anova(mod_1_macro, mod_2_macro) # mod_1 is better not significantly different
@@ -1520,7 +1544,7 @@ formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (
 
 mod_3_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = F)
 
 anova(mod_2_macro, mod_3_macro) # mod_2 is better not significantly different
@@ -1534,7 +1558,7 @@ formula4 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + year + year:pol
 
 mod_4_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 
 anova(mod_2_macro, mod_4_macro) # mod_4 is better significantly different
@@ -1548,17 +1572,17 @@ AIC(mod_1_macro, mod_2_macro, mod_3_macro, mod_4_macro)
 ```{r}
 mod_2_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula2, REML = T)
 mod_3_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula3, REML = T)
 
 # best model results - using REML estimation
 mod_4_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = T)
 summary(mod_4_macro)
 car::Anova(mod_4_macro)
@@ -1580,15 +1604,94 @@ r.squaredGLMM(mod_2_macro)
 round(r.squaredGLMM(mod_4_macro),2)
 
 round(Weights(AIC(mod_2_macro, mod_3_macro, mod_4_macro)), digits = 2)
-confint(mod_4_macro)
+confint(mod_4_macro, method = "Wald")
 ```
 
 ```{r}
 # check significance of predictors
 mod_4_macro <- 
   div_env_df %>% 
-  filter(group == "Macroinvertebrates", scale == "beta", year != "Mean") %>% 
+  filter(group == "Macroinvertebrates", scale == "beta2", year != "Mean") %>% 
   lmer(formula = formula4, REML = F)
 summary(mod_4_macro)
 anova(mod_4_macro)
 ```
+
+Gather all results
+```{r}
+library(broom.mixed)
+library(MuMIn)
+library(stringr)
+
+# Significance stars
+sig_stars <- function(p) {
+  case_when(
+    p < 0.001 ~ "***",
+    p < 0.01  ~ "**",
+    p < 0.05  ~ "*",
+    TRUE      ~ "ns"
+  )
+}
+
+# Round all numeric columns (except p.value and sig)
+round_numeric_cols <- function(df) {
+  df %>%
+    mutate(across(where(is.numeric), ~ round(.x, 2)))
+}
+
+parse_model_name <- function(name) {
+  
+  tibble(
+    model_name = name,
+    group      = case_when(
+      str_detect(name, "_wc")    ~ "Whole-community",
+      str_detect(name, "_bact")  ~ "Bacteria",
+      str_detect(name, "_phyto") ~ "Phytoplankton",
+      str_detect(name, "_zoo")   ~ "Zooplankton",
+      str_detect(name, "_macro") ~ "Macroinvertebrates",
+      TRUE ~ "Unknown"
+    ),
+    scale      = case_when(
+      str_detect(name, "alpha") ~ "alpha",
+      str_detect(name, "beta2")  ~ "beta2",
+      str_detect(name, "gamma") ~ "gamma",
+      TRUE ~ "unknown"
+    )
+  )
+}
+
+model_names <- ls(pattern = "^mod_")
+
+results <- purrr::map_dfr(model_names, function(mod_name) {
+
+  mod <- get(mod_name)
+
+  meta <- parse_model_name(mod_name)
+
+  tidy_mod <- broom.mixed::tidy(mod, effects = "fixed") %>%
+    mutate(sig = sig_stars(p.value))
+
+  r2_vals <- r.squaredGLMM(mod) %>% as.data.frame()
+  
+  tibble(
+    model_name = mod_name,
+    group = meta$group,
+    scale = meta$scale,
+    term  = tidy_mod$term,
+    estimate = tidy_mod$estimate,
+    std_error = tidy_mod$std.error,
+    df    = tidy_mod$df,
+    statistic = tidy_mod$statistic,
+    p.value = tidy_mod$p.value,
+    sig = tidy_mod$sig,
+    R2_marginal = r2_vals$R2m,
+    R2_conditional = r2_vals$R2c,
+    AIC = AIC(mod)
+  )
+})
+
+results_clean <- results %>%
+  round_numeric_cols() %>%
+  arrange(group, scale, model_name, term)
+```
+

@@ -220,7 +220,6 @@ merged_matrix <- merged_matrix %>% select_if(function(x) !(all(is.na(x)) | all(x
 
 # get unique sample codes
 bact_codes <- rownames(bact)
-#fungi_codes <- rownames(fungi)
 merged_codes <- merged_matrix$sample_code
 i_b_merg <- intersect(bact_codes, merged_codes)
 
@@ -260,15 +259,15 @@ JC2018 <- c("JC_18_01", "JC_18_03", "JC_18_05", "JC_18_07", "JC_18_09", "JC_18_1
 JC18 <- merged_matrix2[which(merged_matrix2$sample_code %in% JC2018), ] %>%
   arrange(sample_code)
 
-MD2016 <- c("PN_16_01", "PN_16_03", "PN_16_05", "PN_16_07", "PN_16_09", "PN_16_11", "PN_16_13", "PN_16_15", "PN_16_16", "PN_16_19", "PN_16_20", "PN_16_23", "PN_16_24", "PN_16_25", "PN_16_27", "PN_16_28", "PN_16_30")
+MD2016 <- c("PN_16_01", "PN_16_03", "PN_16_05", "PN_16_07", "PN_16_09", "PN_16_11", "PN_16_13", "PN_16_17", "PN_16_16", "PN_16_19", "PN_16_20", "PN_16_23", "PN_16_24", "PN_16_25", "PN_16_27", "PN_16_28", "PN_16_30")
 MD16 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2016), ] %>%
   arrange(sample_code)
 
-MD2017 <- c("PN_17_01", "PN_17_03", "PN_17_05", "PN_17_07", "PN_17_09", "PN_17_11", "PN_17_13", "PN_18_15", "PN_17_16", "PN_17_19", "PN_17_20", "PN_17_23", "PN_17_24", "PN_17_25", "PN_17_27", "PN_17_28", "PN_17_30")
+MD2017 <- c("PN_17_01", "PN_17_03", "PN_17_05", "PN_17_07", "PN_17_09", "PN_17_11", "PN_17_13", "PN_17_17", "PN_17_16", "PN_17_19", "PN_17_20", "PN_17_23", "PN_17_24", "PN_17_25", "PN_17_27", "PN_17_28", "PN_17_30")
 MD17 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2017), ] %>%
   arrange(sample_code)
 
-MD2018 <- c("PN_18_01", "PN_18_03", "PN_18_05", "PN_18_07", "PN_18_09", "PN_18_11", "PN_18_13", "PN_18_15", "PN_18_16", "PN_18_19", "PN_18_20", "PN_18_23", "PN_18_24", "PN_18_25", "PN_18_27", "PN_18_28", "PN_18_30")
+MD2018 <- c("PN_18_01", "PN_18_03", "PN_18_05", "PN_18_07", "PN_18_09", "PN_18_11", "PN_18_13", "PN_18_17", "PN_18_16", "PN_18_19", "PN_18_20", "PN_18_23", "PN_18_24", "PN_18_25", "PN_18_27", "PN_18_28", "PN_18_30")
 MD18 <- merged_matrix2[which(merged_matrix2$sample_code %in% MD2018), ] %>%
   arrange(sample_code)
 
@@ -280,7 +279,6 @@ MR2017 <- c("MR_17_01", "MR_17_03", "MR_17_05", "MR_17_06", "MR_17_07", "MR_17_1
 MR17 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2017), ] %>%
   arrange(sample_code)
 
-#MR2018 <- c("MR_18_01", "MR_18_05", "MR_18_06", "MR_18_07", "MR_18_09", "MR_18_11", "MR_18_13", "MR_18_14", "MR_18_15", "MR_18_17", #"MR_18_19", "MR_18_21", "MR_18_23", "MR_18_25", "MR_18_27", "MR_18_29", "MR_18_31")
 MR2018 <- c("MR_18_01", "MR_18_03", "MR_18_05", "MR_18_06", "MR_18_07", "MR_18_11", "MR_18_13", "MR_18_14", "MR_18_15", "MR_18_17", "MR_18_19", "MR_18_21", "MR_18_23", "MR_18_25", "MR_18_27", "MR_18_29", "MR_18_31")
 MR18 <- merged_matrix2[which(merged_matrix2$sample_code %in% MR2018), ] %>%
   arrange(sample_code)
@@ -331,7 +329,6 @@ phyto <- phyto %>% filter(merged_matrix$sample_code %in% samp_merg) %>% dplyr::s
 zoo <- zoo %>% filter(merged_matrix$sample_code %in% samp_merg) %>% dplyr::select(-sample_code)
 macro <- macro %>% filter(merged_matrix$sample_code %in% samp_merg) %>% dplyr::select(-sample_code)
 
-
 # get abundances
 abund_bact <- bact
 abund_phyto <- phyto
@@ -367,7 +364,6 @@ global_pa_community_matrix <- decostand(global_community_matrix, method = "pa")
 pa_community_matrix <- decostand(community_matrix, method = "pa")
 log_community_matrix <- decostand(community_matrix, method = "pa")
 bact <- decostand(bact, method = "pa")
-#fungi <- decostand(fungi, method = "pa")
 phyto <- decostand(phyto, method = "pa")
 zoo <- decostand(zoo, method = "pa")
 macro <- decostand(macro, method = "pa")
@@ -513,6 +509,8 @@ df_local <- cbind(df_local, df_local_bact,
 
 ```
 
+
+# METRICS
 ```{r Regional richness - Gamma-diversity, message=FALSE, warning=FALSE, include=FALSE}
 
 # calculate regional richness (gamma)
@@ -1528,6 +1526,50 @@ div_env_df <- div_df_2 %>%
             by = c("sample_code", "site", "year"))
 
 ```
+
+# Final prep for subsquent scripts
+```{r}
+
+# set and order factor levels
+div_env_df$site <- factor(div_env_df$site, levels = c("MD", "JC", "PT", "EV", "TL", "MR"))
+div_env_df$year <- factor(div_env_df$year, levels = c("Mean", "2016", "2017", "2018"))
+div_env_df$group <- factor(div_env_df$group, levels = group_levels)
+
+# reorder data frames
+div_env_df <- div_env_df %>% 
+  select(site, year, sample_code, group, scale, everything())
+
+```
+
+### Estimate b-diversity
+Estimate b-diversity = gamma/alpha
+```{r}
+# isolate each MOBR scale so rows align before computing ratios
+alpha_div <- div_env_df %>% 
+  filter(scale == "alpha") %>% # local richness per sample
+  arrange(site, year, sample_code, group) # ensure deterministic ordering
+gamma_div <- div_env_df %>% 
+  filter(scale == "gamma") %>% # regional richness per site
+  arrange(site, year, sample_code, group)
+beta_sn_div <- div_env_df %>% 
+  filter(scale == "beta2") %>% # sample-based rarefaction beta
+  arrange(site, year, sample_code, group)
+
+# classical beta (γ/α) for rows sharing the same metadata as alpha_div
+beta_div <- data_frame(site = alpha_div$site,
+                       year = alpha_div$year,
+                       sample_code = alpha_div$sample_code,
+                       group = alpha_div$group,
+                       scale = "beta2",
+                       diversity = gamma_div$diversity/alpha_div$diversity)
+
+# bring along environmental covariates and traits from alpha_div
+beta_div[ , 7:ncol(alpha_div)] <- alpha_div[ , 7:ncol(alpha_div)]
+
+# bind all scales so downstream plots can facet on `scale`
+div_env_df <- rbind(alpha_div, gamma_div, beta_sn_div, beta_div)
+```
+
 
 ```{r Save objects}
 save(rarefaction_df, div_env_df, file = "../inputs/data_metrics.RData")
