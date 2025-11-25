@@ -1635,8 +1635,21 @@ write.csv(x = mods_quadratic, file = paste("../outputs/04_quadratic_models_evalu
 ```
 
 ```{r}
-# Get all lm_* and qd_* objects from workspace
+###############################################
+### 1. EXTRACT ALL LINEAR & QUADRATIC MODELS
+###############################################
+
+library(broom)
+library(purrr)
+library(dplyr)
+library(tidyr)
+
+# Get all model objects beginning with lm_ or qd_
 model_list <- mget(ls(pattern = "^(lm|qd)_"))
+
+###############################################
+### 2. FUNCTION TO PARSE MODEL NAME
+###############################################
 
 extract_info <- function(name) {
   parts <- unlist(strsplit(name, "_"))
@@ -1644,16 +1657,16 @@ extract_info <- function(name) {
   tibble(
     model_name = name,
     model_type = parts[1],   # lm or qd
-    scale      = parts[2],   # gamma / alpha / beta
-    group      = parts[3],   # wc / bact / phyto / zoo / macro
+    scale      = parts[2],   # alpha/gamma/beta
+    group      = parts[3],   # wc/bact/phyto/zoo/macro
     year       = parts[4],   # mean / 2016 / 2017 / 2018
     predictor  = parts[5]    # tmean / tsd
   )
 }
 
-library(broom)
-library(purrr)
-library(dplyr)
+###############################################
+### 3. BUILD TABLE WITH ALL MODELS
+###############################################
 
 model_results <- map_df(
   names(model_list),
@@ -1663,8 +1676,17 @@ model_results <- map_df(
     )
 )
 
+###############################################
+### 4. CREATE SEPARATE LINEAR & QUADRATIC TABLES
+###############################################
+
 mods_linear    <- model_results %>% filter(model_type == "lm")
 mods_quadratic <- model_results %>% filter(model_type == "qd")
+
+
+###############################################
+### 5. ADD SIGNIFICANCE CODE (*, **, ***, ns)
+###############################################
 
 add_sig <- function(df) {
   df %>%
@@ -1681,6 +1703,10 @@ add_sig <- function(df) {
 mods_linear    <- add_sig(mods_linear)
 mods_quadratic <- add_sig(mods_quadratic)
 
+###############################################
+### 6. ROUND NUMERIC COLUMNS
+###############################################
+
 round_numeric <- function(df) {
   df %>%
     mutate(across(
@@ -1689,16 +1715,112 @@ round_numeric <- function(df) {
     ))
 }
 
-mods_linear    <- mods_linear %>% add_sig() %>% round_numeric()
-mods_quadratic <- mods_quadratic %>% add_sig() %>% round_numeric()
+mods_linear    <- round_numeric(mods_linear)
+mods_quadratic <- round_numeric(mods_quadratic)
 
-write.csv(mods_linear,
-          "../outputs/04_linear_models_evaluation_consolidated.csv",
-          row.names = FALSE)
+###############################################
+### 7. RENAME COLUMNS FOR SAFE JOINING
+###############################################
 
-write.csv(mods_quadratic,
-          "../outputs/04_quadratic_models_evaluation_consolidated.csv",
-          row.names = FALSE)
+mods_linear_s <- mods_linear %>%
+  select(model_type, scale, group, year, predictor,
+         AIC, p.value, sig, everything()) %>%
+  rename(
+    AIC_linear = AIC,
+    sig_linear = sig
+  )
 
+mods_quadratic_s <- mods_quadratic %>%
+  select(model_type, scale, group, year, predictor,
+         AIC, p.value, sig, everything()) %>%
+  rename(
+    AIC_quad = AIC,
+    sig_quad = sig
+  )
+
+###############################################
+### 8. REMOVE DUPLICATES (4× repeats)
+###############################################
+
+mods_linear_s_unique <- mods_linear_s %>%
+  arrange(group, scale, predictor, year)
+
+mods_quadratic_s_unique <- mods_quadratic_s %>%
+  arrange(group, scale, predictor, year)
+
+############################################################
+###  ADD BIC, ΔAIC, ΔBIC, AND MODEL DECISIONS  (FIXED)
+############################################################
+
+# 1. Add BIC to the unique tables
+mods_linear_s_unique <- mods_linear_s_unique %>%
+  rowwise() %>%
+  mutate(BIC_linear = BIC(model_list[[model_name]])) %>%
+  ungroup()
+
+mods_quadratic_s_unique <- mods_quadratic_s_unique %>%
+  rowwise() %>%
+  mutate(BIC_quad = BIC(model_list[[model_name]])) %>%
+  ungroup()
+
+# 2. Join linear + quadratic info
+comparison_table <- mods_linear_s_unique %>%
+  full_join(
+    mods_quadratic_s_unique,
+    by = c("group","scale","predictor","year")
+  )
+
+############################################################
+### NEW MODEL DECISION RULE (SIGNIFICANCE FIRST)
+############################################################
+
+comparison_table <- comparison_table %>%
+  mutate(
+    lin_sig  = sig_linear != "ns",
+    quad_sig = sig_quad  != "ns",
+
+    model_decision = case_when(
+      # neither significant
+      !lin_sig & !quad_sig ~ "none",
+
+      # only one significant
+      lin_sig  & !quad_sig ~ "linear",
+      !lin_sig & quad_sig  ~ "quadratic",
+
+      # both significant → use AIC/BIC hierarchy
+      AIC_quad + 2 < AIC_linear ~ "quadratic",
+      AIC_linear + 2 < AIC_quad ~ "linear",
+      BIC_quad + 2 < BIC_linear ~ "quadratic",
+      BIC_linear + 2 < BIC_quad ~ "linear",
+      TRUE ~ "tie"
+    ),
+
+    delta_AIC = AIC_linear - AIC_quad,
+    delta_BIC = BIC_linear - BIC_quad
+  )
+
+comparison_table <- comparison_table %>%
+  mutate(
+    delta_AIC = AIC_linear - AIC_quad,
+    delta_BIC = BIC_linear - BIC_quad
+  )
+
+# 4. Select simplified table (FIXED)
+comparison_simplified <- comparison_table %>%
+  select(
+    group, scale, predictor, year,
+    AIC_linear, BIC_linear, sig_linear,
+    AIC_quad,  BIC_quad,  sig_quad,
+    delta_AIC, delta_BIC,
+    model_decision
+  ) %>%
+  mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+# 5. Write file
+write.csv(
+  comparison_simplified,
+  "../outputs/06_model_comparison_AIC_BIC.csv",
+  row.names = FALSE
+)
 ```
 
