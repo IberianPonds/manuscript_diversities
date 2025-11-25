@@ -1065,102 +1065,119 @@ rarefaction_df$group <- factor(rarefaction_df$group, levels = group_labels)
 
 ```{r}
 
+# ==============================================================================
 # Function: compute_mobr_div()
-# Purpose:  Compute alpha-, beta-, and gamma-diversity using the MOBR framework
-#           for a given community matrix (bacteria, phytoplankton, zooplankton,
-#           macroinvertebrates, or whole-community).
+# Purpose:
+#   Compute alpha-, beta-, and gamma-diversity using the MOBR framework
+#   for a given community matrix (bacteria, phytoplankton, zooplankton,
+#   macroinvertebrates, or whole-community).
+#
+# Assumptions:
+#   - comm_matrix has columns: sample_code, sample_code_short (optional),
+#     site, year, and then species columns (numeric).
+#   - factors has at least: sample_code, site, year (and optionally sample_code_short).
+# ==============================================================================
 
 compute_mobr_div <- function(comm_matrix, factors, environmental_data,
                              indices = c("N", "S", "S_n", "S_PIE"),
                              effort = 20) {
   
   #### 1. Prepare data --------------------------------------------------------
-  # Ceiling the abundance matrix ensures integer counts for MOBR
-  comm_df_round <- comm_matrix[, -c(1:3)] %>% ceiling()
-  # Add sample metadata (sample_code, site, year)
-  comm_df_round <- cbind(factors, comm_df_round)
+  # Remove metadata columns from the community matrix by name (robust)
+  species_mat <- comm_matrix %>%
+    dplyr::select(-dplyr::any_of(c("sample_code",
+                                   "sample_code_short",
+                                   "site",
+                                   "year")))
   
-  # Ensure sample order matches environmental_data
+  # Ensure integer counts for MOBR
+  comm_df_round <- species_mat %>%
+    ceiling() %>%
+    as.data.frame()
+  
+  # Add sample metadata (sample_code, site, year, ...)
+  comm_df_round <- dplyr::bind_cols(factors, comm_df_round)
+  
+  # Ensure sample order matches environmental_data (where possible)
   comm_df_round <- comm_df_round[
     match(environmental_data$sample_code, comm_df_round$sample_code),
   ]
+  # Drop rows that didn't match (if any)
+  comm_df_round <- comm_df_round %>%
+    dplyr::filter(!is.na(sample_code))
   
   # Convert to factors for grouping
   comm_df_round$site <- factor(comm_df_round$site)
   comm_df_round$year <- factor(comm_df_round$year)
   
-  # Columns excluded from MOBR computation
-  cols_to_drop <- c("sample_code", "sample_code_short", "year")
-  
-  #### 2. Run MOBR ------------------------------------------------------------
-  # MOBR computes alpha, beta, gamma, and rarefaction-based metrics
+  #### 2. Run MOBR (site × year) ----------------------------------------------
+  # We compute diversity per site × year (Option A)
   SBR <- comm_df_round %>%
-    group_by(site) %>%
-    group_modify(~ mobr::calc_comm_div(
-      .x %>% select(-all_of(cols_to_drop)),
+    dplyr::group_by(site, year) %>%
+    dplyr::group_modify(~ mobr::calc_comm_div(
+      .x %>% dplyr::select(where(is.numeric)),  # only species columns
       index  = indices,
       effort = effort
-    ))
+    )) %>%
+    dplyr::ungroup()
   
-  #### 3. Alpha ---------------------------------------------------------------
-  # MOBR outputs alpha rows in the order of samples within each site.
+  #### 3. Alpha (sample-level) ------------------------------------------------
+  # MOBR outputs alpha rows in the order of samples within each site-year.
   alpha_df <- SBR %>%
-    filter(index == "S", scale == "alpha") %>%
-    group_by(site) %>%
-    mutate(row_id = row_number()) %>%   # match sample rows
-    ungroup()
+    dplyr::filter(index == "S", scale == "alpha") %>%
+    dplyr::group_by(site, year) %>%
+    dplyr::mutate(row_id = dplyr::row_number()) %>%
+    dplyr::ungroup()
   
-  # Attach row indices inside each site for matching
+  # Attach row indices inside each site-year for matching
   comm_df_round2 <- comm_df_round %>%
-    group_by(site) %>%
-    mutate(row_id = row_number()) %>%
-    ungroup()
+    dplyr::group_by(site, year) %>%
+    dplyr::mutate(row_id = dplyr::row_number()) %>%
+    dplyr::ungroup()
   
   # Match alpha diversity back to each sample
   all_alpha <- comm_df_round2 %>%
-    select(sample_code, site, year, row_id) %>%
-    left_join(alpha_df %>% select(site, row_id, all_alpha = value),
-              by = c("site", "row_id")) %>%
-    select(-row_id)
+    dplyr::select(sample_code, site, year, row_id) %>%
+    dplyr::left_join(
+      alpha_df %>%
+        dplyr::select(site, year, row_id, all_alpha = value),
+      by = c("site", "year", "row_id")
+    ) %>%
+    dplyr::select(-row_id)
   
-  #### 4. Beta ----------------------------------------------------------------
-  # Extract site-level beta diversity
+  #### 4. Beta_S_n (site-year level, repeated to samples) ---------------------
   all_beta <- SBR %>%
-    filter(index == "beta_S_n", scale == "beta") %>%
-    select(site, all_beta = value)
+    dplyr::filter(index == "beta_S_n", scale == "beta") %>%
+    dplyr::select(site, year, all_beta = value)
   
-  # Replicate beta to samples
   all_beta_samples <- comm_df_round %>%
-    select(sample_code, site, year) %>%
-    left_join(all_beta, by = "site")
+    dplyr::select(sample_code, site, year) %>%
+    dplyr::left_join(all_beta, by = c("site", "year"))
   
-  #### 5. Gamma ---------------------------------------------------------------
-  # Extract numeric gamma values per site
+  #### 5. Gamma (site-year level, repeated to samples) ------------------------
   all_gamma <- SBR %>%
-    filter(index == "S", scale == "gamma") %>%
-    select(site, all_gamma = value)
+    dplyr::filter(index == "S", scale == "gamma") %>%
+    dplyr::select(site, year, all_gamma = value)
   
-  # Replicate gamma to samples
   all_gamma_samples <- comm_df_round %>%
-    select(sample_code, site, year) %>%
-    left_join(all_gamma, by = "site")
+    dplyr::select(sample_code, site, year) %>%
+    dplyr::left_join(all_gamma, by = c("site", "year"))
   
-  #### 6. Final table ---------------------------------------------------------
-  # Contains numeric alpha, beta, gamma for each sample
+  #### 6. Full table (site-year level) ----------------------------------------
   full_table <- all_alpha %>%
-    left_join(all_beta,  by = "site") %>%
-    left_join(all_gamma, by = "site")
+    dplyr::left_join(all_beta,  by = c("site", "year")) %>%
+    dplyr::left_join(all_gamma, by = c("site", "year"))
   
   #### 7. Outputs -------------------------------------------------------------
   list(
-    alpha_samples = all_alpha,
-    beta_samples  = all_beta_samples,
-    gamma_samples = all_gamma_samples,
-    alpha_site    = all_alpha,
-    beta_site     = all_beta,
-    gamma_site    = all_gamma,
-    full_table    = full_table,
-    SBR           = SBR
+    alpha_samples = all_alpha,        # sample-level alpha
+    beta_samples  = all_beta_samples, # sample-level beta_S_n
+    gamma_samples = all_gamma_samples,# sample-level gamma
+    alpha_site    = all_alpha,        # site-year alpha (same as sample-level but can be summarised)
+    beta_site     = all_beta,         # site-year beta_S_n
+    gamma_site    = all_gamma,        # site-year gamma S
+    full_table    = full_table,       # site-year table (alpha, beta, gamma)
+    SBR           = SBR               # raw mobr output
   )
 }
 
@@ -1182,23 +1199,25 @@ rename_div <- function(div_obj, prefix) {
     )
 }
 
+# Run for each group -----------------------------------------------------------
+
 bact_div  <- compute_mobr_div(bact_df,  factors, environmental_data)
 phyto_div <- compute_mobr_div(phyto_df, factors, environmental_data)
 zoo_div   <- compute_mobr_div(zoo_df,   factors, environmental_data)
 macro_div <- compute_mobr_div(macro_df, factors, environmental_data)
 whole_div <- compute_mobr_div(comm_df,  factors, environmental_data)
 
-all_div   <- rename_div(whole_div, "all")
-bact_div2 <- rename_div(bact_div,  "bact")
-phyto_div2<- rename_div(phyto_div, "phyto")
-zoo_div2  <- rename_div(zoo_div,   "zoo")
-macro_div2<- rename_div(macro_div, "macro")
+all_div    <- rename_div(whole_div, "all")
+bact_div2  <- rename_div(bact_div,  "bact")
+phyto_div2 <- rename_div(phyto_div, "phyto")
+zoo_div2   <- rename_div(zoo_div,   "zoo")
+macro_div2 <- rename_div(macro_div, "macro")
 
 div_df <- all_div %>%
-  left_join(bact_div2,  by = c("sample_code", "site", "year")) %>%
-  left_join(phyto_div2, by = c("sample_code", "site", "year")) %>%
-  left_join(zoo_div2,   by = c("sample_code", "site", "year")) %>%
-  left_join(macro_div2, by = c("sample_code", "site", "year"))
+  dplyr::left_join(bact_div2,  by = c("sample_code", "site", "year")) %>%
+  dplyr::left_join(phyto_div2, by = c("sample_code", "site", "year")) %>%
+  dplyr::left_join(zoo_div2,   by = c("sample_code", "site", "year")) %>%
+  dplyr::left_join(macro_div2, by = c("sample_code", "site", "year"))
 
 div_env_df <- div_df %>%
   left_join(environmental_data, 
@@ -1261,10 +1280,6 @@ make_long <- function(div_obj, group_name) {
 
 ## Estimate years' average - ## Diversities
 ```{r}
-
-# Estimate years' average
-## Diversities
-
 div_2016 <- div_df %>% # data frame for 2016
   filter(year == "2016")
 div_2017 <- div_df %>% # data frame for 2017
@@ -1284,7 +1299,6 @@ div_mean_df <- data_frame(site = div_2016$site, # new data frame
 div_mean_df <- cbind(div_mean_df, div_mean_temporary) # combine factors with diversities average
 
 div_df <- rbind(div_df, div_mean_df) # add Mean to original diversities' data frame
-
 ```
 
 ```{r}
@@ -1351,34 +1365,8 @@ div_env_df <- div_env_df_2
 
 ```
 
-```{r Ratios}
-
-# Ratios
-
-div_mean <-
-  div_df_2 %>% 
-  group_by(site, scale, group) %>% 
-  summarise(mean_all = mean(diversity, na.rm = T), 
-            sd_all = sd(diversity, na.rm = T)) %>% 
-  filter(scale == "alpha")
-
-log_div <-
-  merge(div_df_2, div_mean) %>% 
-  mutate(log_ratio_all = log(diversity/mean_all))
-
-log_div <-
-  merge(div_df_2, div_mean) %>% 
-  mutate(log_ratio_all = (diversity - mean_all)/sd_all)
-
-log_ratio_df <- merge(log_div, environmental_data, by = c("sample_code", "site", "year"), suffixes = "")
-log_ratio_df$group <- factor(log_ratio_df$group, levels = group_labels)
-
-```
-
 ## Estimate years' average - ## Environmental data
 ```{r}
-# Estimate years' average
-## Environmental data
 
 env_2016 <- environmental_data %>% # data frame for 2016
   filter(year == "2016")
@@ -1450,7 +1438,7 @@ MR_2017 <- env_2017 %>%
   mutate(Tmean_est_mean = mean(est_mean_temp_12M),
          TP_mean = mean(phosphorus),
          TN_mean = mean(nitrogen))
-env_2017 <- rbind(MD_2017, JC_2017, PT_2017, EV_2017, TL_2016, MR_2017)
+env_2017 <- rbind(MD_2017, JC_2017, PT_2017, EV_2017, TL_2017, MR_2017)
 
 MD_2018 <- env_2018 %>% 
   filter(site == "MD") %>% 
@@ -1552,7 +1540,7 @@ gamma_div <- div_env_df %>%
   filter(scale == "gamma") %>% # regional richness per site
   arrange(site, year, sample_code, group)
 beta_sn_div <- div_env_df %>% 
-  filter(scale == "beta2") %>% # sample-based rarefaction beta
+  filter(scale == "beta") %>% # sample-based rarefaction beta
   arrange(site, year, sample_code, group)
 
 # classical beta (γ/α) for rows sharing the same metadata as alpha_div

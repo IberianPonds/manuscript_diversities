@@ -223,7 +223,7 @@ gamma_mean_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -271,7 +271,7 @@ gamma_mean_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -318,7 +318,7 @@ gamma_mean_temp_2017 <-
   geom_point(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2017" & group=="Macroinvertebrates"), 
               color = color_group[5], method = "lm", size = 1.25, formula = formula) +
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -352,20 +352,20 @@ gamma_mean_temp_2018 <-
 
   geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Bacteria"), 
-              color = color_group[2], method = "lm", size = 1.25, formula = formula) +
+              color = color_group[2], method = "lm", size = 1.25, formula = y~x) +
 
-  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Phytoplankton"), color = color_group[3]) +
-  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Phytoplankton"), 
-              color = color_group[3], method = "lm", size = 1.25, formula = formula) +
+  #geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Phytoplankton"), color = co#lor_group[3]) +
+  #geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Phytoplankton"), 
+  #            color = color_group[3], method = "lm", size = 1.25, formula = formula) +
 
   geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Zooplankton"), 
               color = color_group[4], method = "lm", size = 1.25, formula = formula) +
 
-  geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Macroinvertebrates"), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Macroinvertebrates"), 
-              color = color_group[5], method = "lm", size = 1.25, formula = formula) +
-  ylim(0, 800) +
+  #geom_point(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Macroinvertebrates"), color = co#lor_group[5]) +
+  #geom_smooth(data = subset(div_env_df, scale=="gamma" & year=="2018" & group=="Macroinvertebrates"), 
+  #            color = color_group[5], method = "lm", size = 1.25, formula = formula) +
+  ylim(0, 600) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -398,7 +398,7 @@ gamma_sd_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Bacteria"), 
@@ -413,14 +413,14 @@ gamma_sd_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = formula) +
   
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(1, 3) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -450,17 +450,17 @@ gamma_sd_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
-              method = "lm", size = 1.25, formula = y~x) +
+              method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Zooplankton"), 
@@ -470,9 +470,9 @@ gamma_sd_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2016" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(1, 3) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -522,9 +522,9 @@ gamma_sd_temp_2017 <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2017" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(1, 3) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -554,7 +554,7 @@ gamma_sd_temp_2018 <-
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Bacteria"), 
@@ -562,21 +562,21 @@ gamma_sd_temp_2018 <-
               method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
-  # geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), 
-  #             aes(group = group == "Phytoplankton"), color = color_group[3],
-  #             method = "lm", size = 1.25, formula = formula) +
+   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Phytoplankton"), 
+               aes(group = group == "Phytoplankton"), color = color_group[3],
+               method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "2018" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = y~x) +
+              method = "lm", size = 1.25, formula = formula) +
   
-  ylim(0, 800) +
+  ylim(0, 600) +
   xlim(1, 3) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -620,7 +620,7 @@ alpha_mean_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), 
   #            aes(group = group == "Phytoplankton"), color = color_group[3],
-  #            method = "lm", size = 1.25, formula = formula) +
+  #            method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), 
@@ -628,10 +628,9 @@ alpha_mean_temp_mean <-
               method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
-  #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"), 
-  #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
+  #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Macroinvertebrates"),   #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #            method = "lm", size = 1.25, formula = y~x) +
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -664,7 +663,7 @@ alpha_mean_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
    geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), 
                aes(group = group == "Whole-community"), color = color_group[1],
-               method = "lm", size = 1.25, formula = formula) + # not significant
+               method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   # geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), 
@@ -674,7 +673,7 @@ alpha_mean_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), 
   #            aes(group = group == "Phytoplankton"), color = color_group[3],
-  #            method = "lm", size = 1.25, formula = formula) +
+  #            method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), 
@@ -686,7 +685,7 @@ alpha_mean_temp_2016 <-
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
 
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -738,7 +737,7 @@ alpha_mean_temp_2017 <-
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -790,7 +789,7 @@ alpha_mean_temp_2018 <-
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) +
   
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(2.33, 3.02) +
   scale_x_continuous(breaks = c(2.4, 2.6, 2.8, 3.0)) +
   xlab("") +
@@ -823,17 +822,17 @@ alpha_sd_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Bacteria"), 
               aes(group = group == "Bacteria"), color = color_group[2],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Phytoplankton"), 
              aes(group = group == "Phytoplankton"), color = color_group[3],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula =  y~x) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Zooplankton"), 
@@ -845,7 +844,7 @@ alpha_sd_temp_mean <-
              aes(group = group == "Macroinvertebrates"), color = color_group[5],
              method = "lm", size = 1.25, formula = y~x) + 
   
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -875,7 +874,7 @@ alpha_sd_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = y~x) +
+              method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Bacteria"), 
@@ -885,7 +884,7 @@ alpha_sd_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Phytoplankton"), 
              aes(group = group == "Phytoplankton"), color = color_group[3],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2016" & group == "Zooplankton"), 
@@ -897,7 +896,7 @@ alpha_sd_temp_2016 <-
   #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -927,7 +926,7 @@ alpha_sd_temp_2017 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Bacteria"),
@@ -942,14 +941,14 @@ alpha_sd_temp_2017 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) +
+              method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2017" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = y~x) +
+              method = "lm", size = 1.25, formula = formula) +
   
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -989,7 +988,7 @@ alpha_sd_temp_2018 <-
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Phytoplankton"), 
              aes(group = group == "Phytoplankton"), color = color_group[3],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula =  y~x) +
   
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "2018" & group == "Zooplankton"), 
@@ -1001,7 +1000,7 @@ alpha_sd_temp_2018 <-
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
               method = "lm", size = 1.25, formula = y~x) +
   
-  ylim(0, 300) +
+  ylim(0, 250) +
   xlim(1.80, 2.2) +
   scale_x_continuous(breaks = c(1.8, 2.0, 2.2)) +
   xlab("") +
@@ -1033,29 +1032,28 @@ beta_mean_temp_mean <-
   filter(scale == "beta2", year == "Mean", group == "Whole-community") %>%
   ggplot(aes(x = Tmean_est_mean, y = diversity), color = color_group[1]) +
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), 
-             aes(group = group == "Whole-community"), color = color_group[1],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), 
+  #           aes(group = group == "Whole-community"), color = color_group[1],
+  #           method = "lm", size = 1.25, formula = formula) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Bacteria"), 
-             aes(group = group == "Bacteria"), color = color_group[2],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Bacteria"), 
+  #           aes(group = group == "Bacteria"), color = color_group[2],
+  #           method = "lm", size = 1.25, formula = formula) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
-  # geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Phytoplankton"), 
-  #             aes(group = group == "Phytoplankton"), color = color_group[3],
-  #             method = "lm", size = 1.25, formula = formula) + # not significant
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Phytoplankton"), 
+  #           aes(group = group == "Phytoplankton"), color = color_group[3],
+  #           method = "lm", size = 1.25, formula = formula) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Zooplankton"), 
-              aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = y~x) +
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Zooplankton"), 
+  #            aes(group = group == "Zooplankton"), color = color_group[4],
+  #            method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
-  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Macroinvertebrates"), 
-  #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
-  #            method = "lm", size = 1.25, formula = y~x) +
+  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Macroinvertebrates"),               aes(group = group == "Macroinvertebrates"), color = color_group[5],
+              method = "lm", size = 1.25, formula = y~x) +
   
   ylim(0, 6) +
   xlim(2.33, 3.02) +
@@ -1086,12 +1084,12 @@ beta_mean_temp_2016 <-
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Whole-community"), 
              aes(group = group == "Whole-community"), color = color_group[1],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Bacteria"), 
              aes(group = group == "Bacteria"), color = color_group[2],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Phytoplankton"), 
@@ -1104,9 +1102,9 @@ beta_mean_temp_2016 <-
               method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
-  # geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Macroinvertebrates"), 
-  #             aes(group = group == "Macroinvertebrates"), color = color_group[5],
-  #             method = "lm", size = 1.25, formula = formula) + # not significant
+  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Mroinvertebrates"), 
+             aes(group = group == "Macroinvertebrates"), color = color_group[5],
+             method = "lm", size = 1.25, formula = formula) +
   
   ylim(0, 6) +
   xlim(2.33, 3.02) +
@@ -1138,12 +1136,12 @@ beta_mean_temp_2017 <-
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Whole-community"), 
              aes(group = group == "Whole-community"), color = color_group[1],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula = formula) + 
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Bacteria"), 
              aes(group = group == "Bacteria"), color = color_group[2],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula = formula) + 
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Phytoplankton"), 
@@ -1208,9 +1206,9 @@ beta_mean_temp_2018 <-
              method = "lm", size = 1.25, formula = formula) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = y~x) +
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Macroinvertebrates"), 
+  #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
+  #            method = "lm", size = 1.25, formula = y~x) +
   
   ylim(0, 6) +
   xlim(2.33, 3.02) +
@@ -1245,12 +1243,12 @@ beta_sd_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
-              method = "lm", size = 1.25, formula = formula) + # not significant
+              method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Bacteria"), color = color_group[2]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Bacteria"), 
              aes(group = group == "Bacteria"), color = color_group[2],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Phytoplankton"), color = color_group[3]) +
   #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Phytoplankton"),
@@ -1260,12 +1258,11 @@ beta_sd_temp_mean <-
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Zooplankton"), 
              aes(group = group == "Zooplankton"), color = color_group[4],
-             method = "lm", size = 1.25, formula = formula) + # not significant
+             method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Macroinvertebrates"), color = color_group[5]) +
-  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Macroinvertebrates"), 
-  #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
-  #            method = "lm", size = 1.25, formula = formula) +
+  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Macroinvertebrates"),               aes(group = group == "Macroinvertebrates"), color = color_group[5],
+              method = "lm", size = 1.25, formula = y~x) +
   
   ylim(0, 6) +
   xlim(1, 3) +
@@ -1315,9 +1312,9 @@ beta_sd_temp_2016 <-
   #            method = "lm", size = 1.25, formula = formula) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Macroinvertebrates"), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = formula) + # not significant
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2016" & group == "Macroinvertebrates"), 
+  #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
+  #            method = "lm", size = 1.25, formula = formula) + # not significant
   
   ylim(0, 6) +
   xlim(1, 3) +
@@ -1359,17 +1356,17 @@ beta_sd_temp_2017 <-
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Phytoplankton"), color = color_group[3]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Phytoplankton"), 
               aes(group = group == "Phytoplankton"), color = color_group[3],
-              method = "lm", size = 1.25, formula = formula) + # not significant
+              method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) + # not significant
+              method = "lm", size = 1.25, formula = y~x) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Macroinvertebrates"), color = color_group[5]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2017" & group == "Macroinvertebrates"), 
               aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = y~x) +
+              method = "lm", size = 1.25, formula = formula) +
   
   ylim(0, 6) +
   xlim(1, 3) +
@@ -1404,9 +1401,9 @@ beta_sd_temp_2018 <-
   #             method = "lm", size = 1.25, formula = formula) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Bacteria"), color = color_group[2]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Bacteria"), 
-              aes(group = group == "Bacteria"), color = color_group[2],
-              method = "lm", size = 1.25, formula = y~x) + # not significant
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Bacteria"), 
+  #            aes(group = group == "Bacteria"), color = color_group[2],
+  #            method = "lm", size = 1.25, formula = y~x) + # not significant
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Phytoplankton"), color = color_group[3]) +
   # geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Phytoplankton"), 
@@ -1416,12 +1413,12 @@ beta_sd_temp_2018 <-
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Zooplankton"), color = color_group[4]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Zooplankton"), 
               aes(group = group == "Zooplankton"), color = color_group[4],
-              method = "lm", size = 1.25, formula = formula) + # not significant
+              method = "lm", size = 1.25, formula = formula) +
   
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Macroinvertebrates"), color = color_group[5]) +
-  geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Macroinvertebrates"), 
-              aes(group = group == "Macroinvertebrates"), color = color_group[5],
-              method = "lm", size = 1.25, formula = formula) + # not significant
+  #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "2018" & group == "Macroinvertebrates"), 
+  #            aes(group = group == "Macroinvertebrates"), color = color_group[5],
+  #            method = "lm", size = 1.25, formula = formula) + # not significant
   
   ylim(0, 6) +
   xlim(1, 3) +
@@ -1456,19 +1453,19 @@ gamma_tmean <- ggarrange(gamma_mean_temp_mean + rremove("ylab") + rremove("xlab"
 
 gamma_tmean <- annotate_figure(gamma_tmean, 
                                left = text_grob(expression("Temporal average  "*gamma*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[Mean]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[Mean]~(ºC)), size = 14))
 
 alpha_tmean <- ggarrange(alpha_mean_temp_mean + rremove("ylab") + rremove("xlab"),
                          common.legend = T, legend = "bottom")
 alpha_tmean <- annotate_figure(alpha_tmean, 
                                left = text_grob(expression("Temporal average  "*alpha*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[Mean]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[Mean]~(ºC)), size = 14))
 
 beta_tmean <- ggarrange(beta_mean_temp_mean + rremove("ylab") + rremove("xlab"),
                          common.legend = T, legend = "bottom")
 beta_tmean <- annotate_figure(beta_tmean, 
                                left = text_grob(expression("Temporal average  "*beta*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[Mean]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[Mean]~(ºC)), size = 14))
 
 gamma_years_tmean <- ggarrange(gamma_mean_temp_2016 + rremove("ylab") + rremove("xlab"), 
                          gamma_mean_temp_2017 + rremove("ylab") + rremove("xlab"), 
@@ -1477,7 +1474,7 @@ gamma_years_tmean <- ggarrange(gamma_mean_temp_2016 + rremove("ylab") + rremove(
                          common.legend = T, legend = "bottom")
 gamma_years_tmean <- annotate_figure(gamma_years_tmean, 
                                left = text_grob(expression("Annual  "*gamma*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[Mean]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[Mean]~(ºC)), size = 14))
 
 alpha_years_tmean <- ggarrange(alpha_mean_temp_2016 + rremove("ylab") + rremove("xlab"), 
                          alpha_mean_temp_2017 + rremove("ylab") + rremove("xlab"), 
@@ -1486,7 +1483,7 @@ alpha_years_tmean <- ggarrange(alpha_mean_temp_2016 + rremove("ylab") + rremove(
                          common.legend = T, legend = "bottom")
 alpha_years_tmean <- annotate_figure(alpha_years_tmean, 
                                left = text_grob(expression("Annual  "*alpha*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[Mean]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[Mean]~(ºC)), size = 14))
 
 beta_years_tmean <- ggarrange(beta_mean_temp_2016 + rremove("ylab") + rremove("xlab"), 
                         beta_mean_temp_2017 + rremove("ylab") + rremove("xlab"), 
@@ -1495,7 +1492,7 @@ beta_years_tmean <- ggarrange(beta_mean_temp_2016 + rremove("ylab") + rremove("x
                         common.legend = T, legend = "bottom")
 beta_years_tmean <- annotate_figure(beta_years_tmean,
                               left = text_grob(expression("Annual  "*beta*"-diversity"), rot = 90, vjust = 1, size = 16),
-                              bottom = text_grob(bquote(Log[10]~T[Mean]~(ºC)), size = 14))
+                              bottom = text_grob(bquote(Log~T[Mean]~(ºC)), size = 14))
 
 div_mean_temp_plot <- ggarrange(alpha_tmean, beta_tmean, gamma_tmean, 
                                 alpha_years_tmean, beta_years_tmean, gamma_years_tmean, 
@@ -1538,19 +1535,19 @@ gamma_tsd <- ggarrange(gamma_sd_temp_mean + rremove("ylab") + rremove("xlab"),
                        common.legend = T, legend = "bottom")
 gamma_tsd <- annotate_figure(gamma_tsd, 
                              left = text_grob(expression("Temporal average  "*gamma*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[SD]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[SD]~(ºC)), size = 14))
 
 alpha_tsd <- ggarrange(alpha_sd_temp_mean + rremove("ylab") + rremove("xlab"),
                        common.legend = T, legend = "bottom")
 alpha_tsd <- annotate_figure(alpha_tsd, 
                              left = text_grob(expression("Temporal average  "*alpha*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[SD]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[SD]~(ºC)), size = 14))
 
 beta_tsd <- ggarrange(beta_sd_temp_mean + rremove("ylab") + rremove("xlab"),
                       common.legend = T, legend = "bottom")
 beta_tsd <- annotate_figure(beta_tsd, 
                             left = text_grob(expression("Temporal average  "*beta*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[SD]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[SD]~(ºC)), size = 14))
 
 gamma_years_tsd <- ggarrange(gamma_sd_temp_2016 + rremove("ylab") + rremove("xlab"), 
                          gamma_sd_temp_2017 + rremove("ylab") + rremove("xlab"), 
@@ -1559,7 +1556,7 @@ gamma_years_tsd <- ggarrange(gamma_sd_temp_2016 + rremove("ylab") + rremove("xla
                          common.legend = T, legend = "bottom")
 gamma_years_tsd <- annotate_figure(gamma_years_tsd, 
                                left = text_grob(expression("Annual  "*gamma*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[SD]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[SD]~(ºC)), size = 14))
 
 alpha_years_tsd <- ggarrange(alpha_sd_temp_2016 + rremove("ylab") + rremove("xlab"), 
                          alpha_sd_temp_2017 + rremove("ylab") + rremove("xlab"), 
@@ -1568,7 +1565,7 @@ alpha_years_tsd <- ggarrange(alpha_sd_temp_2016 + rremove("ylab") + rremove("xla
                          common.legend = T, legend = "bottom")
 alpha_years_tsd <- annotate_figure(alpha_years_tsd, 
                                left = text_grob(expression("Annual  "*alpha*"-diversity"), rot = 90, vjust = 1, size = 16),
-                               bottom = text_grob(bquote(Log[10]~T[SD]~(ºC)), size = 14))
+                               bottom = text_grob(bquote(Log~T[SD]~(ºC)), size = 14))
 
 beta_years_tsd <- ggarrange(beta_sd_temp_2016 + rremove("ylab") + rremove("xlab"), 
                         beta_sd_temp_2017 + rremove("ylab") + rremove("xlab"), 
@@ -1577,7 +1574,7 @@ beta_years_tsd <- ggarrange(beta_sd_temp_2016 + rremove("ylab") + rremove("xlab"
                         common.legend = T, legend = "bottom")
 beta_years_tsd <- annotate_figure(beta_years_tsd,
                               left = text_grob(expression("Annual  "*beta*"-diversity"), rot = 90, vjust = 1, size = 16),
-                              bottom = text_grob(bquote(Log[10]~T[SD]~(ºC)), size = 14))
+                              bottom = text_grob(bquote(Log~T[SD]~(ºC)), size = 14))
 
 
 div_sd_temp_plot <- ggarrange(alpha_tsd, beta_tsd, gamma_tsd,
