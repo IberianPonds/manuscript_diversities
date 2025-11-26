@@ -394,7 +394,7 @@ gamma_mean_temp_2018 <-
 gamma_sd_temp_mean <- 
   div_env_df %>%
   filter(scale == "gamma", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
   geom_point(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "gamma" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
@@ -606,7 +606,7 @@ gamma_sd_temp_2018 <-
 alpha_mean_temp_mean <- 
   div_env_df %>%
   filter(scale == "alpha", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   #geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), 
   #            aes(group = group == "Whole-community"), color = color_group[1],
@@ -818,7 +818,7 @@ alpha_mean_temp_2018 <-
 alpha_sd_temp_mean <- 
   div_env_df %>%
   filter(scale == "alpha", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
   geom_point(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "alpha" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],
@@ -1030,7 +1030,7 @@ alpha_sd_temp_2018 <-
 beta_mean_temp_mean <- 
   div_env_df %>%
   filter(scale == "beta2", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = Tmean_est_mean, y = diversity), color = color_group[1]) +
+  ggplot(aes(x = Tmean_est_mean, y = diversity)) +
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   #geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), 
   #           aes(group = group == "Whole-community"), color = color_group[1],
@@ -1239,7 +1239,7 @@ beta_mean_temp_2018 <-
 beta_sd_temp_mean <- 
   div_env_df %>%
   filter(scale == "beta2", year == "Mean", group == "Whole-community") %>%
-  ggplot(aes(x = sd_temp_12M, y = diversity), color = color_group[1]) +
+  ggplot(aes(x = sd_temp_12M, y = diversity)) +
   geom_point(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), color = color_group[1]) +
   geom_smooth(data = subset(div_env_df, scale == "beta2" & year == "Mean" & group == "Whole-community"), 
               aes(group = group == "Whole-community"), color = color_group[1],

@@ -1484,28 +1484,61 @@ env_mean_df <- cbind(env_mean_df, env_mean_temporary) # combine factors with env
 ## Add est_temp, TP_mean and TN_mean columns to original env data frame
 ```{r}
 
-# 1) Automatically collect all lake-year environmental datasets
+## 1) Automatically collect all lake-year environmental datasets
+#
+## Identify objects in your environment matching the pattern "LAKE_YYYY"
+#lake_objs <- ls(pattern = "^(MD|JC|PT|EV|TL|MR)_20(16|17|18)$")
+#
+## Extract all these objects into a named list
+#env_list <- mget(lake_objs)
+#
+## Bind all lake-year data frames together
+#env_extra <- bind_rows(env_list) %>%
+#  # Keep only the columns we need (add more if required)
+#  select(sample_code, site, year,
+#         Tmean_est_mean, TP_mean, TN_mean)
+#
+## 2) Add the "Mean" environmental columns
+## add Tmean_est_mean, TP_mean, TN_mean to environmental_data
+#environmental_data <- environmental_data %>%
+#  left_join(env_extra,
+#            by = c("sample_code", "site", "year"))
+#
+## 3) Merge these environmental variables into environmental_data
+#environmental_data <- bind_rows(environmental_data, env_mean_df)
 
-# Identify objects in your environment matching the pattern "LAKE_YYYY"
-lake_objs <- ls(pattern = "^(MD|JC|PT|EV|TL|MR)_20(16|17|18)$")
+# OLD CODE:
 
-# Extract all these objects into a named list
-env_list <- mget(lake_objs)
+# Add est_temp, TP_mean and TN_mean columns to original env data frame
+Tmean_est_mean <- c(MD_2016$Tmean_est_mean, MD_2017$Tmean_est_mean, MD_2018$Tmean_est_mean, 
+             JC_2016$Tmean_est_mean, JC_2017$Tmean_est_mean, JC_2018$Tmean_est_mean, 
+             PT_2016$Tmean_est_mean, PT_2017$Tmean_est_mean, PT_2018$Tmean_est_mean, 
+             EV_2016$Tmean_est_mean, EV_2017$Tmean_est_mean, EV_2018$Tmean_est_mean, 
+             TL_2016$Tmean_est_mean, TL_2017$Tmean_est_mean, TL_2018$Tmean_est_mean, 
+             MR_2016$Tmean_est_mean, MR_2017$Tmean_est_mean, MR_2018$Tmean_est_mean)
 
-# Bind all lake-year data frames together
-env_extra <- bind_rows(env_list) %>%
-  # Keep only the columns we need (add more if required)
-  select(sample_code, site, year,
-         Tmean_est_mean, TP_mean, TN_mean)
+TP_mean <- c(MD_2016$TP_mean, MD_2017$TP_mean, MD_2018$TP_mean, 
+             JC_2016$TP_mean, JC_2017$TP_mean, JC_2018$TP_mean, 
+             PT_2016$TP_mean, PT_2017$TP_mean, PT_2018$TP_mean, 
+             EV_2016$TP_mean, EV_2017$TP_mean, EV_2018$TP_mean, 
+             TL_2016$TP_mean, TL_2017$TP_mean, TL_2018$TP_mean, 
+             MR_2016$TP_mean, MR_2017$TP_mean, MR_2018$TP_mean)
 
-# 2) Add the "Mean" environmental columns
-# add Tmean_est_mean, TP_mean, TN_mean to environmental_data
-environmental_data <- environmental_data %>%
-  left_join(env_extra,
-            by = c("sample_code", "site", "year"))
+TN_mean <- c(MD_2016$TN_mean, MD_2017$TN_mean, MD_2018$TN_mean, 
+             JC_2016$TN_mean, JC_2017$TN_mean, JC_2018$TN_mean, 
+             PT_2016$TN_mean, PT_2017$TN_mean, PT_2018$TN_mean, 
+             EV_2016$TN_mean, EV_2017$TN_mean, EV_2018$TN_mean, 
+             TL_2016$TN_mean, TL_2017$TN_mean, TL_2018$TN_mean, 
+             MR_2016$TN_mean, MR_2017$TN_mean, MR_2018$TN_mean)
 
-# 3) Merge these environmental variables into environmental_data
-environmental_data <- bind_rows(environmental_data, env_mean_df)
+environmental_data$Tmean_est_mean <- Tmean_est_mean
+environmental_data$TP_mean <- TP_mean
+environmental_data$TN_mean <- TN_mean
+
+
+# combine data frames, means and years
+environmental_data <- rbind(environmental_data, env_mean_df) # add Mean to original environmental data frame
+
 
 # 4) Merge environmental data into your final diversity–environment table
 
