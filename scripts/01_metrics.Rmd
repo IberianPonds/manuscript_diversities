@@ -42,15 +42,11 @@ load("../inputs/0_hybrid_all_geo_fit.RData")
 # load bacteria
 load("../inputs/data_eDNA_bacteria_v2.0.RData")
 
-group_levels <- c("Whole-community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
-group_labels <- c("Whole community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
-color_group <- viridis::viridis(length(group_levels), option = "C", direction = -1)
-
 ```
 
 # DATA PREPARATION
 
-change PN by MD
+Estimated mean annual temperature
 ```{r}
 
 data_enve_all <- data_enve_all %>%
@@ -79,9 +75,12 @@ climate_vars <- c("temp", "mean_temp_1M", "sd_temp_1M", "max_temp_1M", "min_temp
 # sites labels and codes
 site_labels <- c("Madrid", "Jaca", "Porto", "Evora", "Toledo", "Murcia")
 site_codes <- c("MD", "JC", "PT", "EV", "TL", "MR")
+group_levels <- c("Whole-community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
+group_labels <- c("Whole community", "Bacteria", "Phytoplankton", "Zooplankton", "Macroinvertebrates")
 
 # color palette
 color_ib <- c("midnightblue", "royalblue3", "lightskyblue", "gold", "red",  "darkred")
+color_group <- viridis::viridis(length(group_levels), option = "C", direction = -1)
 
 ```
 
@@ -154,7 +153,7 @@ rownames(hybrid_matrix2) <- rownames(hybrid_matrix) # set row names
 
 # sum up the two "Miozoa" columns and delete one
 for (i in 1:nrow(hybrid_matrix2)) {
-  hybrid_matrix2[, 353] <- sum(hybrid_matrix2[i, 405], hybrid_matrix2[i, 614])
+  hybrid_matrix2[, 405] <- sum(hybrid_matrix2[i, 405], hybrid_matrix2[i, 614])
 }
 hybrid_matrix2 <- hybrid_matrix2[ , -614]
 hybrid_matrix <- hybrid_matrix2
@@ -375,8 +374,8 @@ Transformation environmental data
 ```{r transformation environmental data}
 # check variables with 0
 which(environmental_variables$temp == 0)
-environmental_variables$sample_code[230] # TL_17_17
-environmental_variables$temp[230] <- mean(environmental_variables$temp)
+environmental_variables$sample_code[281] # TL_17_17
+environmental_variables$temp[281] <- mean(environmental_variables$temp)
 
 # no transformation:
 no_transf <- c("site", "ph", "year")
