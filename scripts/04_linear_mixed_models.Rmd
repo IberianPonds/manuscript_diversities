@@ -107,7 +107,7 @@ mod_2_wc
 ```
 
 ```{r}
-# does sd_temp improves the model?
+# does sd_temp improve the model?
 formula3 <- as.formula("diversity ~ poly(est_mean_temp_12M, 2) + sd_temp_12M + (1|site) + (1|sample)")
 
 mod_3_wc <- 
